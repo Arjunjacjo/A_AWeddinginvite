@@ -44,6 +44,19 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
+      /* Keep decorative album gold sweep visible, just shorter */
+      .album.sweep .cover-sweep::after {
+        animation-duration: 2.4s !important;
+        animation-iteration-count: 1 !important;
+      }
+      .cine-step.in,
+      .cine-step.out,
+      .album.appear,
+      .album.mid .album-cover,
+      .album.open .album-cover {
+        animation-duration: 0.6s !important;
+        transition-duration: 0.6s !important;
+      }
     }
 
     .paper-texture {
@@ -298,9 +311,9 @@
       background: linear-gradient(
         105deg,
         transparent 0%,
-        rgba(243,228,184,0.04) 35%,
-        rgba(243,228,184,0.14) 50%,
-        rgba(243,228,184,0.04) 65%,
+        rgba(243,228,184,0.06) 35%,
+        rgba(243,228,184,0.19) 50%,
+        rgba(243,228,184,0.06) 65%,
         transparent 100%
       );
       transform: translateX(-120%) skewX(-12deg);
