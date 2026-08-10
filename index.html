@@ -200,7 +200,7 @@
 
     .album {
       position: relative;
-      width: 320px; height: 420px;
+      width: min(300px, 78vw); height: min(400px, 104vw);
       transform-style: preserve-3d;
       cursor: pointer;
       opacity: 0;
@@ -428,7 +428,7 @@
     }
 
     .botanical {
-      position: absolute; width: 40px; height: 40px; z-index: 2; pointer-events: none;
+      position: absolute; width: 34px; height: 34px; z-index: 2; pointer-events: none;
       opacity: 0; stroke: var(--gold-antique);
     }
     .section.in-view .botanical {
@@ -444,7 +444,7 @@
     .section-content {
       position: relative; z-index: 4;
       width: 100%;
-      max-width: 34rem;
+      max-width: 36rem;
       text-align: center;
       margin: 0 auto;
       opacity: 0; transform: translate3d(0, 10px, 0);
@@ -493,7 +493,7 @@
 
     .names-lg {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 9vw, 4.6rem);
+      font-size: clamp(2.8rem, 10vw, 3.4rem);
       font-weight: 600; letter-spacing: 0.12em;
       color: var(--ivory); line-height: 1.15; text-transform: uppercase;
       position: relative; z-index: 2;
@@ -509,8 +509,11 @@
       font-weight: 400;
     }
     .date-lg {
-      font-family: 'Playfair Display', serif; font-size: clamp(1.15rem, 3vw, 1.45rem);
-      letter-spacing: 0.24em; color: var(--gold-champagne); margin-top: 28px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 4vw, 1.35rem);
+      letter-spacing: 0.24em;
+      color: var(--gold-champagne);
+      margin-top: 28px;
     }
     .date-sub {
       font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -523,12 +526,13 @@
 
     .story-lead {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.2rem, 3.5vw, 1.55rem);
+      font-size: clamp(1.25rem, 4vw, 1.4rem);
       font-style: italic; color: var(--ivory); line-height: 1.55; margin-bottom: 18px;
     }
     .story-body {
-      font-size: clamp(1rem, 2vw, 1.12rem); color: var(--muted); line-height: 1.8;
-      max-width: 420px; margin: 0 auto;
+      font-size: clamp(1.05rem, 3.2vw, 1.12rem);
+      color: var(--muted); line-height: 1.8;
+      max-width: 20rem; margin: 0 auto;
     }
 
     /* Countdown */
@@ -552,7 +556,7 @@
     }
     .count-number {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-size: clamp(2rem, 7vw, 2.4rem);
       font-weight: 400; color: var(--gold-champagne);
       line-height: 1; display: block; height: 1.15em; overflow: hidden;
     }
@@ -646,8 +650,8 @@
       display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 24px;
     }
     .ic-btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 10px 14px; border-radius: 2px;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 15px; border-radius: 2px;
       border: 1px solid rgba(138,111,42,0.3);
       background: transparent; color: #1a2a4a;
       font-family: 'Cormorant Garamond', serif; font-size: 0.88rem;
@@ -700,7 +704,7 @@
 
     .gallery-grid {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-      max-width: 22rem; margin: 0 auto;
+      max-width: 20rem; margin: 0 auto;
     }
     .gallery-item {
       aspect-ratio: 1; border-radius: 2px;
@@ -877,52 +881,87 @@
     }
 
     @media (max-width: 520px) {
-      .album { width: 240px; height: 320px; }
-      .page-names { font-size: 1.4rem; }
-      .names-lg { font-size: 2.15rem; }
-      .section { padding: 32px 20px; }
-      .botanical { width: 28px; height: 28px; }
-      .botanical.tl { top: 16px; left: 16px; }
-      .botanical.tr { top: 16px; right: 16px; }
-      .botanical.bl { bottom: 16px; left: 16px; }
-      .botanical.br { bottom: 16px; right: 16px; }
-      .cover-monogram { width: 88px; height: 88px; }
-      .cover-monogram span { font-size: 1.3rem; }
-      .open-hint { font-size: 1.4rem; margin-top: 36px; }
+      .album { width: min(260px, 82vw); height: min(348px, 110vw); }
+      .page-names { font-size: 1.55rem; }
+      .names-lg { font-size: clamp(2.35rem, 9.5vw, 2.85rem); }
+      .date-lg { font-size: 1.15rem; }
+      .count-number { font-size: 1.85rem; }
+      .count-unit { min-width: 58px; padding: 0 10px; }
+      .section { padding: 36px 18px; }
+      .section-content { max-width: 100%; }
+      .story-body { max-width: 100%; font-size: 1.05rem; }
+      .invite-card { padding: 32px 22px; }
+      .day-card { padding: 32px 22px; }
+      .gallery-grid { max-width: 18rem; gap: 10px; }
+      .botanical { width: 30px; height: 30px; }
+      .botanical.tl { top: 14px; left: 14px; }
+      .botanical.tr { top: 14px; right: 14px; }
+      .botanical.bl { bottom: 14px; left: 14px; }
+      .botanical.br { bottom: 14px; right: 14px; }
+      .cover-monogram { width: 96px; height: 96px; }
+      .cover-monogram span { font-size: 1.35rem; }
+      .open-hint { font-size: 1.55rem; margin-top: 36px; }
       .music-btn { bottom: 14px; right: 12px; }
       .share-btn { bottom: 58px; right: 12px; width: 32px; height: 32px; }
-      .invite-card { padding: 28px 20px; }
+      .ic-btn { padding: 10px 12px; font-size: 0.88rem; }
+      .closing-names { font-size: 1.85rem; }
+    }
+
+    @media (max-width: 380px) {
+      .names-lg { font-size: 2.15rem; letter-spacing: 0.1em; }
+      .count-number { font-size: 1.65rem; }
+      .count-unit { min-width: 50px; padding: 0 8px; }
+      .album { width: min(230px, 84vw); height: min(308px, 112vw); }
+      .invite-card, .day-card { padding: 28px 18px; }
+      .section { padding: 28px 14px; }
     }
 
 
     /* ========== TABLET ========== */
     @media (min-width: 768px) {
       .section {
-        padding: 64px 48px;
+        padding: 72px 52px;
       }
-      .section-content { max-width: 40rem; }
-      .names-lg { font-size: clamp(2.8rem, 5.5vw, 3.6rem); }
-      .page-label { font-size: 0.8rem; margin-bottom: 28px; }
-      .date-lg { font-size: 1.35rem; }
-      .story-lead { font-size: 1.45rem; }
-      .story-body { font-size: 1.1rem; max-width: 32rem; margin-left: auto; margin-right: auto; }
-      .countdown-state { font-size: 0.95rem; margin-bottom: 36px; }
-      .count-number { font-size: 2.4rem; }
-      .count-unit { padding: 0 22px; min-width: 84px; }
-      .invite-card { max-width: 30rem; padding: 48px 44px; }
-      .day-card { max-width: 28rem; padding: 44px 40px; }
-      .timeline { max-width: 24rem; }
-      .gallery-grid { max-width: 26rem; gap: 12px; }
-      .album { width: 340px; height: 450px; }
-      .open-hint { font-size: 1.9rem; }
-      .botanical { width: 42px; height: 42px; }
-      .botanical.tl { top: 28px; left: 28px; }
-      .botanical.tr { top: 28px; right: 28px; }
-      .botanical.bl { bottom: 28px; left: 28px; }
-      .botanical.br { bottom: 28px; right: 28px; }
+      .section-content { max-width: 42rem; }
+      .names-lg { font-size: clamp(3.2rem, 6vw, 3.9rem); letter-spacing: 0.13em; }
+      .page-label { font-size: 0.82rem; margin-bottom: 30px; letter-spacing: 0.4em; }
+      .date-lg { font-size: 1.45rem; margin-top: 32px; }
+      .date-sub { font-size: 0.88rem; }
+      .story-lead { font-size: 1.55rem; }
+      .story-body { font-size: 1.15rem; max-width: 34rem; line-height: 1.85; }
+      .countdown-state { font-size: 0.98rem; margin-bottom: 40px; letter-spacing: 0.34em; }
+      .count-number { font-size: 2.7rem; }
+      .count-unit { padding: 0 26px; min-width: 92px; }
+      .count-label { font-size: 0.58rem; margin-top: 12px; }
+      .invite-card { max-width: 34rem; padding: 52px 48px; }
+      .ic-names { font-size: 1.4rem; }
+      .ic-date { font-size: 1.05rem; }
+      .ic-title { font-size: 1.15rem; }
+      .ic-btn { padding: 12px 18px; font-size: 0.95rem; }
+      .day-card { max-width: 32rem; padding: 52px 48px; }
+      .day-card h2 { font-size: 0.88rem; margin-bottom: 32px; }
+      .timeline { max-width: 26rem; }
+      .timeline-item { margin-bottom: 28px; padding-left: 36px; }
+      .timeline-title { font-size: 1.2rem; }
+      .timeline-desc { font-size: 0.98rem; }
+      .gallery-grid { max-width: 28rem; gap: 14px; }
+      .gallery-note { font-size: 0.9rem; margin-top: 20px; }
+      .closing-names { font-size: 2.3rem; }
+      .closing-thanks { font-size: 1.35rem; }
+      .album { width: 360px; height: 475px; }
+      .cover-monogram { width: 120px; height: 120px; }
+      .cover-monogram span { font-size: 1.65rem !important; }
+      .page-names { font-size: 2.2rem; }
+      .open-hint { font-size: 2rem; }
+      .botanical { width: 46px; height: 46px; }
+      .botanical.tl { top: 32px; left: 32px; }
+      .botanical.tr { top: 32px; right: 32px; }
+      .botanical.bl { bottom: 32px; left: 32px; }
+      .botanical.br { bottom: 32px; right: 32px; }
+      .nav-rail { right: 20px; }
     }
 
-    /* ========== DESKTOP — editorial composition ========== */
+    /* ========== DESKTOP — spacious / wide ========== */
     @media (min-width: 1100px) {
       body.unlocked {
         scroll-snap-type: y proximity;
@@ -931,121 +970,140 @@
         height: auto;
         min-height: 100vh;
         min-height: 100dvh;
-        padding: 100px 88px 112px;
+        padding: 108px 96px 120px;
         overflow: visible;
       }
       .section-content {
-        max-width: 50rem; /* ~800px */
+        max-width: 54rem; /* ~864px */
       }
       .names-lg {
-        font-size: 5rem;
+        font-size: 5.4rem;
         letter-spacing: 0.14em;
-        line-height: 1.1;
+        line-height: 1.08;
       }
-      .amp-script { font-size: 0.48em; margin: 10px 0 8px; }
+      .amp-script { font-size: 0.46em; margin: 12px 0 10px; }
       .page-label {
-        font-size: 0.88rem;
-        margin-bottom: 40px;
-        letter-spacing: 0.42em;
+        font-size: 0.9rem;
+        margin-bottom: 42px;
+        letter-spacing: 0.44em;
       }
-      .date-lg { font-size: 1.7rem; margin-top: 40px; letter-spacing: 0.28em; }
-      .date-sub { font-size: 0.95rem; margin-top: 14px; }
-      .thin-rule { width: 52px; margin: 32px auto; }
-      .story-lead { font-size: 1.9rem; margin-bottom: 28px; }
+      .date-lg { font-size: 1.8rem; margin-top: 42px; letter-spacing: 0.28em; }
+      .date-sub { font-size: 1rem; margin-top: 14px; letter-spacing: 0.2em; }
+      .thin-rule { width: 56px; margin: 34px auto; }
+      .cross-mark { margin-bottom: 28px; gap: 14px; }
+      .story-lead { font-size: 2rem; margin-bottom: 28px; }
       .story-body {
-        font-size: 1.25rem;
+        font-size: 1.28rem;
         line-height: 1.9;
-        max-width: 38rem;
+        max-width: 40rem;
       }
       .countdown-state {
-        font-size: 1.05rem;
-        margin-bottom: 52px;
-        letter-spacing: 0.36em;
-      }
-      .count-number { font-size: 3.5rem; }
-      .count-unit { padding: 0 40px; min-width: 120px; }
-      .count-label { font-size: 0.62rem; margin-top: 14px; }
-      .tz-note { margin-top: 40px; font-size: 0.72rem; }
-
-      .invite-card {
-        max-width: 42rem; /* ~672px */
-        padding: 72px 80px;
-      }
-      .ic-names { font-size: 1.7rem; letter-spacing: 0.18em; }
-      .ic-date { font-size: 1.2rem; margin-bottom: 28px; }
-      .ic-title { font-size: 1.35rem; }
-      .ic-place { font-size: 1.08rem; }
-      .ic-time { font-size: 0.72rem; margin-bottom: 8px; }
-      .ic-block { margin-bottom: 24px; }
-      .ic-actions { margin-top: 36px; gap: 12px; }
-      .ic-btn { padding: 14px 20px; font-size: 1rem; }
-
-      .day-card {
-        max-width: 40rem;
-        padding: 68px 72px;
-      }
-      .day-card h2 {
-        font-size: 0.95rem;
-        margin-bottom: 40px;
+        font-size: 1.1rem;
+        margin-bottom: 56px;
         letter-spacing: 0.38em;
       }
-      .timeline { max-width: 30rem; }
-      .timeline-item { padding-left: 42px; margin-bottom: 36px; }
-      .timeline-title { font-size: 1.4rem; }
-      .timeline-desc { font-size: 1.05rem; margin-top: 6px; }
-      .timeline-time { font-size: 0.68rem; margin-bottom: 6px; }
+      .count-number { font-size: 3.8rem; }
+      .count-unit { padding: 0 42px; min-width: 128px; }
+      .count-label { font-size: 0.65rem; margin-top: 14px; letter-spacing: 0.18em; }
+      .tz-note { margin-top: 44px; font-size: 0.75rem; }
+
+      .invite-card {
+        max-width: 44rem; /* ~704px */
+        padding: 76px 88px;
+      }
+      .ic-names { font-size: 1.8rem; letter-spacing: 0.2em; }
+      .ic-date { font-size: 1.25rem; margin-bottom: 30px; }
+      .ic-title { font-size: 1.4rem; }
+      .ic-place { font-size: 1.12rem; }
+      .ic-time { font-size: 0.75rem; margin-bottom: 8px; letter-spacing: 0.2em; }
+      .ic-note { font-size: 0.95rem; }
+      .ic-block { margin-bottom: 26px; }
+      .ic-rule { margin: 0 auto 24px; }
+      .ic-actions { margin-top: 40px; gap: 14px; }
+      .ic-btn { padding: 14px 22px; font-size: 1.05rem; }
+
+      .day-card {
+        max-width: 42rem;
+        padding: 72px 80px;
+      }
+      .day-card h2 {
+        font-size: 1rem;
+        margin-bottom: 44px;
+        letter-spacing: 0.4em;
+      }
+      .timeline { max-width: 32rem; }
+      .timeline-item { padding-left: 44px; margin-bottom: 40px; }
+      .timeline-title { font-size: 1.5rem; }
+      .timeline-desc { font-size: 1.1rem; margin-top: 6px; }
+      .timeline-time { font-size: 0.7rem; margin-bottom: 6px; letter-spacing: 0.16em; }
+      .timeline-dot { width: 9px; height: 9px; left: 1px; }
 
       .gallery-grid {
-        max-width: 38rem;
+        max-width: 40rem;
         gap: 18px;
       }
-      .gallery-note { font-size: 1rem; margin-top: 28px; }
+      .gallery-note { font-size: 1.05rem; margin-top: 28px; }
 
-      .closing-text { font-size: 1.05rem; margin-bottom: 28px; }
-      .closing-thanks { font-size: 1.55rem; margin-bottom: 40px; }
-      .closing-names { font-size: 3rem; letter-spacing: 0.16em; }
-      .closing-date { font-size: 1.2rem; margin-top: 40px; }
-      .closing-siblings { font-size: 1.15rem; margin-top: 48px; }
-      .return-link { margin-top: 88px; }
+      .closing-text { font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 0.32em; }
+      .closing-thanks { font-size: 1.65rem; margin-bottom: 42px; }
+      .closing-names { font-size: 3.2rem; letter-spacing: 0.16em; }
+      .closing-date { font-size: 1.25rem; margin-top: 42px; }
+      .closing-siblings { font-size: 1.2rem; margin-top: 52px; }
+      .return-link { margin-top: 96px; }
 
-      .botanical { width: 52px; height: 52px; }
-      .botanical.tl { top: 44px; left: 52px; }
-      .botanical.tr { top: 44px; right: 52px; }
-      .botanical.bl { bottom: 44px; left: 52px; }
-      .botanical.br { bottom: 44px; right: 52px; }
+      .botanical { width: 56px; height: 56px; }
+      .botanical.tl { top: 48px; left: 56px; }
+      .botanical.tr { top: 48px; right: 56px; }
+      .botanical.bl { bottom: 48px; left: 56px; }
+      .botanical.br { bottom: 48px; right: 56px; }
 
-      .nav-rail { right: 32px; }
-      .wm { font-size: clamp(11rem, 16vw, 17rem); }
+      .nav-rail { right: 36px; gap: 10px; }
+      .nav-item { font-size: 0.78rem; }
+      .wm { font-size: clamp(12rem, 17vw, 18rem); }
 
-      .album { width: 380px; height: 505px; }
-      .cover-monogram { width: 136px; height: 136px; }
-      .cover-monogram span { font-size: 1.85rem !important; }
-      .page-names { font-size: 2.5rem; }
-      .open-hint { font-size: 2.2rem; }
+      .album { width: 400px; height: 530px; }
+      .cover-monogram { width: 144px; height: 144px; }
+      .cover-monogram span { font-size: 1.95rem !important; }
+      .page-names { font-size: 2.7rem; }
+      .album-title { font-size: 1.15rem; }
+      .open-hint { font-size: 2.3rem; }
+      .open-hint-sub { font-size: 0.65rem; }
     }
 
     /* ========== LARGE DESKTOP ========== */
     @media (min-width: 1400px) {
       .section {
-        padding: 120px 140px 140px;
+        padding: 128px 150px 148px;
       }
       .section-content {
-        max-width: 56rem; /* ~896px */
+        max-width: 60rem; /* ~960px */
       }
-      .names-lg { font-size: 5.8rem; }
+      .names-lg { font-size: 6.2rem; }
+      .date-lg { font-size: 1.95rem; }
+      .story-lead { font-size: 2.15rem; }
+      .story-body { max-width: 44rem; font-size: 1.35rem; }
+      .count-number { font-size: 4.2rem; }
+      .count-unit { padding: 0 48px; min-width: 140px; }
       .invite-card {
-        max-width: 46rem;
-        padding: 80px 96px;
+        max-width: 48rem;
+        padding: 88px 104px;
       }
+      .ic-names { font-size: 2rem; }
+      .ic-title { font-size: 1.5rem; }
       .day-card {
-        max-width: 44rem;
-        padding: 76px 84px;
+        max-width: 46rem;
+        padding: 84px 96px;
       }
-      .story-body { max-width: 42rem; font-size: 1.3rem; }
-      .count-number { font-size: 4rem; }
-      .gallery-grid { max-width: 42rem; gap: 20px; }
-      .album { width: 420px; height: 560px; }
-      .page-names { font-size: 2.8rem; }
+      .timeline-title { font-size: 1.6rem; }
+      .gallery-grid { max-width: 44rem; gap: 22px; }
+      .closing-names { font-size: 3.6rem; }
+      .album { width: 440px; height: 585px; }
+      .page-names { font-size: 3rem; }
+      .botanical { width: 64px; height: 64px; }
+      .botanical.tl { top: 56px; left: 64px; }
+      .botanical.tr { top: 56px; right: 64px; }
+      .botanical.bl { bottom: 56px; left: 64px; }
+      .botanical.br { bottom: 56px; right: 64px; }
     }
 
   </style>
