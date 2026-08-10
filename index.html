@@ -1192,7 +1192,7 @@
     <div class="music-icon-wrap"><div class="music-bars"><span></span><span></span><span></span><span></span></div></div>
     <span class="music-label" id="musicLabel">Play music</span>
   </button>
-  <audio id="introMusic" preload="auto" playsinline>
+  <audio id="introMusic" preload="auto" playsinline autoplay muted>
     <source src="intro-music.mp3" type="audio/mpeg">
   </audio>
   <audio id="bgMusic" loop preload="auto" playsinline>
@@ -1695,17 +1695,38 @@
 
     function startIntroMusic(isAuto) {
       if (!introMusic || introPlaying || opened || userOff) return;
+
       try { introMusic.currentTime = 0; } catch (e) {}
-      // Start quieter for smoother autoplay fade-in
-      introMusic.volume = isAuto ? 0 : 0.08;
+
+      if (isAuto) {
+        // Muted autoplay is allowed by modern browsers
+        introMusic.muted = true;
+        introMusic.volume = 0;
+      } else {
+        introMusic.muted = false;
+        introMusic.volume = 0.08;
+      }
+
       var p = introMusic.play();
+
       if (p && p.then) {
         p.then(function () {
           introPlaying = true;
-          fadeInAudio(introMusic, 0.25, function () { return introPlaying; });
+
+          // Once playback has successfully started,
+          // release mute and smoothly fade the music in.
+          if (isAuto) {
+            introMusic.muted = false;
+            introMusic.volume = 0;
+          }
+
+          fadeInAudio(introMusic, 0.25, function () {
+            return introPlaying;
+          });
         }).catch(function () {
           introPlaying = false;
-          // Autoplay blocked — will start on next gesture via onFirstGesture
+          introMusic.muted = false;
+          // Browser blocked autoplay — first gesture will start it.
         });
       }
     }
@@ -1758,7 +1779,18 @@
       });
     }
 
-    // First gesture during intro → piano
+    // Auto-start intro via muted autoplay (browser-safe), then unmute + fade
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        startIntroMusic(true);
+      }, 300);
+    });
+    // Also try once DOM is ready (in case load already fired)
+    setTimeout(function () {
+      if (!introPlaying && !opened) startIntroMusic(true);
+    }, 500);
+
+    // First gesture fallback if autoplay was blocked
     function onFirstGesture() {
       if (!opened && !userOff && !introPlaying) startIntroMusic(false);
     }
