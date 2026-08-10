@@ -81,7 +81,7 @@
       display: flex; align-items: center; justify-content: center;
     }
     .cinematic.done {
-      animation: fadeOut 1.2s ease forwards;
+      animation: fadeOut 1.5s ease forwards;
       pointer-events: none;
     }
     @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
@@ -106,8 +106,8 @@
       opacity: 0; width: 92vw; max-width: 640px;
       pointer-events: none;
     }
-    .cine-step.in { animation: titleIn 1.6s cubic-bezier(0.22,1,0.36,1) forwards; }
-    .cine-step.out { animation: titleOut 1.2s ease forwards; }
+    .cine-step.in { animation: titleIn 1.8s cubic-bezier(0.22,1,0.36,1) forwards; }
+    .cine-step.out { animation: titleOut 1.4s ease forwards; }
     @keyframes titleIn {
       from { opacity: 0; transform: translate(-50%,-50%) scale(0.98); filter: blur(1.5px); }
       to { opacity: 1; transform: translate(-50%,-50%) scale(1); filter: blur(0); }
@@ -173,7 +173,7 @@
     }
     .album-overlay.hidden {
       opacity: 0; visibility: hidden; pointer-events: none;
-      transition: opacity 1.2s ease, visibility 1.2s;
+      transition: opacity 1.5s ease, visibility 1.5s;
     }
 
     .stage {
@@ -402,9 +402,9 @@
 
     .section-content {
       position: relative; z-index: 4; width: 100%; max-width: 720px; text-align: center;
-      opacity: 0; transform: translate3d(0, 6px, 0);
-      transition: opacity 1.6s cubic-bezier(0.22,1,0.36,1),
-                  transform 1.6s cubic-bezier(0.22,1,0.36,1);
+      opacity: 0; transform: translate3d(0, 10px, 0);
+      transition: opacity 1.9s cubic-bezier(0.22,1,0.36,1),
+                  transform 1.9s cubic-bezier(0.22,1,0.36,1);
     }
     @media (min-width: 900px) {
       .section-content { max-width: 820px; }
@@ -413,7 +413,8 @@
       opacity: 1; transform: translate3d(0,0,0);
     }
     .section.leaving .section-content {
-      opacity: 0; transition: opacity 0.5s ease;
+      opacity: 0; transform: translate3d(0, -6px, 0);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
     /* Giant watermark monogram */
@@ -1164,6 +1165,9 @@
     /* ===== Intro ~15s =====
        0–3 A&A | 3–7 names | 7–10 families | 10–14 date | 14–16 album */
     function runCinematic() {
+      // Try autoplay intro music immediately (no tap required when browser allows)
+      setTimeout(function () { startIntroMusic(true); }, 80);
+
       setTimeout(function () { cineGlow.classList.add('on'); }, 150);
 
       setTimeout(function () { steps[0].classList.add('in'); }, 250);
@@ -1268,9 +1272,9 @@
       if (opened) return;
       opened = true;
 
-      // Intro music out → wedding music in
+      // Smooth crossfade: intro out, then wedding in
       stopIntroMusic(function () {
-        startWeddingMusic();
+        setTimeout(function () { startWeddingMusic(); }, 200);
       });
 
       // Reset tilt cleanly
@@ -1415,12 +1419,13 @@
 
     function fadeInAudio(el, target, flagGetter) {
       if (!el) return;
-      if (el.volume < 0.04) el.volume = 0.04;
       function step() {
         if (!flagGetter()) return;
-        if (el.volume < target) {
-          el.volume = Math.min(target, el.volume + 0.018);
+        if (el.volume < target - 0.01) {
+          el.volume = Math.min(target, el.volume + 0.012);
           requestAnimationFrame(step);
+        } else {
+          el.volume = target;
         }
       }
       requestAnimationFrame(step);
@@ -1429,8 +1434,8 @@
     function fadeOutAudio(el, then) {
       if (!el) { if (then) then(); return; }
       function step() {
-        if (el.volume > 0.03) {
-          el.volume = Math.max(0, el.volume - 0.035);
+        if (el.volume > 0.02) {
+          el.volume = Math.max(0, el.volume - 0.022);
           requestAnimationFrame(step);
         } else {
           try { el.pause(); el.currentTime = 0; } catch (e) {}
@@ -1451,15 +1456,20 @@
       }
     }
 
-    function startIntroMusic() {
+    function startIntroMusic(isAuto) {
       if (!introMusic || introPlaying || opened || userOff) return;
       try { introMusic.currentTime = 0; } catch (e) {}
+      // Start quieter for smoother autoplay fade-in
+      introMusic.volume = isAuto ? 0 : 0.08;
       var p = introMusic.play();
       if (p && p.then) {
         p.then(function () {
           introPlaying = true;
-          fadeInAudio(introMusic, 0.5, function () { return introPlaying; });
-        }).catch(function () { introPlaying = false; });
+          fadeInAudio(introMusic, 0.48, function () { return introPlaying; });
+        }).catch(function () {
+          introPlaying = false;
+          // Autoplay blocked — will start on next gesture via onFirstGesture
+        });
       }
     }
 
@@ -1513,7 +1523,7 @@
 
     // First gesture during intro → piano
     function onFirstGesture() {
-      if (!opened && !userOff) startIntroMusic();
+      if (!opened && !userOff && !introPlaying) startIntroMusic(false);
     }
     document.addEventListener('pointerdown', onFirstGesture, { passive: true });
     document.addEventListener('touchstart', onFirstGesture, { passive: true });
