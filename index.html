@@ -184,31 +184,49 @@
       opacity: 1; visibility: visible;
       background: radial-gradient(ellipse at 50% 45%, #0c1628 0%, #050a12 70%);
     }
-    .album-overlay.zooming {
-      transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
-                  visibility 1.4s;
-      transform: scale(1.18);
+    /* Camera enters the open album */
+    .album-overlay.entering {
+      pointer-events: none;
+    }
+    .album-overlay.entering .stage {
+      transition: transform 1.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+      transform: scale(1.85);
+      transform-origin: 50% 48%;
+    }
+    .album-overlay.entering .open-hint,
+    .album-overlay.entering .open-hint-sub {
+      transition: opacity 0.4s ease;
+      opacity: 0 !important;
+    }
+    .album-overlay.entering .album {
+      transition: box-shadow 1.2s ease;
+      box-shadow: 0 0 80px rgba(0,0,0,0.45);
+    }
+    .album-overlay.fade-out {
+      transition: opacity 0.9s ease 0.15s, visibility 0.9s linear 0.15s;
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
     .album-overlay.hidden {
       opacity: 0; visibility: hidden; pointer-events: none;
-      transition: opacity 1.5s ease, visibility 1.5s;
     }
-    .invite-content.reveal-zoom {
-      animation: pageZoomIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    /* First page sits ready underneath and settles after zoom */
+    .invite-content {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 1.1s ease;
     }
-    @keyframes pageZoomIn {
-      from { opacity: 0; transform: scale(0.94); }
-      to { opacity: 1; transform: scale(1); }
+    .section#page0 .section-content {
+      /* settle handled via in-view */
     }
 
     .stage {
       perspective: 1600px;
       perspective-origin: 50% 48%;
       transform-style: preserve-3d;
+      transform-origin: 50% 48%;
+      will-change: transform;
     }
 
     .album {
@@ -410,13 +428,6 @@
       border-radius: 150% 0 150% 0; opacity: 0.45;
     }
 
-    .invite-content { visibility: hidden; opacity: 0; transform: scale(0.96); }
-    body.unlocked .invite-content {
-      visibility: visible;
-    }
-    body.unlocked .invite-content.reveal-zoom {
-      /* animation handles opacity/transform */
-    }
 
     /* ===== SECTIONS (responsive layout layer) =====
        Mobile  : full-screen elegant pages
@@ -1504,54 +1515,78 @@
       if (opened) return;
       opened = true;
 
-      // Smooth crossfade: intro out, then wedding in
-      stopIntroMusic(function () {
-        setTimeout(function () { startWeddingMusic(); }, 200);
-      });
+      // User gesture — start intro music if not already, then prepare wedding crossfade
+      if (!introPlaying && !userOff) {
+        startIntroMusic(false);
+      }
 
-      // Reset tilt cleanly
+      // Reset tilt so cover turn is clean
       album.style.transition = 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
-      album.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.02)';
+      album.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.015)';
       setTimeout(function () {
         album.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-      }, 420);
+      }, 400);
 
       playOpenSound();
       flare.classList.add('play');
       burstPetals(isMobile ? 8 : 12);
 
-      // Clear inline cover styles so CSS classes drive the turn
       albumCover.style.transition = '';
       albumCover.style.transform = '';
 
-      // Smooth open: deliberate mid pause then full turn
-      // Reach ~90°
+      // Cover → ~90°
       setTimeout(function () {
         album.classList.add('mid');
       }, 550);
 
-      // Hold halfway open (~0.9s stillness)
+      // Hold at midpoint, then → 180°
       setTimeout(function () {
         album.classList.remove('mid');
         void albumCover.offsetWidth;
         album.classList.add('open');
       }, 2000);
 
+      // After cover fully open (~2s after open class + hold):
+      // Crossfade music + camera zoom into the open page
       setTimeout(function () {
-        // Zoom into the open page → first invitation section
-        albumOverlay.classList.add('zooming');
-        document.body.classList.add('unlocked');
+        // Music: intro out → wedding in (user gesture already granted)
+        stopIntroMusic(function () {
+          setTimeout(function () { startWeddingMusic(); }, 180);
+        });
+
+        // Hide hints, begin camera zoom on the stage/album
+        albumOverlay.classList.add('entering');
+      }, prefersReduced ? 400 : 4800);
+
+      // Album fills the screen — fade overlay, reveal page underneath
+      // Page stays scroll-locked during this beat
+      setTimeout(function () {
+        albumOverlay.classList.add('fade-out');
+
         var invite = document.getElementById('inviteContent') || document.querySelector('.invite-content');
-        if (invite) invite.classList.add('reveal-zoom');
+        if (invite) {
+          invite.style.visibility = 'visible';
+          invite.style.opacity = '1';
+        }
         window.scrollTo(0, 0);
-        var first = document.getElementById('page0');
-        if (first) first.classList.add('in-view');
+
+        // Settle first page (still locked)
+        setTimeout(function () {
+          var first = document.getElementById('page0');
+          if (first) first.classList.add('in-view');
+        }, 280);
+      }, prefersReduced ? 700 : 6600);
+
+      // Unlock scrolling + UI after landing
+      setTimeout(function () {
+        document.body.classList.add('unlocked');
         document.getElementById('musicBtn').classList.add('visible');
         document.getElementById('shareBtn').classList.add('visible');
         document.getElementById('navRail').classList.add('visible');
         document.getElementById('pageIndicator').classList.add('visible');
-        setTimeout(function () { burstPetals(isMobile ? 4 : 6); }, 900);
-      }, prefersReduced ? 200 : 5200);
+        burstPetals(isMobile ? 4 : 6);
+        albumOverlay.classList.add('hidden');
+      }, prefersReduced ? 1100 : 7800);
     }
 
     album.addEventListener('click', function (e) {
