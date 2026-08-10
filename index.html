@@ -252,9 +252,7 @@
       pointer-events: none;
     }
     .album-overlay.entering .stage {
-      transition: transform 1.65s cubic-bezier(0.16, 1, 0.3, 1);
       transform: scale(2.25);
-      transform-origin: 50% 48%;
     }
     .album-overlay.entering .open-hint,
     .album-overlay.entering .open-hint-sub {
@@ -305,6 +303,8 @@
       perspective-origin: 50% 48%;
       transform-style: preserve-3d;
       transform-origin: 50% 48%;
+      transform: scale(1);
+      transition: transform 1.65s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
     }
 
@@ -1667,6 +1667,9 @@
         stopIntroMusic(function () {
           setTimeout(function () { startWeddingMusic(); }, 150);
         });
+        // Force layout so the scale transition always starts from scale(1)
+        var stageEl = document.getElementById('stage');
+        if (stageEl) void stageEl.offsetWidth;
         albumOverlay.classList.add('entering');
 
         // Show first page underneath slightly before overlay fades
