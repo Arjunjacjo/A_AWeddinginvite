@@ -183,7 +183,7 @@
 
     .album {
       position: relative;
-      width: 300px; height: 400px;
+      width: 320px; height: 420px;
       transform-style: preserve-3d;
       cursor: pointer;
       opacity: 0;
@@ -192,13 +192,15 @@
       will-change: transform;
     }
     @media (min-width: 900px) {
-      .album { width: 360px; height: 480px; }
+      .album { width: 380px; height: 500px; }
     }
     .album.appear {
-      animation: albumAppear 2.2s cubic-bezier(0.16,1,0.3,1) forwards;
+      animation: albumAppear 2.6s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     @keyframes albumAppear {
-      to { opacity: 1; transform: scale(1); }
+      0% { opacity: 0; transform: scale(0.92) translateY(12px); }
+      60% { opacity: 1; transform: scale(1.01) translateY(0); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
     .album:focus-visible {
       outline: 1.5px solid var(--gold-champagne);
@@ -250,12 +252,13 @@
       overflow: hidden;
       pointer-events: none;
     }
-    .album.open .album-cover {
-      transform: rotateY(-180deg);
-    }
     .album.mid .album-cover {
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: rotateY(-90deg);
+      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      transform: rotateY(-95deg) !important;
+    }
+    .album.open .album-cover {
+      transition: transform 2.6s cubic-bezier(0.45, 0.05, 0.2, 1) !important;
+      transform: rotateY(-180deg) !important;
     }
 
     .cover-sweep {
@@ -397,13 +400,13 @@
     @keyframes motifBreath { 0%,100%{opacity:0.18} 50%{opacity:0.26} }
 
     .section-content {
-      position: relative; z-index: 4; width: 100%; max-width: 640px; text-align: center;
+      position: relative; z-index: 4; width: 100%; max-width: 720px; text-align: center;
       opacity: 0; transform: translate3d(0, 6px, 0);
       transition: opacity 1.6s cubic-bezier(0.22,1,0.36,1),
                   transform 1.6s cubic-bezier(0.22,1,0.36,1);
     }
     @media (min-width: 900px) {
-      .section-content { max-width: 720px; }
+      .section-content { max-width: 820px; }
     }
     .section.in-view .section-content {
       opacity: 1; transform: translate3d(0,0,0);
@@ -446,7 +449,7 @@
 
     .names-lg {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-size: clamp(2.6rem, 9vw, 4.6rem);
       font-weight: 600; letter-spacing: 0.12em;
       color: var(--ivory); line-height: 1.15; text-transform: uppercase;
       position: relative; z-index: 2;
@@ -557,7 +560,7 @@
       border: 1px solid rgba(201,168,76,0.5);
       border-radius: 2px;
       padding: 36px 32px;
-      width: 100%; max-width: 400px; margin: 0 auto;
+      width: 100%; max-width: 480px; margin: 0 auto;
       text-align: center;
       box-shadow:
         0 0 0 5px rgba(201,168,76,0.06),
@@ -566,7 +569,7 @@
       position: relative;
     }
     @media (min-width: 900px) {
-      .invite-card { max-width: 440px; padding: 44px 40px; }
+      .invite-card { max-width: 520px; padding: 52px 48px; }
     }
     .invite-card::before {
       content: ''; position: absolute; inset: 8px;
@@ -615,15 +618,15 @@
       background: rgba(10,18,32,0.55);
       border: 1px solid rgba(201,168,76,0.2);
       border-radius: 2px; padding: 32px 28px;
-      width: 100%; max-width: 380px; margin: 0 auto;
+      width: 100%; max-width: 460px; margin: 0 auto;
     }
-    @media (min-width: 900px) { .day-card { max-width: 420px; padding: 40px 36px; } }
+    @media (min-width: 900px) { .day-card { max-width: 500px; padding: 48px 44px; } }
     .day-card h2 {
       font-family: 'Playfair Display', serif; font-size: 0.82rem; font-weight: 500;
       color: var(--gold-antique); margin-bottom: 28px; letter-spacing: 0.3em;
       text-transform: uppercase;
     }
-    .timeline { position: relative; text-align: left; max-width: 280px; margin: 0 auto; }
+    .timeline { position: relative; text-align: left; max-width: 340px; margin: 0 auto; }
     .timeline::before {
       content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px;
       background: linear-gradient(to bottom, var(--gold-antique), transparent 90%);
@@ -657,10 +660,10 @@
 
     .gallery-grid {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-      max-width: 340px; margin: 0 auto;
+      max-width: 400px; margin: 0 auto;
     }
     @media (min-width: 900px) {
-      .gallery-grid { max-width: 400px; gap: 12px; }
+      .gallery-grid { max-width: 480px; gap: 14px; }
     }
     .gallery-item {
       aspect-ratio: 1; border-radius: 2px;
@@ -833,7 +836,7 @@
     }
 
     @media (max-width: 520px) {
-      .album { width: 220px; height: 300px; }
+      .album { width: 240px; height: 320px; }
       .page-names { font-size: 1.4rem; }
       .names-lg { font-size: 2.15rem; }
       .section { padding: 32px 20px; }
@@ -851,28 +854,33 @@
     }
 
     @media (min-width: 900px) {
-      .names-lg { font-size: 4rem !important; letter-spacing: 0.12em; }
-      .page-label { font-size: 0.82rem; margin-bottom: 28px; }
-      .date-lg { font-size: 1.5rem; }
-      .story-lead { font-size: 1.55rem; }
-      .story-body { font-size: 1.12rem; max-width: 460px; }
-      .countdown-state { margin-bottom: 40px; }
-      .count-number { font-size: 2.7rem; }
-      .count-unit { padding: 0 30px; min-width: 96px; }
-      .section { padding: 72px 56px; }
-      .section-content { max-width: 760px; }
-      .open-hint { font-size: 2rem; }
-      .invite-card { max-width: 460px; padding: 48px 44px; }
-      .day-card { max-width: 440px; padding: 44px 40px; }
-      .closing-names { font-size: 2.2rem; }
-      .closing-thanks { font-size: 1.3rem; }
+      .names-lg { font-size: 4.5rem !important; letter-spacing: 0.12em; }
+      .page-label { font-size: 0.88rem; margin-bottom: 32px; }
+      .date-lg { font-size: 1.6rem; }
+      .story-lead { font-size: 1.7rem; }
+      .story-body { font-size: 1.2rem; max-width: 520px; }
+      .countdown-state { margin-bottom: 44px; font-size: 1.05rem; }
+      .count-number { font-size: 3rem; }
+      .count-unit { padding: 0 34px; min-width: 100px; }
+      .section { padding: 80px 64px; }
+      .section-content { max-width: 860px; }
+      .open-hint { font-size: 2.2rem; }
+      .invite-card { max-width: 540px !important; padding: 56px 52px !important; }
+      .day-card { max-width: 520px !important; padding: 52px 48px !important; }
+      .closing-names { font-size: 2.5rem; }
+      .closing-thanks { font-size: 1.4rem; }
+      .ic-names { font-size: 1.5rem !important; }
+      .ic-title { font-size: 1.2rem !important; }
+      .timeline-title { font-size: 1.2rem; }
+      .gallery-grid { max-width: 520px !important; }
     }
     @media (min-width: 1200px) {
-      .album { width: 400px !important; height: 530px !important; }
-      .cover-monogram { width: 140px !important; height: 140px !important; }
-      .cover-monogram span { font-size: 1.9rem !important; }
-      .page-names { font-size: 2.7rem !important; }
-      .album-title { font-size: 1.15rem; }
+      .album { width: 420px !important; height: 560px !important; }
+      .cover-monogram { width: 150px !important; height: 150px !important; }
+      .cover-monogram span { font-size: 2rem !important; }
+      .page-names { font-size: 2.9rem !important; }
+      .album-title { font-size: 1.2rem; }
+      .names-lg { font-size: 5rem !important; }
     }
   </style>
 </head>
@@ -947,6 +955,9 @@
     <div class="music-icon-wrap"><div class="music-bars"><span></span><span></span><span></span><span></span></div></div>
     <span class="music-label" id="musicLabel">Play music</span>
   </button>
+  <audio id="introMusic" preload="auto" playsinline>
+    <source src="intro-music.mp3" type="audio/mpeg">
+  </audio>
   <audio id="bgMusic" loop preload="auto" playsinline>
     <source src="wedding-music.mp3" type="audio/mpeg">
   </audio>
@@ -1152,36 +1163,39 @@
     /* ===== Intro ~15s =====
        0–3 A&A | 3–7 names | 7–10 families | 10–14 date | 14–16 album */
     function runCinematic() {
-      setTimeout(() => cineGlow.classList.add('on'), 200);
+      setTimeout(function () { cineGlow.classList.add('on'); }, 150);
 
-      setTimeout(() => steps[0].classList.add('in'), 300);
-      setTimeout(() => steps[0].classList.add('out'), 2800);
+      setTimeout(function () { steps[0].classList.add('in'); }, 250);
+      setTimeout(function () { steps[0].classList.add('out'); }, 2500);
 
-      setTimeout(() => steps[1].classList.add('in'), 3200);
-      setTimeout(() => steps[1].classList.add('out'), 6800);
+      setTimeout(function () { steps[1].classList.add('in'); }, 2900);
+      setTimeout(function () { steps[1].classList.add('out'); }, 6200);
 
-      setTimeout(() => steps[2].classList.add('in'), 7200);
-      setTimeout(() => steps[2].classList.add('out'), 9800);
+      setTimeout(function () { steps[2].classList.add('in'); }, 6600);
+      setTimeout(function () { steps[2].classList.add('out'); }, 9000);
 
-      setTimeout(() => steps[3].classList.add('in'), 10200);
-      setTimeout(() => steps[3].classList.add('out'), 13800);
+      setTimeout(function () { steps[3].classList.add('in'); }, 9400);
+      setTimeout(function () { steps[3].classList.add('out'); }, 12800);
 
-      setTimeout(() => {
+      setTimeout(function () {
         cine.classList.add('done');
         filmGrain.classList.remove('on');
         revealAlbum();
-      }, 15000);
+      }, 14000);
     }
     window.addEventListener('load', runCinematic);
 
     /* ===== Album reveal ===== */
     function revealAlbum() {
       albumOverlay.classList.add('ready');
-      setTimeout(() => album.classList.add('appear'), 500);
-      setTimeout(() => album.classList.add('sweep'), 2600);
-      // Stillness, then hints
-      setTimeout(() => openHint.classList.add('show'), 5200);
-      setTimeout(() => openHintSub.classList.add('show'), 7000);
+      // Album slowly emerges
+      setTimeout(function () { album.classList.add('appear'); }, 400);
+      // Soft gold sweep
+      setTimeout(function () { album.classList.add('sweep'); }, 2400);
+      // Stillness — guest looks at the book
+      // Then hints
+      setTimeout(function () { openHint.classList.add('show'); }, 4800);
+      setTimeout(function () { openHintSub.classList.add('show'); }, 6500);
     }
 
     /* ===== Tilt ===== */
@@ -1253,35 +1267,35 @@
       if (opened) return;
       opened = true;
 
-      // Clear tilt inline styles so cover rotation is clean
-      album.style.transition = 'transform 0.35s ease';
-      album.style.transform = 'scale(1.015)';
+      // Stop intro music (fade out)
+      fadeOutIntroMusic();
+
+      // Clear tilt
+      album.style.transition = 'transform 0.4s ease';
+      album.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.02)';
       setTimeout(function () {
-        album.style.transform = 'scale(1)';
-        album.style.transition = '';
-      }, 350);
+        album.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      }, 400);
 
       playOpenSound();
       flare.classList.add('play');
       burstPetals(isMobile ? 8 : 12);
 
-      // Ensure cover has transition
-      albumCover.style.transition = 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1)';
+      // Clear any inline cover transform so CSS classes control it
+      albumCover.style.transition = '';
+      albumCover.style.transform = '';
 
-      // Phase 1: open to ~90°
+      // Phase 1: mid open (~90°)
       setTimeout(function () {
-        albumCover.style.transform = 'rotateY(-92deg)';
-      }, 400);
+        album.classList.add('mid');
+      }, 450);
 
-      // Phase 2: brief hold (breath)
-      // Phase 3: complete to 180°
+      // Phase 2: complete open to 180°
       setTimeout(function () {
-        albumCover.style.transition = 'transform 2.4s cubic-bezier(0.45, 0.05, 0.2, 1)';
-        albumCover.style.transform = 'rotateY(-180deg)';
+        album.classList.remove('mid');
+        void albumCover.offsetWidth; // reflow
         album.classList.add('open');
-      }, 1400);
-
-      tryStartMusic();
+      }, 1500);
 
       setTimeout(function () {
         albumOverlay.classList.add('hidden');
@@ -1293,9 +1307,8 @@
         document.getElementById('shareBtn').classList.add('visible');
         document.getElementById('navRail').classList.add('visible');
         document.getElementById('pageIndicator').classList.add('visible');
-        // petals on first page briefly
         setTimeout(function () { burstPetals(isMobile ? 4 : 6); }, 800);
-      }, prefersReduced ? 200 : 4200);
+      }, prefersReduced ? 200 : 4500);
     }
 
     album.addEventListener('click', function (e) {
@@ -1381,21 +1394,65 @@
       }
     });
 
-    /* ===== Music ===== */
+    /* ===== Music =====
+       introMusic = piano motif during cinematic until album opens
+       bgMusic = ambient loop after invitation is open (via button) */
+    var introMusic = document.getElementById('introMusic');
     var music = document.getElementById('bgMusic');
     var musicBtn = document.getElementById('musicBtn');
     var musicLabel = document.getElementById('musicLabel');
     var isPlaying = false;
     var userOff = false;
-    var musicStarted = false;
+    var introPlaying = false;
+    if (introMusic) introMusic.volume = 0;
     music.volume = 0;
 
+    function fadeInIntro() {
+      if (!introMusic) return;
+      if (introMusic.volume < 0.05) introMusic.volume = 0.05;
+      function step() {
+        if (!introPlaying) return;
+        if (introMusic.volume < 0.5) {
+          introMusic.volume = Math.min(0.5, introMusic.volume + 0.02);
+          requestAnimationFrame(step);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    function fadeOutIntroMusic() {
+      if (!introMusic || !introPlaying) {
+        if (introMusic) { try { introMusic.pause(); } catch(e) {} }
+        introPlaying = false;
+        return;
+      }
+      function step() {
+        if (introMusic.volume > 0.02) {
+          introMusic.volume = Math.max(0, introMusic.volume - 0.03);
+          requestAnimationFrame(step);
+        } else {
+          try { introMusic.pause(); introMusic.currentTime = 0; } catch(e) {}
+          introPlaying = false;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    function startIntroMusic() {
+      if (!introMusic || introPlaying || opened) return;
+      try { introMusic.currentTime = 0; } catch(e) {}
+      var p = introMusic.play();
+      if (p && p.then) {
+        p.then(function () {
+          introPlaying = true;
+          fadeInIntro();
+        }).catch(function () { introPlaying = false; });
+      }
+    }
     function fadeInMusic() {
       if (music.volume < 0.04) music.volume = 0.04;
       function step() {
         if (!isPlaying) return;
-        if (music.volume < 0.45) {
-          music.volume = Math.min(0.45, music.volume + 0.012);
+        if (music.volume < 0.4) {
+          music.volume = Math.min(0.4, music.volume + 0.012);
           requestAnimationFrame(step);
         }
       }
@@ -1406,47 +1463,28 @@
       musicBtn.classList.toggle('playing', on);
       musicLabel.textContent = on ? 'Music on' : (userOff ? 'Music off' : 'Play music');
     }
-    function startMusicFromIntro() {
-      if (userOff || isPlaying) return;
-      musicStarted = true;
-      try { music.currentTime = 0; } catch (e) {}
-      var playPromise = music.play();
-      if (playPromise && playPromise.then) {
-        playPromise.then(function () {
-          setUI(true);
-          fadeInMusic();
-        }).catch(function () {
-          musicStarted = false;
-          setUI(false);
-        });
-      }
-    }
-    function tryStartMusic() {
-      // Album open fallback if music not yet started
-      if (userOff || isPlaying) return;
-      startMusicFromIntro();
-    }
     musicBtn.addEventListener('click', function (e) {
       e.stopPropagation();
+      // Ambient track after invitation is open
       if (isPlaying) {
         music.pause();
         userOff = true;
-        musicStarted = false;
         setUI(false);
       } else {
         userOff = false;
+        // stop intro if still going
+        fadeOutIntroMusic();
         try { music.currentTime = 0; } catch (err) {}
         music.play().then(function () {
-          musicStarted = true;
           setUI(true);
           fadeInMusic();
         }).catch(function () { setUI(false); });
       }
     });
 
-    // Any first interaction during intro starts music from the beginning
+    // First gesture during intro → start piano intro music
     function onFirstGesture() {
-      if (!userOff && !isPlaying) startMusicFromIntro();
+      if (!opened) startIntroMusic();
     }
     document.addEventListener('pointerdown', onFirstGesture, { passive: true });
     document.addEventListener('touchstart', onFirstGesture, { passive: true });
