@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A&amp;A — Wedding</title>
+  <meta name="description" content="ARJUN & ANITA — 30.08.2026 · 4:00 PM IST · Mary Queen Church, Thoppil">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23050a12'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23c9a84c' stroke-width='1.2'/%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='Georgia,serif' font-size='15' font-weight='600' fill='%23e8d5a3' letter-spacing='1'%3EA%26A%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #050a12;
+      --gold-champagne: #e8d5a3;
+      --gold-antique: #c9a84c;
+      --gold-bright: #f3e4b8;
+      --gold-deep: #8a6f2a;
+      --ivory: #f7f1e6;
+      --muted: #b8a88c;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { height: 100%; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--navy);
+      color: var(--ivory);
+      height: 100%;
+      overflow: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      touch-action: pan-y;
+    }
+    body.unlocked {
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y proximity;
+      scroll-behavior: smooth;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    .paper-texture {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px; mix-blend-mode: overlay;
+    }
+    .silk-light {
+      position: fixed; inset: -30%; z-index: 1; pointer-events: none;
+      background: linear-gradient(105deg,
+        transparent 0%, transparent 38%,
+        rgba(232,213,163,0.03) 46%,
+        rgba(243,228,184,0.045) 50%,
+        rgba(232,213,163,0.03) 54%,
+        transparent 62%, transparent 100%);
+      animation: silkDrift 15s ease-in-out infinite;
+    }
+    @keyframes silkDrift {
+      0% { transform: translateX(-35%) translateY(4%); }
+      50% { transform: translateX(35%) translateY(-4%); }
+      100% { transform: translateX(-35%) translateY(4%); }
+    }
+    .film-grain {
+      position: fixed; inset: 0; z-index: 2490; pointer-events: none; opacity: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 140px; mix-blend-mode: soft-light;
+      transition: opacity 1s ease;
+    }
+    .film-grain.on { opacity: 0.02; }
+
+    /* ===== CINEMATIC ~15s ===== */
+    .cinematic {
+      position: fixed; inset: 0; z-index: 2500;
+      background: #050a12;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cinematic.done {
+      animation: fadeOut 1.2s ease forwards;
+      pointer-events: none;
+    }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+    .cine-glow {
+      position: absolute; width: min(320px, 70vw); height: min(320px, 70vw);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+      opacity: 0; transform: scale(0.7);
+      transition: opacity 2.5s ease, transform 3.5s ease;
+      pointer-events: none;
+    }
+    .cine-glow.on { opacity: 1; transform: scale(1.1); }
+
+    .cine-stage {
+      position: relative; z-index: 2; text-align: center;
+      width: 100%; min-height: 180px;
+    }
+    .cine-step {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0; width: 92vw; max-width: 640px;
+      pointer-events: none;
+    }
+    .cine-step.in { animation: titleIn 1.6s cubic-bezier(0.22,1,0.36,1) forwards; }
+    .cine-step.out { animation: titleOut 1.2s ease forwards; }
+    @keyframes titleIn {
+      from { opacity: 0; transform: translate(-50%,-50%) scale(0.98); filter: blur(1.5px); }
+      to { opacity: 1; transform: translate(-50%,-50%) scale(1); filter: blur(0); }
+    }
+    @keyframes titleOut {
+      from { opacity: 1; }
+      to { opacity: 0; transform: translate(-50%,-50%) scale(1.01); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .cine-aa {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 500; letter-spacing: 0.5em;
+      color: var(--gold-champagne); text-indent: 0.5em;
+    }
+    .cine-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 5vw, 2.4rem);
+      font-weight: 500; letter-spacing: 0.26em;
+      color: var(--ivory); text-transform: uppercase;
+    }
+    .cine-rule {
+      width: 52px; height: 1px; background: var(--gold-antique);
+      margin: 0 auto 16px; opacity: 0.55;
+    }
+    .cine-families {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.75rem, 2vw, 0.95rem);
+      letter-spacing: 0.34em; text-transform: uppercase; color: var(--muted);
+    }
+    .cine-date {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.05rem, 3.5vw, 1.5rem);
+      letter-spacing: 0.3em; color: var(--gold-champagne);
+    }
+
+    .flare {
+      position: fixed; inset: 0; z-index: 2400; pointer-events: none;
+      background: radial-gradient(ellipse 50% 35% at 50% 48%, rgba(243,228,184,0.14) 0%, transparent 70%);
+      opacity: 0; mix-blend-mode: screen;
+    }
+    .flare.play { animation: flareBurst 2.6s ease-out forwards; }
+    @keyframes flareBurst {
+      0% { opacity: 0; transform: scale(0.8); }
+      22% { opacity: 0.85; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.3); }
+    }
+
+    /* ===== ALBUM ===== */
+    .album-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: #050a12;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 1.4s ease, visibility 1.4s, background 2s ease;
+    }
+    .album-overlay.ready {
+      opacity: 1; visibility: visible;
+      background: radial-gradient(ellipse at 50% 45%, #0c1628 0%, #050a12 70%);
+    }
+    .album-overlay.hidden {
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 1.2s ease, visibility 1.2s;
+    }
+
+    .stage {
+      perspective: 2000px;
+      perspective-origin: 50% 50%;
+    }
+
+    .album {
+      position: relative;
+      width: 300px; height: 400px;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(0.95);
+      outline: none;
+      will-change: transform;
+    }
+    @media (min-width: 900px) {
+      .album { width: 360px; height: 480px; }
+    }
+    .album.appear {
+      animation: albumAppear 2.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes albumAppear {
+      to { opacity: 1; transform: scale(1); }
+    }
+    .album:focus-visible {
+      outline: 1.5px solid var(--gold-champagne);
+      outline-offset: 14px;
+    }
+
+    .page-edge {
+      position: absolute; inset: 0;
+      border-radius: 2px 12px 12px 2px;
+      pointer-events: none;
+    }
+    .page-edge.e1 { transform: translateZ(-2px) translateX(3px); background: #ebe3d4; z-index: 1; }
+    .page-edge.e2 { transform: translateZ(-4px) translateX(6px); background: #e4dccf; z-index: 0; }
+
+    .album-spine {
+      position: absolute; left: -8px; top: 0; width: 16px; height: 100%;
+      background: linear-gradient(90deg, #03060c, #121e32 50%, #080e18);
+      border-radius: 4px 0 0 4px; z-index: 6;
+      box-shadow: inset -2px 0 6px rgba(0,0,0,0.5);
+      pointer-events: none;
+    }
+
+    .album-page {
+      position: absolute; inset: 0;
+      background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.04'/%3E%3C/svg%3E"),
+        linear-gradient(165deg, #f7f1e6, #ebe3d4);
+      border-radius: 2px 12px 12px 2px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 6px 10px 28px rgba(0,0,0,0.35);
+      padding: 36px 24px; text-align: center;
+      pointer-events: none;
+    }
+
+    .album-cover {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
+        linear-gradient(160deg, #152238 0%, #080e18 55%, #0e1828 100%);
+      border-radius: 2px 12px 12px 2px;
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.4), 0 14px 40px rgba(0,0,0,0.5);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transform: rotateY(0deg);
+      transition: transform 2.8s cubic-bezier(0.45, 0.05, 0.2, 1);
+      z-index: 5;
+      backface-visibility: hidden;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .album.open .album-cover {
+      transform: rotateY(-180deg);
+    }
+    .album.mid .album-cover {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: rotateY(-90deg);
+    }
+
+    .cover-sweep {
+      position: absolute; inset: -40%;
+      background: linear-gradient(105deg,
+        transparent 44%,
+        rgba(243,228,184,0.06) 48%,
+        rgba(243,228,184,0.12) 50%,
+        rgba(243,228,184,0.06) 52%,
+        transparent 56%);
+      transform: translateX(-150%);
+      pointer-events: none; z-index: 3;
+    }
+    .album.sweep .cover-sweep {
+      animation: sweepSlow 3.8s ease-in-out forwards;
+    }
+    @keyframes sweepSlow {
+      from { transform: translateX(-150%); }
+      to { transform: translateX(150%); }
+    }
+
+    .cover-border {
+      position: absolute; inset: 16px;
+      border: 1px solid rgba(201,168,76,0.28);
+      border-radius: 1px 8px 8px 1px;
+      pointer-events: none; z-index: 2;
+    }
+    .cover-monogram {
+      width: 108px; height: 108px; border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.4);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; z-index: 2; position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.2);
+      background: radial-gradient(circle at 40% 35%, rgba(201,168,76,0.07), transparent 60%);
+    }
+    @media (min-width: 900px) {
+      .cover-monogram { width: 128px; height: 128px; }
+      .cover-monogram span { font-size: 1.75rem !important; }
+    }
+    .cover-monogram span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 500; letter-spacing: 0.12em;
+      color: var(--gold-champagne);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.08), 0 -1px 0 rgba(0,0,0,0.3);
+    }
+    .album-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 500; letter-spacing: 0.3em;
+      color: var(--gold-champagne); text-transform: uppercase;
+      margin-bottom: 10px; z-index: 2; position: relative;
+    }
+    .album-divider {
+      width: 40px; height: 1px; background: var(--gold-antique);
+      margin-bottom: 10px; opacity: 0.5; z-index: 2; position: relative;
+    }
+    .album-sub {
+      font-size: 0.58rem; letter-spacing: 0.36em;
+      text-transform: uppercase; color: var(--muted); z-index: 2; position: relative;
+    }
+
+    .page-names {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 600; letter-spacing: 0.14em;
+      color: #1a2a4a; line-height: 1.2; text-transform: uppercase;
+    }
+    @media (min-width: 900px) { .page-names { font-size: 2.4rem; } }
+    .page-amp {
+      font-family: 'Great Vibes', cursive; font-size: 1.4rem; color: var(--gold-deep);
+      display: block; margin: 6px 0; font-weight: 400;
+    }
+    .page-date {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      letter-spacing: 0.26em; color: #5a4a3a; margin-top: 16px;
+    }
+    .page-line {
+      width: 44px; height: 1px; background: var(--gold-deep);
+      margin: 14px auto; opacity: 0.4;
+    }
+
+    .open-hint {
+      margin-top: 48px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.7rem; color: var(--gold-champagne);
+      opacity: 0; transition: opacity 1.5s ease, transform 1.5s ease;
+      transform: translateY(8px);
+    }
+    .open-hint.show { opacity: 1; transform: translateY(0); }
+    .open-hint-sub {
+      margin-top: 12px; font-size: 0.6rem; letter-spacing: 0.36em;
+      text-transform: uppercase; color: var(--muted);
+      opacity: 0; transition: opacity 1.5s ease, transform 1.5s ease;
+      transform: translateY(6px);
+    }
+    .open-hint-sub.show { opacity: 0.7; transform: translateY(0); }
+
+    .petals-layer {
+      position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden;
+    }
+    .petal {
+      position: absolute; width: 10px; height: 10px;
+      background: radial-gradient(circle at 30% 30%, #f5d0d6, #e0a0a8 70%);
+      border-radius: 150% 0 150% 0; opacity: 0.45;
+    }
+
+    .invite-content { visibility: hidden; opacity: 0; }
+    body.unlocked .invite-content {
+      visibility: visible; opacity: 1; transition: opacity 1.2s ease;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      height: 100vh; height: 100dvh;
+      min-height: 100vh; min-height: 100dvh;
+      width: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: normal;
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 48px 32px;
+      overflow: hidden;
+    }
+    @media (min-width: 900px) {
+      .section { padding: 64px 48px; }
+    }
+
+    .botanical {
+      position: absolute; width: 40px; height: 40px; z-index: 2; pointer-events: none;
+      opacity: 0; stroke: var(--gold-antique);
+    }
+    .section.in-view .botanical {
+      animation: motifIn 2s ease forwards, motifBreath 12s ease-in-out 3s infinite;
+    }
+    .botanical.tl { top: 28px; left: 28px; }
+    .botanical.tr { top: 28px; right: 28px; transform: scaleX(-1); }
+    .botanical.bl { bottom: 28px; left: 28px; transform: scaleY(-1); }
+    .botanical.br { bottom: 28px; right: 28px; transform: scale(-1); }
+    @keyframes motifIn { to { opacity: 0.2; } }
+    @keyframes motifBreath { 0%,100%{opacity:0.18} 50%{opacity:0.26} }
+
+    .section-content {
+      position: relative; z-index: 4; width: 100%; max-width: 640px; text-align: center;
+      opacity: 0; transform: translate3d(0, 6px, 0);
+      transition: opacity 1.6s cubic-bezier(0.22,1,0.36,1),
+                  transform 1.6s cubic-bezier(0.22,1,0.36,1);
+    }
+    @media (min-width: 900px) {
+      .section-content { max-width: 720px; }
+    }
+    .section.in-view .section-content {
+      opacity: 1; transform: translate3d(0,0,0);
+    }
+    .section.leaving .section-content {
+      opacity: 0; transition: opacity 0.5s ease;
+    }
+
+    /* Giant watermark monogram */
+    .wm {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 22vw, 12rem);
+      font-weight: 600; letter-spacing: 0.08em;
+      color: var(--gold-antique);
+      opacity: 0; line-height: 1;
+      user-select: none;
+    }
+    .section.in-view .wm {
+      animation: wmIn 2.5s ease forwards;
+    }
+    @keyframes wmIn { to { opacity: 0.04; } }
+
+    .page-label {
+      font-size: 0.72rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold-antique); margin-bottom: 24px;
+    }
+    .cross-mark {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      margin: 0 auto 22px; color: var(--gold-antique); opacity: 0.4;
+      font-size: 0.5rem; letter-spacing: 0.15em;
+    }
+    .cross-mark .cx {
+      width: 12px; height: 12px;
+      background:
+        linear-gradient(var(--gold-antique), var(--gold-antique)) center/1px 100% no-repeat,
+        linear-gradient(var(--gold-antique), var(--gold-antique)) center/100% 1px no-repeat;
+    }
+
+    .names-lg {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 600; letter-spacing: 0.12em;
+      color: var(--ivory); line-height: 1.15; text-transform: uppercase;
+      position: relative; z-index: 2;
+    }
+    .amp-script {
+      display: block;
+      font-family: 'Great Vibes', cursive;
+      font-size: 0.55em;
+      color: var(--gold-antique);
+      margin: 4px 0 2px;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      font-weight: 400;
+    }
+    .date-lg {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.15rem, 3vw, 1.45rem);
+      letter-spacing: 0.24em; color: var(--gold-champagne); margin-top: 28px;
+    }
+    .date-sub {
+      font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin-top: 10px;
+    }
+    .thin-rule {
+      width: 40px; height: 1px; background: var(--gold-antique);
+      margin: 24px auto; opacity: 0.45;
+    }
+
+    .story-lead {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3.5vw, 1.55rem);
+      font-style: italic; color: var(--ivory); line-height: 1.55; margin-bottom: 18px;
+    }
+    .story-body {
+      font-size: clamp(1rem, 2vw, 1.12rem); color: var(--muted); line-height: 1.8;
+      max-width: 420px; margin: 0 auto;
+    }
+
+    /* Countdown */
+    .countdown-state {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 2vw, 0.95rem);
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold-antique); margin-bottom: 36px;
+    }
+    .countdown {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .count-unit {
+      padding: 0 18px; text-align: center; min-width: 72px;
+    }
+    @media (min-width: 900px) {
+      .count-unit { padding: 0 28px; min-width: 90px; }
+    }
+    .count-unit + .count-unit {
+      border-left: 1px solid rgba(201,168,76,0.25);
+    }
+    .count-number {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 400; color: var(--gold-champagne);
+      line-height: 1; display: block; height: 1.15em; overflow: hidden;
+    }
+    .count-number span {
+      display: block;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .count-number.flip span {
+      animation: numSoft 0.32s ease;
+    }
+    @keyframes numSoft {
+      0% { opacity: 1; }
+      45% { opacity: 0; transform: translateY(-4px); }
+      55% { opacity: 0; transform: translateY(4px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .count-label {
+      font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); margin-top: 10px; display: block;
+    }
+    .count-label .full { display: inline; }
+    .count-label .short { display: none; }
+    @media (max-width: 420px) {
+      .count-unit { min-width: 56px; padding: 0 10px; }
+      .count-label .full { display: none; }
+      .count-label .short { display: inline; }
+    }
+    .celebration-msg {
+      display: none;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.15rem, 3.5vw, 1.5rem);
+      color: var(--gold-champagne); letter-spacing: 0.14em;
+      text-transform: uppercase; line-height: 1.5;
+    }
+    .celebration-msg.show {
+      display: block; animation: fadeUp 1.4s ease forwards;
+    }
+    .countdown.hide { display: none; }
+    .tz-note {
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(184,168,140,0.4); margin-top: 28px;
+    }
+
+    /* Ivory card with double border */
+    .invite-card {
+      background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"),
+        linear-gradient(170deg, #f7f1e6, #efe6d8);
+      border: 1px solid rgba(201,168,76,0.5);
+      border-radius: 2px;
+      padding: 36px 32px;
+      width: 100%; max-width: 400px; margin: 0 auto;
+      text-align: center;
+      box-shadow:
+        0 0 0 5px rgba(201,168,76,0.06),
+        0 24px 56px rgba(0,0,0,0.35);
+      color: #2a2a2a;
+      position: relative;
+    }
+    @media (min-width: 900px) {
+      .invite-card { max-width: 440px; padding: 44px 40px; }
+    }
+    .invite-card::before {
+      content: ''; position: absolute; inset: 8px;
+      border: 1px solid rgba(201,168,76,0.2);
+      pointer-events: none;
+    }
+    .ic-names {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 600; letter-spacing: 0.16em;
+      color: #1a2a4a; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .ic-date {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; letter-spacing: 0.2em; color: var(--gold-deep);
+      margin-bottom: 20px;
+    }
+    .ic-rule {
+      width: 40px; height: 1px; background: var(--gold-antique);
+      margin: 0 auto 18px; opacity: 0.45;
+    }
+    .ic-block { margin-bottom: 16px; }
+    .ic-time {
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold-deep); margin-bottom: 4px;
+    }
+    .ic-title {
+      font-family: 'Playfair Display', serif; font-size: 1.08rem; color: #1a2a4a;
+    }
+    .ic-place { font-size: 0.9rem; color: #6a5a4a; margin-top: 3px; }
+    .ic-note { font-size: 0.8rem; color: #8a7a6a; margin-top: 3px; font-style: italic; }
+    .ic-actions {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 24px;
+    }
+    .ic-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 14px; border-radius: 2px;
+      border: 1px solid rgba(138,111,42,0.3);
+      background: transparent; color: #1a2a4a;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.88rem;
+      text-decoration: none; cursor: pointer; touch-action: manipulation;
+      letter-spacing: 0.03em;
+    }
+    .ic-btn svg { width: 13px; height: 13px; stroke: var(--gold-deep); fill: none; stroke-width: 1.4; }
+
+    .day-card {
+      background: rgba(10,18,32,0.55);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 2px; padding: 32px 28px;
+      width: 100%; max-width: 380px; margin: 0 auto;
+    }
+    @media (min-width: 900px) { .day-card { max-width: 420px; padding: 40px 36px; } }
+    .day-card h2 {
+      font-family: 'Playfair Display', serif; font-size: 0.82rem; font-weight: 500;
+      color: var(--gold-antique); margin-bottom: 28px; letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .timeline { position: relative; text-align: left; max-width: 280px; margin: 0 auto; }
+    .timeline::before {
+      content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px;
+      background: linear-gradient(to bottom, var(--gold-antique), transparent 90%);
+      opacity: 0.28; transform: scaleY(0); transform-origin: top;
+      transition: transform 2.5s ease;
+    }
+    .section.in-view .timeline::before { transform: scaleY(1); }
+    .timeline-item {
+      position: relative; padding-left: 32px; margin-bottom: 22px;
+      opacity: 0; transform: translateY(8px);
+    }
+    .section.in-view .timeline-item { animation: tlItem 0.9s ease forwards; }
+    .section.in-view .timeline-item:nth-child(1) { animation-delay: 0.3s; }
+    .section.in-view .timeline-item:nth-child(2) { animation-delay: 1.2s; }
+    .section.in-view .timeline-item:nth-child(3) { animation-delay: 2.1s; }
+    @keyframes tlItem { to { opacity: 1; transform: translateY(0); } }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute; left: 2px; top: 6px; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--gold-antique);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .timeline-time {
+      font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold-antique); margin-bottom: 3px;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif; font-size: 1.08rem; color: var(--ivory);
+    }
+    .timeline-desc { font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
+
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+      max-width: 340px; margin: 0 auto;
+    }
+    @media (min-width: 900px) {
+      .gallery-grid { max-width: 400px; gap: 12px; }
+    }
+    .gallery-item {
+      aspect-ratio: 1; border-radius: 2px;
+      background: linear-gradient(145deg, #121e32, #0a1220);
+      border: 1px solid rgba(201,168,76,0.12);
+    }
+    .gallery-note {
+      font-size: 0.82rem; color: var(--muted); margin-top: 18px; font-style: italic;
+    }
+
+    .closing-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold-antique); margin-bottom: 20px;
+      opacity: 0;
+    }
+    .section.in-view .closing-text { animation: fadeUp 1.6s ease 0.3s forwards; }
+    .closing-thanks {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      color: var(--muted); line-height: 1.6; margin-bottom: 28px;
+      font-style: italic; opacity: 0;
+    }
+    .section.in-view .closing-thanks { animation: fadeUp 1.6s ease 1s forwards; }
+    .closing-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      letter-spacing: 0.14em; color: var(--ivory);
+      text-transform: uppercase; font-weight: 500; opacity: 0;
+    }
+    .section.in-view .closing-names { animation: fadeUp 1.6s ease 1.8s forwards; }
+    .closing-date {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; letter-spacing: 0.24em;
+      color: var(--gold-champagne); margin-top: 28px; opacity: 0;
+    }
+    .section.in-view .closing-date { animation: fadeUp 1.6s ease 2.6s forwards; }
+    .closing-siblings {
+      font-size: 0.95rem; color: var(--muted); margin-top: 36px;
+      letter-spacing: 0.08em; opacity: 0;
+    }
+    .section.in-view .closing-siblings { animation: fadeUp 1.6s ease 3.2s forwards; }
+
+    .return-link {
+      display: inline-block; margin-top: 48px;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(201,168,76,0.4); text-decoration: none;
+      border: none; background: none; cursor: pointer;
+      font-family: inherit; padding: 0;
+      transition: color 0.4s ease;
+    }
+    .return-link:hover { color: rgba(201,168,76,0.7); }
+
+    /* Controls */
+    .music-btn {
+      position: fixed; bottom: 24px; right: 18px; z-index: 100;
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 12px 8px 9px; border-radius: 2px;
+      background: rgba(5,10,18,0.7); backdrop-filter: blur(8px);
+      border: 1px solid rgba(201,168,76,0.22);
+      cursor: pointer; color: var(--gold-champagne);
+      font-family: 'Cormorant Garamond', serif; font-size: 0.78rem;
+      letter-spacing: 0.08em; touch-action: manipulation;
+      opacity: 0; pointer-events: none;
+      transition: opacity 1s ease;
+    }
+    .music-btn.visible { opacity: 1; pointer-events: auto; }
+    .music-btn.playing { border-color: rgba(201,168,76,0.4); }
+    .music-icon-wrap { width: 16px; height: 12px; display: flex; align-items: flex-end; gap: 2px; }
+    .music-bars span { width: 2px; background: currentColor; height: 3px; display: block; border-radius: 1px; }
+    .music-btn.playing .music-bars span { animation: barPulse 0.85s ease-in-out infinite; }
+    .music-btn.playing .music-bars span:nth-child(2) { animation-delay: 0.12s; }
+    .music-btn.playing .music-bars span:nth-child(3) { animation-delay: 0.28s; }
+    .music-btn.playing .music-bars span:nth-child(4) { animation-delay: 0.08s; }
+    @keyframes barPulse { 0%,100%{height:3px} 50%{height:11px} }
+    .music-label { color: var(--muted); white-space: nowrap; }
+    .music-btn.playing .music-label { color: var(--gold-champagne); }
+
+    .share-btn {
+      position: fixed; bottom: 70px; right: 18px;
+      width: 34px; height: 34px; border-radius: 2px;
+      background: rgba(5,10,18,0.55); backdrop-filter: blur(8px);
+      border: 1px solid rgba(201,168,76,0.18);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 100; color: var(--gold-antique);
+      touch-action: manipulation; opacity: 0; pointer-events: none;
+      transition: opacity 1s ease;
+    }
+    .share-btn.visible { opacity: 0.55; pointer-events: auto; }
+    .share-btn:hover { opacity: 0.9; }
+    .share-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+    .share-menu {
+      position: fixed; bottom: 112px; right: 18px; z-index: 110;
+      display: flex; flex-direction: column; gap: 6px;
+      opacity: 0; visibility: hidden; transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+    .share-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .share-option {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      background: rgba(5,10,18,0.92); backdrop-filter: blur(10px);
+      border: 1px solid rgba(201,168,76,0.2); border-radius: 2px;
+      color: var(--ivory); font-family: 'Cormorant Garamond', serif;
+      font-size: 0.84rem; cursor: pointer; white-space: nowrap;
+      touch-action: manipulation;
+    }
+    .share-option svg { width: 13px; height: 13px; stroke: var(--gold-antique); fill: none; stroke-width: 1.4; }
+    .toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(8px);
+      background: rgba(5,10,18,0.92); border: 1px solid rgba(201,168,76,0.28);
+      color: var(--gold-champagne); padding: 8px 16px; border-radius: 2px;
+      font-size: 0.84rem; z-index: 120; opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .nav-rail {
+      position: fixed; right: 14px; top: 50%; transform: translateY(-50%);
+      z-index: 90; display: flex; flex-direction: column; gap: 8px;
+      opacity: 0; pointer-events: none;
+      align-items: flex-end;
+    }
+    .nav-rail.visible { opacity: 1; pointer-events: auto; transition: opacity 1s ease; }
+    .nav-item {
+      display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+      background: none; border: none; cursor: pointer; padding: 4px 0;
+      touch-action: manipulation;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem; letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .nav-item .nav-label {
+      display: none;
+      white-space: nowrap; text-align: right;
+      opacity: 0.5;
+      transition: opacity 0.25s ease;
+    }
+    .nav-item .nav-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.28);
+      transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .nav-item.active { color: var(--gold-champagne); }
+    .nav-item.active .nav-dot {
+      background: var(--gold-antique);
+      box-shadow: 0 0 8px rgba(201,168,76,0.3);
+      transform: scale(1.4);
+    }
+    .nav-item.active .nav-label { opacity: 1; }
+    @media (min-width: 900px) {
+      .nav-rail { right: 22px; }
+      .nav-item .nav-label { display: inline; }
+      .nav-item:hover .nav-label { opacity: 0.9; }
+    }
+    .page-indicator {
+      position: fixed; bottom: 26px; left: 18px; z-index: 90;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.68rem; letter-spacing: 0.16em;
+      color: rgba(201,168,76,0.35);
+      opacity: 0; pointer-events: none; transition: opacity 1s ease;
+    }
+    .page-indicator.visible { opacity: 1; }
+
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      font-size: 0.52rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold-antique); opacity: 0.3; z-index: 5;
+    }
+
+    @media (max-width: 520px) {
+      .album { width: 220px; height: 300px; }
+      .page-names { font-size: 1.4rem; }
+      .names-lg { font-size: 2.15rem; }
+      .section { padding: 32px 20px; }
+      .botanical { width: 28px; height: 28px; }
+      .botanical.tl { top: 16px; left: 16px; }
+      .botanical.tr { top: 16px; right: 16px; }
+      .botanical.bl { bottom: 16px; left: 16px; }
+      .botanical.br { bottom: 16px; right: 16px; }
+      .cover-monogram { width: 88px; height: 88px; }
+      .cover-monogram span { font-size: 1.3rem; }
+      .open-hint { font-size: 1.4rem; margin-top: 36px; }
+      .music-btn { bottom: 14px; right: 12px; }
+      .share-btn { bottom: 58px; right: 12px; width: 32px; height: 32px; }
+      .invite-card { padding: 28px 20px; }
+    }
+
+    @media (min-width: 900px) {
+      .names-lg { font-size: 4rem !important; letter-spacing: 0.12em; }
+      .page-label { font-size: 0.82rem; margin-bottom: 28px; }
+      .date-lg { font-size: 1.5rem; }
+      .story-lead { font-size: 1.55rem; }
+      .story-body { font-size: 1.12rem; max-width: 460px; }
+      .countdown-state { margin-bottom: 40px; }
+      .count-number { font-size: 2.7rem; }
+      .count-unit { padding: 0 30px; min-width: 96px; }
+      .section { padding: 72px 56px; }
+      .section-content { max-width: 760px; }
+      .open-hint { font-size: 2rem; }
+      .invite-card { max-width: 460px; padding: 48px 44px; }
+      .day-card { max-width: 440px; padding: 44px 40px; }
+      .closing-names { font-size: 2.2rem; }
+      .closing-thanks { font-size: 1.3rem; }
+    }
+    @media (min-width: 1200px) {
+      .album { width: 400px !important; height: 530px !important; }
+      .cover-monogram { width: 140px !important; height: 140px !important; }
+      .cover-monogram span { font-size: 1.9rem !important; }
+      .page-names { font-size: 2.7rem !important; }
+      .album-title { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="paper-texture"></div>
+  <div class="silk-light"></div>
+  <div class="film-grain on" id="filmGrain"></div>
+
+  <div class="cinematic" id="cinematic">
+    <div class="cine-glow" id="cineGlow"></div>
+    <div class="cine-stage">
+      <div class="cine-step cine-aa" id="step1">A&amp;A</div>
+      <div class="cine-step" id="step2"><div class="cine-names">ARJUN &amp; ANITA</div></div>
+      <div class="cine-step" id="step3">
+        <div class="cine-rule"></div>
+        <div class="cine-families">Together with their families</div>
+      </div>
+      <div class="cine-step cine-date" id="step4">30 AUGUST 2026</div>
+    </div>
+  </div>
+
+  <div class="flare" id="flare"></div>
+
+  <div class="album-overlay" id="albumOverlay">
+    <div class="stage" id="stage">
+      <div class="album" id="album" role="button" tabindex="0"
+           aria-label="Open Arjun and Anita's wedding invitation">
+        <div class="album-spine"></div>
+        <div class="page-edge e2"></div>
+        <div class="page-edge e1"></div>
+        <div class="album-page">
+          <div class="page-names">ARJUN<br><span class="page-amp">&</span>ANITA</div>
+          <div class="page-line"></div>
+          <div class="page-date">30 · 08 · 2026</div>
+        </div>
+        <div class="album-cover" id="albumCover">
+          <div class="cover-sweep" id="coverSweep"></div>
+          <div class="cover-border"></div>
+          <div class="cover-monogram"><span>A&amp;A</span></div>
+          <div class="album-title">ARJUN &amp; ANITA</div>
+          <div class="album-divider"></div>
+          <div class="album-sub">Our Wedding</div>
+        </div>
+      </div>
+    </div>
+    <p class="open-hint" id="openHint">Our story begins here</p>
+    <p class="open-hint-sub" id="openHintSub">Open the invitation</p>
+  </div>
+
+  <div class="petals-layer" id="petalsLayer"></div>
+
+  <button class="share-btn" id="shareBtn" title="Share" aria-label="Share">
+    <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+  </button>
+  <div class="share-menu" id="shareMenu">
+    <button class="share-option" type="button" id="btnWhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      WhatsApp
+    </button>
+    <button class="share-option" type="button" id="btnCopy">
+      <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Copy link
+    </button>
+    <button class="share-option" type="button" id="btnNative">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share
+    </button>
+  </div>
+  <div class="toast" id="toast">Link copied</div>
+
+  <button class="music-btn" id="musicBtn" type="button" aria-label="Play music">
+    <div class="music-icon-wrap"><div class="music-bars"><span></span><span></span><span></span><span></span></div></div>
+    <span class="music-label" id="musicLabel">Play music</span>
+  </button>
+  <audio id="bgMusic" loop preload="auto" playsinline>
+    <source src="wedding-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <nav class="nav-rail" id="navRail" aria-label="Pages"></nav>
+  <div class="page-indicator" id="pageIndicator">01 / 07</div>
+
+  <div class="invite-content" id="inviteContent">
+    <!-- 1 The Invitation -->
+    <section class="section" data-index="0" id="page0">
+      <div class="wm">A&amp;A</div>
+      <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical bl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <div class="section-content">
+        <div class="cross-mark"><span>✦</span><span class="cx"></span><span>✦</span></div>
+        <p class="page-label">The Invitation</p>
+        <h1 class="names-lg">ARJUN<span class="amp-script">&</span>ANITA</h1>
+        <div class="thin-rule"></div>
+        <p class="date-lg">30 · 08 · 2026</p>
+        <p class="date-sub">Sunday · 4:00 PM IST</p>
+      </div>
+      <div class="scroll-hint">Continue</div>
+    </section>
+
+    <!-- 2 Our Story -->
+    <section class="section" data-index="1" id="page1">
+      <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical bl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <div class="section-content">
+        <p class="page-label">Our Story</p>
+        <p class="story-lead">Two people. One beautiful journey.</p>
+        <div class="thin-rule"></div>
+        <p class="story-body">From the first hello to this moment, we’re grateful for every memory that brought us here — and for you, who walk this path with us.</p>
+      </div>
+    </section>
+
+    <!-- 3 Countdown -->
+    <section class="section" data-index="2" id="page2">
+      <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical bl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <div class="section-content">
+        <p class="countdown-state" id="countdownLabel">The countdown begins</p>
+        <div class="countdown" id="countdown">
+          <div class="count-unit">
+            <span class="count-number" id="days"><span>00</span></span>
+            <span class="count-label"><span class="full">Days</span><span class="short">Days</span></span>
+          </div>
+          <div class="count-unit">
+            <span class="count-number" id="hours"><span>00</span></span>
+            <span class="count-label"><span class="full">Hours</span><span class="short">Hrs</span></span>
+          </div>
+          <div class="count-unit">
+            <span class="count-number" id="minutes"><span>00</span></span>
+            <span class="count-label"><span class="full">Minutes</span><span class="short">Min</span></span>
+          </div>
+          <div class="count-unit">
+            <span class="count-number" id="seconds"><span>00</span></span>
+            <span class="count-label"><span class="full">Seconds</span><span class="short">Sec</span></span>
+          </div>
+        </div>
+        <p class="celebration-msg" id="celebrationMsg"></p>
+        <p class="tz-note">India Standard Time · Kochi</p>
+      </div>
+    </section>
+
+    <!-- 4 Details -->
+    <section class="section" data-index="3" id="page3">
+      <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical bl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <div class="section-content">
+        <div class="invite-card">
+          <p class="ic-names">ARJUN &amp; ANITA</p>
+          <p class="ic-date">30 AUGUST 2026</p>
+          <div class="ic-rule"></div>
+          <div class="ic-block">
+            <p class="ic-time">4:00 PM IST</p>
+            <p class="ic-title">Holy Mass &amp; Wedding Ceremony</p>
+            <p class="ic-place">Mary Queen Church, Thoppil</p>
+            <p class="ic-note">Parking available</p>
+          </div>
+          <div class="ic-rule"></div>
+          <div class="ic-block">
+            <p class="ic-time">6:30 PM IST</p>
+            <p class="ic-title">Reception</p>
+            <p class="ic-place">Church Hall</p>
+            <p class="ic-note">Parking available</p>
+          </div>
+          <div class="ic-actions">
+            <a class="ic-btn" href="https://maps.google.com/?q=Mary+Queen+Church+Thoppil" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Find the Church
+            </a>
+            <a class="ic-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Arjun+%26+Anita+Wedding&dates=20260830T103000Z/20260830T160000Z&details=Holy+Mass+%26+Wedding&location=Mary+Queen+Church%2C+Thoppil&ctz=Asia/Kolkata" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Google Calendar
+            </a>
+            <a class="ic-btn" href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART;TZID=Asia/Kolkata:20260830T160000%0ADTEND;TZID=Asia/Kolkata:20260830T213000%0ASUMMARY:Arjun %26 Anita Wedding%0ALOCATION:Mary Queen Church%2C Thoppil%0ADESCRIPTION:Holy Mass %26 Wedding 4:00 PM IST%5CnReception 6:30 PM%5CnParking available%0AEND:VEVENT%0AEND:VCALENDAR" download="arjun-anita-wedding.ics">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Add to Calendar
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 The Day -->
+    <section class="section" data-index="4" id="page4">
+      <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical bl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <div class="section-content">
+        <div class="day-card">
+          <h2>The Day</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p class="timeline-time">4:00 PM IST</p>
+              <p class="timeline-title">Ceremony</p>
+              <p class="timeline-desc">Holy Mass & exchange of vows</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p class="timeline-time">6:30 PM IST</p>
+              <p class="timeline-title">Reception</p>
+              <p class="timeline-desc">Dinner & celebration</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p class="timeline-time">9:30 PM IST</p>
+              <p class="timeline-title">Evening Ends</p>
+              <p class="timeline-desc">Thank you for sharing our day</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 Memories -->
+    <section class="section" data-index="5" id="page5">
+      <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical bl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <div class="section-content">
+        <p class="page-label">Memories</p>
+        <div class="gallery-grid">
+          <div class="gallery-item"></div><div class="gallery-item"></div>
+          <div class="gallery-item"></div><div class="gallery-item"></div>
+        </div>
+        <p class="gallery-note">Photos coming soon</p>
+      </div>
+    </section>
+
+    <!-- 7 Closing -->
+    <section class="section" data-index="6" id="page6">
+      <div class="wm">A&amp;A</div>
+      <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical bl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
+      <div class="section-content">
+        <p class="closing-text">With love</p>
+        <p class="closing-thanks">Thank you for being part of our story</p>
+        <p class="closing-names">ARJUN &amp; ANITA</p>
+        <p class="closing-date">30 · 08 · 2026</p>
+        <p class="closing-siblings">Annu, Aleena, Aaron</p>
+        <button class="return-link" type="button" id="returnBtn">Return to our beginning</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  (function () {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 600;
+
+    const cine = document.getElementById('cinematic');
+    const cineGlow = document.getElementById('cineGlow');
+    const filmGrain = document.getElementById('filmGrain');
+    const steps = [
+      document.getElementById('step1'),
+      document.getElementById('step2'),
+      document.getElementById('step3'),
+      document.getElementById('step4')
+    ];
+    const albumOverlay = document.getElementById('albumOverlay');
+    const album = document.getElementById('album');
+    const albumCover = document.getElementById('albumCover');
+    const flare = document.getElementById('flare');
+    const openHint = document.getElementById('openHint');
+    const openHintSub = document.getElementById('openHintSub');
+    const petalsLayer = document.getElementById('petalsLayer');
+
+    /* ===== Intro ~15s =====
+       0–3 A&A | 3–7 names | 7–10 families | 10–14 date | 14–16 album */
+    function runCinematic() {
+      setTimeout(() => cineGlow.classList.add('on'), 200);
+
+      setTimeout(() => steps[0].classList.add('in'), 300);
+      setTimeout(() => steps[0].classList.add('out'), 2800);
+
+      setTimeout(() => steps[1].classList.add('in'), 3200);
+      setTimeout(() => steps[1].classList.add('out'), 6800);
+
+      setTimeout(() => steps[2].classList.add('in'), 7200);
+      setTimeout(() => steps[2].classList.add('out'), 9800);
+
+      setTimeout(() => steps[3].classList.add('in'), 10200);
+      setTimeout(() => steps[3].classList.add('out'), 13800);
+
+      setTimeout(() => {
+        cine.classList.add('done');
+        filmGrain.classList.remove('on');
+        revealAlbum();
+      }, 15000);
+    }
+    window.addEventListener('load', runCinematic);
+
+    /* ===== Album reveal ===== */
+    function revealAlbum() {
+      albumOverlay.classList.add('ready');
+      setTimeout(() => album.classList.add('appear'), 500);
+      setTimeout(() => album.classList.add('sweep'), 2600);
+      // Stillness, then hints
+      setTimeout(() => openHint.classList.add('show'), 5200);
+      setTimeout(() => openHintSub.classList.add('show'), 7000);
+    }
+
+    /* ===== Tilt ===== */
+    let opened = false;
+    let tiltX = 0, tiltY = 0;
+
+    function applyTilt() {
+      if (opened) return;
+      album.style.transform = 'rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale(1)';
+    }
+
+    function onMove(e) {
+      if (opened || !albumOverlay.classList.contains('ready')) return;
+      const rect = album.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const x = e.clientX != null ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : cx);
+      const y = e.clientY != null ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : cy);
+      const dx = (x - cx) / Math.max(rect.width / 2, 1);
+      const dy = (y - cy) / Math.max(rect.height / 2, 1);
+      tiltY = Math.max(-10, Math.min(10, dx * 9));
+      tiltX = Math.max(-7, Math.min(7, -dy * 7));
+      applyTilt();
+    }
+
+    albumOverlay.addEventListener('pointermove', onMove, { passive: true });
+    albumOverlay.addEventListener('pointerleave', function () {
+      if (opened) return;
+      tiltX = 0; tiltY = 0;
+      album.style.transition = 'transform 0.6s ease';
+      applyTilt();
+      setTimeout(function () { album.style.transition = ''; }, 600);
+    });
+
+    /* ===== Open sequence ===== */
+    function playOpenSound() {
+      try {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        var t = ctx.currentTime;
+        var buf = ctx.createBuffer(1, ctx.sampleRate * 0.45, ctx.sampleRate);
+        var d = buf.getChannelData(0);
+        for (var i = 0; i < d.length; i++) {
+          d[i] = (Math.random() * 2 - 1) * Math.sin((i / d.length) * Math.PI) * 0.022;
+        }
+        var src = ctx.createBufferSource();
+        src.buffer = buf;
+        var f = ctx.createBiquadFilter();
+        f.type = 'lowpass'; f.frequency.value = 500;
+        var g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.07, t + 0.07);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+        src.connect(f); f.connect(g); g.connect(ctx.destination);
+        src.start(t);
+        var osc = ctx.createOscillator();
+        var og = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(480, t + 0.12);
+        osc.frequency.exponentialRampToValueAtTime(340, t + 0.55);
+        og.gain.setValueAtTime(0.0001, t + 0.12);
+        og.gain.exponentialRampToValueAtTime(0.015, t + 0.18);
+        og.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
+        osc.connect(og); og.connect(ctx.destination);
+        osc.start(t + 0.12); osc.stop(t + 0.65);
+      } catch (err) {}
+    }
+
+    function openAlbum() {
+      if (opened) return;
+      opened = true;
+
+      // Clear tilt inline styles so cover rotation is clean
+      album.style.transition = 'transform 0.35s ease';
+      album.style.transform = 'scale(1.015)';
+      setTimeout(function () {
+        album.style.transform = 'scale(1)';
+        album.style.transition = '';
+      }, 350);
+
+      playOpenSound();
+      flare.classList.add('play');
+      burstPetals(isMobile ? 8 : 12);
+
+      // Ensure cover has transition
+      albumCover.style.transition = 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1)';
+
+      // Phase 1: open to ~90°
+      setTimeout(function () {
+        albumCover.style.transform = 'rotateY(-92deg)';
+      }, 400);
+
+      // Phase 2: brief hold (breath)
+      // Phase 3: complete to 180°
+      setTimeout(function () {
+        albumCover.style.transition = 'transform 2.4s cubic-bezier(0.45, 0.05, 0.2, 1)';
+        albumCover.style.transform = 'rotateY(-180deg)';
+        album.classList.add('open');
+      }, 1400);
+
+      tryStartMusic();
+
+      setTimeout(function () {
+        albumOverlay.classList.add('hidden');
+        document.body.classList.add('unlocked');
+        window.scrollTo(0, 0);
+        var first = document.getElementById('page0');
+        if (first) first.classList.add('in-view');
+        document.getElementById('musicBtn').classList.add('visible');
+        document.getElementById('shareBtn').classList.add('visible');
+        document.getElementById('navRail').classList.add('visible');
+        document.getElementById('pageIndicator').classList.add('visible');
+        // petals on first page briefly
+        setTimeout(function () { burstPetals(isMobile ? 4 : 6); }, 800);
+      }, prefersReduced ? 200 : 4200);
+    }
+
+    album.addEventListener('click', function (e) {
+      e.preventDefault();
+      openAlbum();
+    });
+    album.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openAlbum();
+      }
+    });
+
+    /* ===== Return to beginning — fixed ===== */
+    document.getElementById('returnBtn').addEventListener('click', function () {
+      var target = document.getElementById('page0');
+      if (target) {
+        target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+    });
+
+    /* ===== Petals only on open / first / closing ===== */
+    var petalCount = 0;
+    function createPetal(force) {
+      if (prefersReduced) return;
+      if (!force && petalCount >= (isMobile ? 4 : 6)) return;
+      petalCount++;
+      var p = document.createElement('div');
+      p.className = 'petal';
+      var size = 8 + Math.random() * 9;
+      p.style.width = p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.top = '-3%';
+      var drift = (Math.random() - 0.5) * 55;
+      var anim = p.animate([
+        { transform: 'translate3d(0,0,0) rotate(0deg)', opacity: 0 },
+        { opacity: 0.45, offset: 0.1 },
+        { transform: 'translate3d(' + drift + 'px,110vh,0) rotate(' + (360 + Math.random() * 160) + 'deg)', opacity: 0 }
+      ], { duration: (13 + Math.random() * 5) * 1000, easing: 'cubic-bezier(0.25,0.1,0.25,1)', fill: 'forwards' });
+      petalsLayer.appendChild(p);
+      anim.onfinish = function () { p.remove(); petalCount--; };
+    }
+    function burstPetals(n) {
+      for (var i = 0; i < n; i++) setTimeout(function () { createPetal(true); }, i * 160);
+    }
+
+    /* ===== Share ===== */
+    var shareMenu = document.getElementById('shareMenu');
+    var toast = document.getElementById('toast');
+    var shareText = "You're invited to celebrate the wedding of\n\nARJUN & ANITA\n\n30 August 2026 · 4:00 PM\nMary Queen Church, Thoppil\n\nView the invitation:";
+
+    document.getElementById('shareBtn').addEventListener('click', function () {
+      shareMenu.classList.toggle('open');
+    });
+    document.getElementById('btnWhatsApp').addEventListener('click', function () {
+      window.open('https://wa.me/?text=' + encodeURIComponent(shareText + '\n' + location.href), '_blank');
+      shareMenu.classList.remove('open');
+    });
+    document.getElementById('btnCopy').addEventListener('click', function () {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(location.href).then(function () {
+          toast.textContent = 'Link copied';
+          toast.classList.add('show');
+          setTimeout(function () { toast.classList.remove('show'); }, 2000);
+        });
+      }
+      shareMenu.classList.remove('open');
+    });
+    var nativeBtn = document.getElementById('btnNative');
+    if (!navigator.share) nativeBtn.style.display = 'none';
+    nativeBtn.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator.share({ title: 'A&A — Wedding', text: shareText, url: location.href }).catch(function () {});
+      }
+      shareMenu.classList.remove('open');
+    });
+    document.addEventListener('pointerdown', function (e) {
+      var btn = document.getElementById('shareBtn');
+      if (!shareMenu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+        shareMenu.classList.remove('open');
+      }
+    });
+
+    /* ===== Music ===== */
+    var music = document.getElementById('bgMusic');
+    var musicBtn = document.getElementById('musicBtn');
+    var musicLabel = document.getElementById('musicLabel');
+    var isPlaying = false;
+    var userOff = false;
+    var musicStarted = false;
+    music.volume = 0;
+
+    function fadeInMusic() {
+      if (music.volume < 0.04) music.volume = 0.04;
+      function step() {
+        if (!isPlaying) return;
+        if (music.volume < 0.45) {
+          music.volume = Math.min(0.45, music.volume + 0.012);
+          requestAnimationFrame(step);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    function setUI(on) {
+      isPlaying = on;
+      musicBtn.classList.toggle('playing', on);
+      musicLabel.textContent = on ? 'Music on' : (userOff ? 'Music off' : 'Play music');
+    }
+    function startMusicFromIntro() {
+      if (userOff || isPlaying) return;
+      musicStarted = true;
+      try { music.currentTime = 0; } catch (e) {}
+      var playPromise = music.play();
+      if (playPromise && playPromise.then) {
+        playPromise.then(function () {
+          setUI(true);
+          fadeInMusic();
+        }).catch(function () {
+          musicStarted = false;
+          setUI(false);
+        });
+      }
+    }
+    function tryStartMusic() {
+      // Album open fallback if music not yet started
+      if (userOff || isPlaying) return;
+      startMusicFromIntro();
+    }
+    musicBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (isPlaying) {
+        music.pause();
+        userOff = true;
+        musicStarted = false;
+        setUI(false);
+      } else {
+        userOff = false;
+        try { music.currentTime = 0; } catch (err) {}
+        music.play().then(function () {
+          musicStarted = true;
+          setUI(true);
+          fadeInMusic();
+        }).catch(function () { setUI(false); });
+      }
+    });
+
+    // Any first interaction during intro starts music from the beginning
+    function onFirstGesture() {
+      if (!userOff && !isPlaying) startMusicFromIntro();
+    }
+    document.addEventListener('pointerdown', onFirstGesture, { passive: true });
+    document.addEventListener('touchstart', onFirstGesture, { passive: true });
+    document.addEventListener('keydown', onFirstGesture);
+
+    /* ===== Countdown ===== */
+    var WEDDING = new Date('2026-08-30T16:00:00+05:30').getTime();
+    var DAY_END = new Date('2026-08-31T00:00:00+05:30').getTime();
+    var prev = { days: '', hours: '', minutes: '', seconds: '' };
+
+    function setNum(id, val) {
+      var el = document.getElementById(id);
+      var span = el.querySelector('span');
+      if (prev[id] !== val) {
+        el.classList.remove('flip');
+        void el.offsetWidth;
+        el.classList.add('flip');
+        span.textContent = val;
+        prev[id] = val;
+      }
+    }
+    function updateCountdown() {
+      var now = Date.now();
+      var label = document.getElementById('countdownLabel');
+      var cd = document.getElementById('countdown');
+      var msg = document.getElementById('celebrationMsg');
+      if (now >= DAY_END) {
+        cd.classList.add('hide');
+        msg.textContent = 'Thank you for celebrating with us';
+        msg.classList.add('show');
+        label.textContent = 'With gratitude';
+        return;
+      }
+      if (now >= WEDDING) {
+        cd.classList.add('hide');
+        msg.textContent = 'Today, we begin forever';
+        msg.classList.add('show');
+        label.textContent = 'The celebration begins';
+        return;
+      }
+      var d = WEDDING - now;
+      setNum('days', String(Math.floor(d / 86400000)).padStart(2, '0'));
+      setNum('hours', String(Math.floor((d % 86400000) / 3600000)).padStart(2, '0'));
+      setNum('minutes', String(Math.floor((d % 3600000) / 60000)).padStart(2, '0'));
+      setNum('seconds', String(Math.floor((d % 60000) / 1000)).padStart(2, '0'));
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ===== Nav + pages ===== */
+    var sections = document.querySelectorAll('.section');
+    var navRail = document.getElementById('navRail');
+    var pageIndicator = document.getElementById('pageIndicator');
+    var total = sections.length;
+    var labels = ['Invitation', 'Our Story', 'Countdown', 'Details', 'The Day', 'Memories', 'With Love'];
+
+    sections.forEach(function (sec, i) {
+      var btn = document.createElement('button');
+      btn.className = 'nav-item';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', labels[i] || ('Page ' + (i + 1)));
+      btn.innerHTML = '<span class="nav-label">' + (labels[i] || '') + '</span><span class="nav-dot"></span>';
+      btn.addEventListener('click', function () {
+        sec.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+      });
+      navRail.appendChild(btn);
+    });
+    var navItems = document.querySelectorAll('.nav-item');
+
+    function setPage(idx) {
+      navItems.forEach(function (n, i) { n.classList.toggle('active', i === idx); });
+      pageIndicator.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+      // petals only on first & last
+      if (idx === 0 || idx === total - 1) {
+        if (Math.random() > 0.7) createPetal(true);
+      }
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      if (!document.body.classList.contains('unlocked')) return;
+      entries.forEach(function (entry) {
+        var idx = +entry.target.dataset.index;
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          entry.target.classList.remove('leaving');
+          setPage(idx);
+        } else if (entry.target.classList.contains('in-view')) {
+          entry.target.classList.add('leaving');
+        }
+      });
+    }, { threshold: 0.45 });
+    sections.forEach(function (sec) { observer.observe(sec); });
+  })();
+  </script>
+</body>
+</html>
