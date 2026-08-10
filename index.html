@@ -171,9 +171,25 @@
       opacity: 1; visibility: visible;
       background: radial-gradient(ellipse at 50% 45%, #0c1628 0%, #050a12 70%);
     }
+    .album-overlay.zooming {
+      transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  visibility 1.4s;
+      transform: scale(1.18);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
     .album-overlay.hidden {
       opacity: 0; visibility: hidden; pointer-events: none;
       transition: opacity 1.5s ease, visibility 1.5s;
+    }
+    .invite-content.reveal-zoom {
+      animation: pageZoomIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes pageZoomIn {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .stage {
@@ -251,6 +267,7 @@
       z-index: 5;
       backface-visibility: hidden;
       overflow: hidden;
+      isolation: isolate;
       pointer-events: none;
     }
     .album.mid .album-cover {
@@ -262,23 +279,39 @@
       transform: rotateY(-180deg) !important;
     }
 
+    /* Gold light sweep — clipped strictly to album cover */
     .cover-sweep {
-      position: absolute; inset: -40%;
-      background: linear-gradient(105deg,
-        transparent 44%,
-        rgba(243,228,184,0.06) 48%,
-        rgba(243,228,184,0.12) 50%,
-        rgba(243,228,184,0.06) 52%,
-        transparent 56%);
-      transform: translateX(-150%);
-      pointer-events: none; z-index: 3;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: inherit;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 4;
     }
-    .album.sweep .cover-sweep {
-      animation: sweepSlow 3.8s ease-in-out forwards;
+    .cover-sweep::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: 0;
+      width: 45%;
+      height: 120%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(243,228,184,0.04) 35%,
+        rgba(243,228,184,0.14) 50%,
+        rgba(243,228,184,0.04) 65%,
+        transparent 100%
+      );
+      transform: translateX(-120%) skewX(-12deg);
+      pointer-events: none;
     }
-    @keyframes sweepSlow {
-      from { transform: translateX(-150%); }
-      to { transform: translateX(150%); }
+    .album.sweep .cover-sweep::after {
+      animation: coverSweep 3.6s ease-in-out forwards;
+    }
+    @keyframes coverSweep {
+      from { transform: translateX(-120%) skewX(-12deg); }
+      to { transform: translateX(280%) skewX(-12deg); }
     }
 
     .cover-border {
@@ -364,9 +397,12 @@
       border-radius: 150% 0 150% 0; opacity: 0.45;
     }
 
-    .invite-content { visibility: hidden; opacity: 0; }
+    .invite-content { visibility: hidden; opacity: 0; transform: scale(0.96); }
     body.unlocked .invite-content {
-      visibility: visible; opacity: 1; transition: opacity 1.2s ease;
+      visibility: visible;
+    }
+    body.unlocked .invite-content.reveal-zoom {
+      /* animation handles opacity/transform */
     }
 
     /* ===== SECTIONS ===== */
@@ -1307,8 +1343,11 @@
       }, 2000);
 
       setTimeout(function () {
-        albumOverlay.classList.add('hidden');
+        // Zoom into the open page → first invitation section
+        albumOverlay.classList.add('zooming');
         document.body.classList.add('unlocked');
+        var invite = document.getElementById('inviteContent') || document.querySelector('.invite-content');
+        if (invite) invite.classList.add('reveal-zoom');
         window.scrollTo(0, 0);
         var first = document.getElementById('page0');
         if (first) first.classList.add('in-view');
@@ -1316,7 +1355,7 @@
         document.getElementById('shareBtn').classList.add('visible');
         document.getElementById('navRail').classList.add('visible');
         document.getElementById('pageIndicator').classList.add('visible');
-        setTimeout(function () { burstPetals(isMobile ? 4 : 6); }, 800);
+        setTimeout(function () { burstPetals(isMobile ? 4 : 6); }, 900);
       }, prefersReduced ? 200 : 5200);
     }
 
