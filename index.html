@@ -177,8 +177,9 @@
     }
 
     .stage {
-      perspective: 2000px;
-      perspective-origin: 50% 50%;
+      perspective: 1600px;
+      perspective-origin: 50% 48%;
+      transform-style: preserve-3d;
     }
 
     .album {
@@ -253,11 +254,11 @@
       pointer-events: none;
     }
     .album.mid .album-cover {
-      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      transform: rotateY(-95deg) !important;
+      transition: transform 1s cubic-bezier(0.4, 0.05, 0.2, 1) !important;
+      transform: rotateY(-88deg) !important;
     }
     .album.open .album-cover {
-      transition: transform 2.6s cubic-bezier(0.45, 0.05, 0.2, 1) !important;
+      transition: transform 2.8s cubic-bezier(0.33, 0.1, 0.2, 1) !important;
       transform: rotateY(-180deg) !important;
     }
 
@@ -1267,35 +1268,36 @@
       if (opened) return;
       opened = true;
 
-      // Stop intro music (fade out)
-      fadeOutIntroMusic();
+      // Intro music out → wedding music in
+      stopIntroMusic(function () {
+        startWeddingMusic();
+      });
 
-      // Clear tilt
-      album.style.transition = 'transform 0.4s ease';
+      // Reset tilt cleanly
+      album.style.transition = 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
       album.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.02)';
       setTimeout(function () {
         album.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-      }, 400);
+      }, 420);
 
       playOpenSound();
       flare.classList.add('play');
       burstPetals(isMobile ? 8 : 12);
 
-      // Clear any inline cover transform so CSS classes control it
+      // Clear inline cover styles so CSS classes drive the turn
       albumCover.style.transition = '';
       albumCover.style.transform = '';
 
-      // Phase 1: mid open (~90°)
+      // Smooth open: mid pause then full turn
       setTimeout(function () {
         album.classList.add('mid');
-      }, 450);
+      }, 500);
 
-      // Phase 2: complete open to 180°
       setTimeout(function () {
         album.classList.remove('mid');
-        void albumCover.offsetWidth; // reflow
+        void albumCover.offsetWidth;
         album.classList.add('open');
-      }, 1500);
+      }, 1600);
 
       setTimeout(function () {
         albumOverlay.classList.add('hidden');
@@ -1308,7 +1310,7 @@
         document.getElementById('navRail').classList.add('visible');
         document.getElementById('pageIndicator').classList.add('visible');
         setTimeout(function () { burstPetals(isMobile ? 4 : 6); }, 800);
-      }, prefersReduced ? 200 : 4500);
+      }, prefersReduced ? 200 : 4800);
     }
 
     album.addEventListener('click', function (e) {
@@ -1395,8 +1397,10 @@
     });
 
     /* ===== Music =====
-       introMusic = piano motif during cinematic until album opens
-       bgMusic = ambient loop after invitation is open (via button) */
+       introMusic  = piano until album opens
+       bgMusic     = wedding track starts when album opens, plays through sections
+       Tab hidden  → pause; visible → resume
+    */
     var introMusic = document.getElementById('introMusic');
     var music = document.getElementById('bgMusic');
     var musicBtn = document.getElementById('musicBtn');
@@ -1404,91 +1408,142 @@
     var isPlaying = false;
     var userOff = false;
     var introPlaying = false;
-    if (introMusic) introMusic.volume = 0;
-    music.volume = 0;
+    var wasPlayingBeforeHide = false;
 
-    function fadeInIntro() {
-      if (!introMusic) return;
-      if (introMusic.volume < 0.05) introMusic.volume = 0.05;
+    if (introMusic) { introMusic.volume = 0; introMusic.loop = false; }
+    if (music) { music.volume = 0; music.loop = true; }
+
+    function fadeInAudio(el, target, flagGetter) {
+      if (!el) return;
+      if (el.volume < 0.04) el.volume = 0.04;
       function step() {
-        if (!introPlaying) return;
-        if (introMusic.volume < 0.5) {
-          introMusic.volume = Math.min(0.5, introMusic.volume + 0.02);
+        if (!flagGetter()) return;
+        if (el.volume < target) {
+          el.volume = Math.min(target, el.volume + 0.018);
           requestAnimationFrame(step);
         }
       }
       requestAnimationFrame(step);
     }
-    function fadeOutIntroMusic() {
-      if (!introMusic || !introPlaying) {
-        if (introMusic) { try { introMusic.pause(); } catch(e) {} }
-        introPlaying = false;
-        return;
-      }
+
+    function fadeOutAudio(el, then) {
+      if (!el) { if (then) then(); return; }
       function step() {
-        if (introMusic.volume > 0.02) {
-          introMusic.volume = Math.max(0, introMusic.volume - 0.03);
+        if (el.volume > 0.03) {
+          el.volume = Math.max(0, el.volume - 0.035);
           requestAnimationFrame(step);
         } else {
-          try { introMusic.pause(); introMusic.currentTime = 0; } catch(e) {}
-          introPlaying = false;
+          try { el.pause(); el.currentTime = 0; } catch (e) {}
+          el.volume = 0;
+          if (then) then();
         }
       }
       requestAnimationFrame(step);
     }
+
+    function setUI(on) {
+      isPlaying = on;
+      if (musicBtn) {
+        musicBtn.classList.toggle('playing', on);
+        if (musicLabel) {
+          musicLabel.textContent = on ? 'Music on' : (userOff ? 'Music off' : 'Play music');
+        }
+      }
+    }
+
     function startIntroMusic() {
-      if (!introMusic || introPlaying || opened) return;
-      try { introMusic.currentTime = 0; } catch(e) {}
+      if (!introMusic || introPlaying || opened || userOff) return;
+      try { introMusic.currentTime = 0; } catch (e) {}
       var p = introMusic.play();
       if (p && p.then) {
         p.then(function () {
           introPlaying = true;
-          fadeInIntro();
+          fadeInAudio(introMusic, 0.5, function () { return introPlaying; });
         }).catch(function () { introPlaying = false; });
       }
     }
-    function fadeInMusic() {
-      if (music.volume < 0.04) music.volume = 0.04;
-      function step() {
-        if (!isPlaying) return;
-        if (music.volume < 0.4) {
-          music.volume = Math.min(0.4, music.volume + 0.012);
-          requestAnimationFrame(step);
-        }
+
+    function stopIntroMusic(cb) {
+      if (!introMusic || !introPlaying) {
+        introPlaying = false;
+        if (introMusic) { try { introMusic.pause(); } catch (e) {} }
+        if (cb) cb();
+        return;
       }
-      requestAnimationFrame(step);
+      introPlaying = false;
+      fadeOutAudio(introMusic, cb);
     }
-    function setUI(on) {
-      isPlaying = on;
-      musicBtn.classList.toggle('playing', on);
-      musicLabel.textContent = on ? 'Music on' : (userOff ? 'Music off' : 'Play music');
-    }
-    musicBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      // Ambient track after invitation is open
-      if (isPlaying) {
-        music.pause();
-        userOff = true;
-        setUI(false);
-      } else {
-        userOff = false;
-        // stop intro if still going
-        fadeOutIntroMusic();
-        try { music.currentTime = 0; } catch (err) {}
-        music.play().then(function () {
+
+    function startWeddingMusic() {
+      if (!music || userOff) return;
+      try { music.currentTime = 0; } catch (e) {}
+      var p = music.play();
+      if (p && p.then) {
+        p.then(function () {
           setUI(true);
-          fadeInMusic();
+          fadeInAudio(music, 0.4, function () { return isPlaying; });
         }).catch(function () { setUI(false); });
       }
-    });
+    }
 
-    // First gesture during intro → start piano intro music
+    // Music button toggles wedding track only (after open)
+    if (musicBtn) {
+      musicBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (isPlaying) {
+          music.pause();
+          userOff = true;
+          setUI(false);
+        } else {
+          userOff = false;
+          stopIntroMusic();
+          if (!opened) {
+            // still on intro — start intro music
+            startIntroMusic();
+            return;
+          }
+          try { if (music.ended) music.currentTime = 0; } catch (err) {}
+          music.play().then(function () {
+            setUI(true);
+            fadeInAudio(music, 0.4, function () { return isPlaying; });
+          }).catch(function () { setUI(false); });
+        }
+      });
+    }
+
+    // First gesture during intro → piano
     function onFirstGesture() {
-      if (!opened) startIntroMusic();
+      if (!opened && !userOff) startIntroMusic();
     }
     document.addEventListener('pointerdown', onFirstGesture, { passive: true });
     document.addEventListener('touchstart', onFirstGesture, { passive: true });
     document.addEventListener('keydown', onFirstGesture);
+
+    // Pause when tab hidden, resume when visible
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        wasPlayingBeforeHide = false;
+        if (introPlaying && introMusic && !introMusic.paused) {
+          wasPlayingBeforeHide = 'intro';
+          introMusic.pause();
+        }
+        if (isPlaying && music && !music.paused) {
+          wasPlayingBeforeHide = 'wedding';
+          music.pause();
+        }
+      } else {
+        if (wasPlayingBeforeHide === 'intro' && !opened && !userOff && introMusic) {
+          introMusic.play().then(function () {
+            introPlaying = true;
+          }).catch(function () {});
+        } else if (wasPlayingBeforeHide === 'wedding' && !userOff && music) {
+          music.play().then(function () {
+            setUI(true);
+          }).catch(function () {});
+        }
+        wasPlayingBeforeHide = false;
+      }
+    });
 
     /* ===== Countdown ===== */
     var WEDDING = new Date('2026-08-30T16:00:00+05:30').getTime();
