@@ -322,7 +322,7 @@
       .album { width: 380px; height: 500px; }
     }
     .album.appear {
-      animation: albumAppear 2.6s cubic-bezier(0.16,1,0.3,1) forwards;
+      animation: albumAppear 1.6s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     @keyframes albumAppear {
       0% { opacity: 0; transform: scale(0.92) translateY(12px); }
@@ -989,7 +989,7 @@
     }
 
     @media (max-width: 520px) {
-      .album { width: min(260px, 82vw); height: min(348px, 110vw); }
+      .album { width: min(280px, 84vw); height: min(374px, 112vw); }
       .page-names { font-size: 1.55rem; }
       .names-lg { font-size: clamp(2.35rem, 9.5vw, 2.85rem); }
       .date-lg { font-size: 1.15rem; }
@@ -1549,20 +1549,20 @@
 
 
 
-    /* ===== Album reveal ===== */
+    /* ===== Album reveal =====
+       Tighter rhythm after cinematic:
+       appear ~1.6s → short admiration → sweep → prompts
+    */
     function revealAlbum() {
       albumOverlay.classList.add('ready');
-      // 1. Album appears
-      setTimeout(function () { album.classList.add('appear'); }, 500);
-      // 2. Pause — guest admires the cover (~2.5s pure viewing)
-      // 3. Gold sweep
-      setTimeout(function () { album.classList.add('sweep'); }, 3200);
-      // 4. Pause after sweep
-      // 5. "Our story begins here"
-      setTimeout(function () { openHint.classList.add('show'); }, 6200);
-      // 6. Pause
-      // 7. "Open the invitation"
-      setTimeout(function () { openHintSub.classList.add('show'); }, 8200);
+      // 1. Album appears (1.6s animation)
+      setTimeout(function () { album.classList.add('appear'); }, 400);
+      // 2. Gold sweep (after short admiration)
+      setTimeout(function () { album.classList.add('sweep'); }, 2600);
+      // 3. "Our story begins here"
+      setTimeout(function () { openHint.classList.add('show'); }, 4200);
+      // 4. "Open the invitation"
+      setTimeout(function () { openHintSub.classList.add('show'); }, 5800);
     }
 
     /* ===== Tilt ===== */
@@ -1662,15 +1662,20 @@
         album.classList.add('open');
       }, 1300);
 
-      // 3.4s: start camera zoom + crossfade music
+      // 3.4s: start camera zoom; music crossfade follows slightly later
       setTimeout(function () {
-        stopIntroMusic(function () {
-          setTimeout(function () { startWeddingMusic(); }, 150);
-        });
         // Force layout so the scale transition always starts from scale(1)
         var stageEl = document.getElementById('stage');
         if (stageEl) void stageEl.offsetWidth;
         albumOverlay.classList.add('entering');
+
+        // Intro piano continues briefly into the zoom, then fades;
+        // wedding music begins ~0.4s after camera starts moving
+        setTimeout(function () {
+          stopIntroMusic(function () {
+            setTimeout(function () { startWeddingMusic(); }, 200);
+          });
+        }, 400);
 
         // Show first page underneath slightly before overlay fades
         setTimeout(function () {
