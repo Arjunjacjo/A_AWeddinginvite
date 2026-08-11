@@ -652,7 +652,7 @@
     .story-body {
       font-size: clamp(1.05rem, 3.2vw, 1.12rem);
       color: var(--muted); line-height: 1.8;
-      max-width: 20rem; margin: 0 auto;
+      max-width: 26rem; margin: 0 auto;
     }
 
     /* Countdown */
@@ -1335,9 +1335,12 @@
       <svg class="botanical br" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
       <div class="section-content">
         <p class="page-label">Our Story</p>
-        <p class="story-lead">Two people. One beautiful journey.</p>
+        <p class="story-lead">Our story began through matrimony</p>
         <div class="thin-rule"></div>
-        <p class="story-body">From the first hello to this moment, we’re grateful for every memory that brought us here — and for you, who walk this path with us.</p>
+        <p class="story-body">Though things didn’t quite work out at first. But after a few dates and getting to know each other, something changed.</p>
+        <p class="story-body" style="margin-top:1.1em">Somewhere along the way, we realised we were meant for each other. What began as a simple meeting slowly became a beautiful love story.</p>
+        <p class="story-body" style="margin-top:1.1em">After many conversations and a little planning, we finally chose the day we would begin our forever together.</p>
+        <p class="story-body" style="margin-top:1.4em;color:var(--gold-champagne);letter-spacing:0.12em">30 August 2026</p>
       </div>
     </section>
 
@@ -1658,11 +1661,20 @@
         album.classList.add('mid');
       }, 50);
 
-      // 0.9–1.3s: brief pause at midpoint, then full open 1.3–3.2s
+      // ~1.3s: pause at midpoint, then continue to fully open
+      // Lock the cover at -90° before switching classes so it cannot
+      // briefly animate back toward closed (the previous handoff bug).
       setTimeout(function () {
-        album.classList.remove('mid');
+        albumCover.style.transition = 'none';
+        albumCover.style.transform = 'rotateY(-90deg)';
         void albumCover.offsetWidth;
+
+        album.classList.remove('mid');
         album.classList.add('open');
+
+        // Animate from the locked -90° to fully open (-180°)
+        albumCover.style.transition = 'transform 1.9s cubic-bezier(0.33, 0.1, 0.2, 1)';
+        albumCover.style.transform = 'rotateY(-180deg)';
       }, 1300);
 
       // 3.4s: book is fully open → gold flash + camera enters
