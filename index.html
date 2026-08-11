@@ -254,30 +254,28 @@
     .album-overlay.entering .stage {
       transform: scale(2.25);
     }
-    .album-overlay.entering .open-hint,
-    .album-overlay.entering .open-hint-sub {
-      transition: opacity 0.4s ease;
-      opacity: 0 !important;
-    }
     .album-overlay.entering .album {
       transition: box-shadow 1.2s ease;
       box-shadow: 0 0 80px rgba(0,0,0,0.45);
     }
+    /* Warm ivory-gold bloom that expands with the camera, then fades */
     .album-overlay.entering::after {
       content: '';
       position: absolute; inset: 0;
       pointer-events: none;
       background: radial-gradient(ellipse 55% 45% at 50% 48%,
-        rgba(247,241,230,0.22) 0%,
-        rgba(232,213,163,0.08) 40%,
-        transparent 70%);
+        rgba(247,241,230,0.28) 0%,
+        rgba(243,228,184,0.14) 28%,
+        rgba(232,213,163,0.06) 55%,
+        transparent 72%);
       opacity: 0;
-      animation: lightSpill 1.5s ease forwards 0.3s;
+      animation: lightSpill 1.35s ease-out forwards 0.15s;
       mix-blend-mode: screen;
     }
     @keyframes lightSpill {
-      from { opacity: 0; transform: scale(0.85); }
-      to { opacity: 1; transform: scale(1.25); }
+      0%   { opacity: 0;    transform: scale(0.72); }
+      32%  { opacity: 0.9;  transform: scale(1.05); }
+      100% { opacity: 0;    transform: scale(1.45); }
     }
     .album-overlay.fade-out {
       transition: opacity 0.9s ease 0.15s, visibility 0.9s linear 0.15s;
@@ -365,10 +363,15 @@
     .album-cover {
       position: absolute; inset: 0;
       background:
+        radial-gradient(ellipse at 50% 28%, rgba(243,228,184,0.11) 0%, transparent 55%),
         radial-gradient(ellipse at 50% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
         linear-gradient(160deg, #152238 0%, #080e18 55%, #0e1828 100%);
       border-radius: 2px 12px 12px 2px;
-      box-shadow: 0 0 0 1px rgba(201,168,76,0.4), 0 14px 40px rgba(0,0,0,0.5);
+      box-shadow:
+        0 0 0 1px rgba(201,168,76,0.42),
+        0 14px 40px rgba(0,0,0,0.5),
+        0 0 36px rgba(232,213,163,0.14),
+        0 0 72px rgba(201,168,76,0.07);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       transform-origin: left center;
       transform-style: preserve-3d;
@@ -481,22 +484,6 @@
       width: 44px; height: 1px; background: var(--gold-deep);
       margin: 14px auto; opacity: 0.4;
     }
-
-    .open-hint {
-      margin-top: 48px;
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.7rem; color: var(--gold-champagne);
-      opacity: 0; transition: opacity 1.5s ease, transform 1.5s ease;
-      transform: translateY(8px);
-    }
-    .open-hint.show { opacity: 1; transform: translateY(0); }
-    .open-hint-sub {
-      margin-top: 12px; font-size: 0.6rem; letter-spacing: 0.36em;
-      text-transform: uppercase; color: var(--muted);
-      opacity: 0; transition: opacity 1.5s ease, transform 1.5s ease;
-      transform: translateY(6px);
-    }
-    .open-hint-sub.show { opacity: 0.7; transform: translateY(0); }
 
     .petals-layer {
       position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden;
@@ -1008,7 +995,6 @@
       .botanical.br { bottom: 14px; right: 14px; }
       .cover-monogram { width: 96px; height: 96px; }
       .cover-monogram span { font-size: 1.35rem; }
-      .open-hint { font-size: 1.55rem; margin-top: 36px; }
       .music-btn { bottom: 14px; right: 12px; }
       .share-btn { bottom: 58px; right: 12px; width: 32px; height: 32px; }
       .ic-btn { padding: 10px 12px; font-size: 0.88rem; }
@@ -1060,7 +1046,6 @@
       .cover-monogram { width: 120px; height: 120px; }
       .cover-monogram span { font-size: 1.65rem !important; }
       .page-names { font-size: 2.2rem; }
-      .open-hint { font-size: 2rem; }
       .botanical { width: 46px; height: 46px; }
       .botanical.tl { top: 32px; left: 32px; }
       .botanical.tr { top: 32px; right: 32px; }
@@ -1174,8 +1159,6 @@
       .cover-monogram span { font-size: 1.95rem !important; }
       .page-names { font-size: 2.7rem; }
       .album-title { font-size: 1.15rem; }
-      .open-hint { font-size: 2.3rem; }
-      .open-hint-sub { font-size: 0.65rem; }
     }
 
     /* ========== LARGE DESKTOP ========== */
@@ -1264,8 +1247,6 @@
         </div>
       </div>
     </div>
-    <p class="open-hint" id="openHint">Our story begins here</p>
-    <p class="open-hint-sub" id="openHintSub">Open the invitation</p>
   </div>
 
   <div class="petals-layer" id="petalsLayer"></div>
@@ -1487,8 +1468,6 @@
     const album = document.getElementById('album');
     const albumCover = document.getElementById('albumCover');
     const flare = document.getElementById('flare');
-    const openHint = document.getElementById('openHint');
-    const openHintSub = document.getElementById('openHintSub');
     const petalsLayer = document.getElementById('petalsLayer');
 
     /* ===== Intro ~15s =====
@@ -1550,8 +1529,7 @@
 
 
     /* ===== Album reveal =====
-       Tighter rhythm after cinematic:
-       appear ~1.6s → short admiration → sweep → prompts
+       Album appears → subtle glow + sweep → guest clicks to open
     */
     function revealAlbum() {
       albumOverlay.classList.add('ready');
@@ -1559,10 +1537,6 @@
       setTimeout(function () { album.classList.add('appear'); }, 400);
       // 2. Gold sweep (after short admiration)
       setTimeout(function () { album.classList.add('sweep'); }, 2600);
-      // 3. "Our story begins here"
-      setTimeout(function () { openHint.classList.add('show'); }, 4200);
-      // 4. "Open the invitation"
-      setTimeout(function () { openHintSub.classList.add('show'); }, 5800);
     }
 
     /* ===== Tilt ===== */
