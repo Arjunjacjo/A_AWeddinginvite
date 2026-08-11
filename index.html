@@ -44,9 +44,9 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
-      /* Keep decorative album gold sweep visible, just shorter */
+      /* Keep decorative album gold sweep visible, but short for reduced motion */
       .album.sweep .cover-sweep::after {
-        animation-duration: 2.4s !important;
+        animation-duration: 0.7s !important;
         animation-iteration-count: 1 !important;
       }
       .cine-step.in,
@@ -86,6 +86,9 @@
       transition: opacity 1s ease;
     }
     .film-grain.on { opacity: 0.02; }
+    @media (max-width: 768px) {
+      .film-grain { display: none; }
+    }
 
     /* ===== CINEMATIC ~15s ===== */
 
@@ -269,24 +272,24 @@
       transition: box-shadow 1.2s ease;
       box-shadow: 0 0 80px rgba(0,0,0,0.45);
     }
-    /* Warm ivory-gold bloom that expands with the camera, then fades */
+    /* Soft page-edge glow — delayed so the bright gold flash peaks first */
     .album-overlay.entering::after {
       content: '';
       position: absolute; inset: 0;
       pointer-events: none;
-      background: radial-gradient(ellipse 55% 45% at 50% 48%,
-        rgba(247,241,230,0.38) 0%,
-        rgba(243,228,184,0.2) 28%,
-        rgba(232,213,163,0.09) 55%,
+      background: radial-gradient(ellipse 50% 40% at 50% 48%,
+        rgba(247,241,230,0.22) 0%,
+        rgba(243,228,184,0.12) 30%,
+        rgba(232,213,163,0.05) 55%,
         transparent 72%);
       opacity: 0;
-      animation: lightSpill 1.35s ease-out forwards 0.1s;
+      animation: lightSpill 1.5s ease-out forwards 0.55s;
       mix-blend-mode: screen;
     }
     @keyframes lightSpill {
-      0%   { opacity: 0;    transform: scale(0.72); }
-      30%  { opacity: 1;    transform: scale(1.05); }
-      100% { opacity: 0;    transform: scale(1.45); }
+      0%   { opacity: 0;    transform: scale(0.78); }
+      35%  { opacity: 0.85; transform: scale(1.02); }
+      100% { opacity: 0;    transform: scale(1.35); }
     }
     .album-overlay.fade-out {
       transition: opacity 0.9s ease 0.15s, visibility 0.9s linear 0.15s;
@@ -400,11 +403,11 @@
       pointer-events: none;
     }
     .album.mid .album-cover {
-      transition: transform 0.85s cubic-bezier(0.4, 0.05, 0.2, 1) !important;
+      transition: transform 0.75s cubic-bezier(0.4, 0.05, 0.2, 1) !important;
       transform: rotateY(-90deg) !important;
     }
     .album.open .album-cover {
-      transition: transform 1.9s cubic-bezier(0.33, 0.1, 0.2, 1) !important;
+      transition: transform 1.4s cubic-bezier(0.33, 0.1, 0.2, 1) !important;
       transform: rotateY(-180deg) !important;
     }
 
@@ -830,13 +833,27 @@
     .timeline-desc { font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
 
     .gallery-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-      max-width: 20rem; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 10px;
+      max-width: 22rem; margin: 0 auto;
     }
     .gallery-item {
-      aspect-ratio: 1; border-radius: 2px;
+      border-radius: 2px;
       background: linear-gradient(145deg, #121e32, #0a1220);
       border: 1px solid rgba(201,168,76,0.12);
+    }
+    .gallery-item.hero {
+      grid-column: 1 / -1;
+      aspect-ratio: 16 / 10;
+    }
+    .gallery-item.small {
+      aspect-ratio: 1;
+    }
+    .gallery-item.wide {
+      grid-column: 1 / -1;
+      aspect-ratio: 21 / 9;
     }
     .gallery-note {
       font-size: 0.82rem; color: var(--muted); margin-top: 18px; font-style: italic;
@@ -1305,7 +1322,7 @@
     <div class="music-icon-wrap"><div class="music-bars"><span></span><span></span><span></span><span></span></div></div>
     <span class="music-label" id="musicLabel">Play music</span>
   </button>
-  <audio id="introMusic" preload="auto" playsinline autoplay muted>
+  <audio id="introMusic" preload="auto" playsinline>
     <source src="intro-music.mp3" type="audio/mpeg">
   </audio>
   <audio id="bgMusic" loop preload="auto" playsinline>
@@ -1458,8 +1475,10 @@
       <div class="section-content">
         <p class="page-label">Memories</p>
         <div class="gallery-grid">
-          <div class="gallery-item"></div><div class="gallery-item"></div>
-          <div class="gallery-item"></div><div class="gallery-item"></div>
+          <div class="gallery-item hero"></div>
+          <div class="gallery-item small"></div>
+          <div class="gallery-item small"></div>
+          <div class="gallery-item wide"></div>
         </div>
         <p class="gallery-note">Photos coming soon</p>
       </div>
@@ -1477,7 +1496,7 @@
         <p class="closing-thanks">Thank you for being part of our story</p>
         <p class="closing-names">ARJUN &amp; ANITA</p>
         <p class="closing-date">30 · 08 · 2026</p>
-        <p class="closing-siblings">Annu, Aleena, Aaron</p>
+        <p class="closing-siblings">Aleena, Annu &amp; Aaron</p>
         <button class="return-link" type="button" id="returnBtn">Return to our beginning</button>
       </div>
     </section>
@@ -1505,28 +1524,28 @@
     const openHintSub = document.getElementById('openHintSub');
     const petalsLayer = document.getElementById('petalsLayer');
 
-    /* ===== Intro ~15s =====
-       0–3 A&A | 3–7 names | 7–10 families | 10–14 date | 14–16 album */
+    /* ===== Intro ~11s =====
+       A&A 2s | names 3s | families 2s | date 3s → album */
     function runCinematic() {
-      setTimeout(function () { cineGlow.classList.add('on'); }, 150);
+      setTimeout(function () { cineGlow.classList.add('on'); }, 120);
 
-      setTimeout(function () { steps[0].classList.add('in'); }, 250);
-      setTimeout(function () { steps[0].classList.add('out'); }, 2500);
+      setTimeout(function () { steps[0].classList.add('in'); }, 200);
+      setTimeout(function () { steps[0].classList.add('out'); }, 2000);
 
-      setTimeout(function () { steps[1].classList.add('in'); }, 2900);
-      setTimeout(function () { steps[1].classList.add('out'); }, 6200);
+      setTimeout(function () { steps[1].classList.add('in'); }, 2300);
+      setTimeout(function () { steps[1].classList.add('out'); }, 5000);
 
-      setTimeout(function () { steps[2].classList.add('in'); }, 6600);
-      setTimeout(function () { steps[2].classList.add('out'); }, 9000);
+      setTimeout(function () { steps[2].classList.add('in'); }, 5300);
+      setTimeout(function () { steps[2].classList.add('out'); }, 7200);
 
-      setTimeout(function () { steps[3].classList.add('in'); }, 9400);
-      setTimeout(function () { steps[3].classList.add('out'); }, 12800);
+      setTimeout(function () { steps[3].classList.add('in'); }, 7500);
+      setTimeout(function () { steps[3].classList.add('out'); }, 10200);
 
       setTimeout(function () {
         cine.classList.add('done');
         filmGrain.classList.remove('on');
         revealAlbum();
-      }, 14000);
+      }, 10800);
     }
     // Cinematic starts only after Begin is clicked
 
@@ -1669,14 +1688,13 @@
       albumCover.style.transition = '';
       albumCover.style.transform = '';
 
-      // 0–0.9s: cover → 90°
+      // 0–0.8s: cover → 90°
       setTimeout(function () {
         album.classList.add('mid');
-      }, 50);
+      }, 40);
 
-      // ~1.3s: pause at midpoint, then continue to fully open
-      // Lock the cover at -90° before switching classes so it cannot
-      // briefly animate back toward closed (the previous handoff bug).
+      // 0.8–1.05s: brief midpoint pause, then final open (1.4s)
+      // Lock at -90° so the cover cannot snap back toward closed.
       setTimeout(function () {
         albumCover.style.transition = 'none';
         albumCover.style.transform = 'rotateY(-90deg)';
@@ -1685,12 +1703,11 @@
         album.classList.remove('mid');
         album.classList.add('open');
 
-        // Animate from the locked -90° to fully open (-180°)
-        albumCover.style.transition = 'transform 1.9s cubic-bezier(0.33, 0.1, 0.2, 1)';
+        albumCover.style.transition = 'transform 1.4s cubic-bezier(0.33, 0.1, 0.2, 1)';
         albumCover.style.transform = 'rotateY(-180deg)';
-      }, 1300);
+      }, 1050);
 
-      // 3.4s: book is fully open → gold flash + camera enters
+      // 2.45s: book fully open → gold flash + camera enters
       setTimeout(function () {
         // Gold flash at the moment the book is fully open / camera starts
         flare.classList.remove('play');
@@ -1718,17 +1735,17 @@
             invite.style.opacity = '1';
           }
           window.scrollTo(0, 0);
-        }, 900);
-      }, prefersReduced ? 400 : 3400);
+        }, 700);
+      }, prefersReduced ? 350 : 2450);
 
-      // 5.1s: overlay fades (page already visible underneath)
+      // Overlay fades (page already visible underneath)
       setTimeout(function () {
         albumOverlay.classList.add('fade-out');
         var first = document.getElementById('page0');
         if (first) first.classList.add('in-view');
-      }, prefersReduced ? 700 : 5100);
+      }, prefersReduced ? 600 : 3900);
 
-      // 5.8s + hold: unlock scroll after landing completely finished
+      // Unlock scroll after landing
       setTimeout(function () {
         document.body.classList.add('unlocked');
         document.getElementById('musicBtn').classList.add('visible');
@@ -1737,7 +1754,7 @@
         document.getElementById('pageIndicator').classList.add('visible');
         burstPetals(isMobile ? 4 : 6);
         albumOverlay.classList.add('hidden');
-      }, prefersReduced ? 1100 : 6200);
+      }, prefersReduced ? 900 : 4800);
     }
 
     album.addEventListener('click', function (e) {
@@ -2005,6 +2022,15 @@
           'PRODID:-//ArjunAnita//Wedding//EN',
           'CALSCALE:GREGORIAN',
           'METHOD:PUBLISH',
+          'BEGIN:VTIMEZONE',
+          'TZID:Asia/Kolkata',
+          'BEGIN:STANDARD',
+          'TZOFFSETFROM:+0530',
+          'TZOFFSETTO:+0530',
+          'TZNAME:IST',
+          'DTSTART:19700101T000000',
+          'END:STANDARD',
+          'END:VTIMEZONE',
           'BEGIN:VEVENT',
           'UID:arjun-anita-wedding-20260830@invite',
           'DTSTAMP:20260801T000000Z',
