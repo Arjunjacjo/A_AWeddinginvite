@@ -50,24 +50,13 @@
       scroll-snap-type: y proximity;
       scroll-behavior: smooth;
     }
+    body.modal-open { overflow: hidden !important; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
-      }
-      .album.sweep .cover-sweep::after {
-        animation-duration: 0.7s !important;
-        animation-iteration-count: 1 !important;
-      }
-      .cine-step.in,
-      .cine-step.out,
-      .album.appear,
-      .album.mid .album-cover,
-      .album.open .album-cover {
-        animation-duration: 0.6s !important;
-        transition-duration: 0.6s !important;
       }
     }
 
@@ -78,12 +67,9 @@
     }
     .silk-light {
       position: fixed; inset: -30%; z-index: 1; pointer-events: none;
-      background: linear-gradient(105deg,
-        transparent 0%, transparent 38%,
-        rgba(232,213,163,0.03) 46%,
-        rgba(243,228,184,0.045) 50%,
-        rgba(232,213,163,0.03) 54%,
-        transparent 62%, transparent 100%);
+      background: linear-gradient(105deg, transparent 0%, transparent 38%,
+        rgba(232,213,163,0.03) 46%, rgba(243,228,184,0.045) 50%,
+        rgba(232,213,163,0.03) 54%, transparent 62%, transparent 100%);
       animation: silkDrift 15s ease-in-out infinite;
     }
     @keyframes silkDrift {
@@ -98,56 +84,44 @@
       transition: opacity 1s ease;
     }
     .film-grain.on { opacity: 0.02; }
-    @media (max-width: 768px) {
-      .film-grain { display: none; }
-    }
+    @media (max-width: 768px) { .film-grain { display: none; } }
 
     /* ===== BEGIN GATE ===== */
     .begin-gate {
       position: fixed; inset: 0; z-index: 3000;
       background: #050a12;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center;
       transition: opacity 1.1s ease, visibility 1.1s;
     }
-    .begin-gate.gone {
-      opacity: 0; visibility: hidden; pointer-events: none;
-    }
+    .begin-gate.gone { opacity: 0; visibility: hidden; pointer-events: none; }
     .begin-aa {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.4rem, 4vw, 1.9rem);
       font-weight: 500; letter-spacing: 0.5em;
-      color: var(--gold-champagne);
-      text-indent: 0.5em;
-      margin-bottom: 18px;
-      opacity: 0;
+      color: var(--gold-champagne); text-indent: 0.5em;
+      margin-bottom: 18px; opacity: 0;
       animation: fadeUp 1.6s ease 0.3s forwards;
     }
     .begin-line {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.35rem, 4vw, 1.75rem);
-      color: var(--gold-champagne);
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 1.6s ease 0.9s forwards;
+      color: var(--gold-champagne); margin-bottom: 48px;
+      opacity: 0; animation: fadeUp 1.6s ease 0.9s forwards;
     }
     .begin-btn {
-      position: relative;
-      background: none; border: 1px solid rgba(201,168,76,0.45);
+      position: relative; background: none;
+      border: 1px solid rgba(201,168,76,0.45);
       color: var(--gold-champagne);
       font-family: 'Playfair Display', serif;
       font-size: 0.78rem; letter-spacing: 0.42em;
-      text-transform: uppercase;
-      padding: 16px 36px;
-      cursor: pointer;
-      opacity: 0;
+      text-transform: uppercase; padding: 16px 36px;
+      cursor: pointer; opacity: 0;
       animation: fadeUp 1.6s ease 1.5s forwards;
       touch-action: manipulation;
     }
     .begin-btn::before {
-      content: '';
-      position: absolute; inset: -6px;
+      content: ''; position: absolute; inset: -6px;
       border: 1px solid rgba(201,168,76,0.15);
       pointer-events: none;
       animation: beginPulse 2.8s ease-in-out infinite;
@@ -157,7 +131,6 @@
       50% { opacity: 0.7; transform: scale(1.03); }
     }
     .begin-btn:hover { border-color: rgba(201,168,76,0.7); color: var(--gold-bright); }
-    .begin-btn:focus-visible { outline: 1px solid var(--gold-champagne); outline-offset: 6px; }
 
     .cinematic {
       position: fixed; inset: 0; z-index: 2500;
@@ -166,13 +139,8 @@
       opacity: 0; visibility: hidden;
       transition: opacity 0.8s ease, visibility 0.8s;
     }
-    .cinematic.active {
-      opacity: 1; visibility: visible;
-    }
-    .cinematic.done {
-      animation: fadeOut 1.5s ease forwards;
-      pointer-events: none;
-    }
+    .cinematic.active { opacity: 1; visibility: visible; }
+    .cinematic.done { animation: fadeOut 1.5s ease forwards; pointer-events: none; }
     @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
     .cine-glow {
@@ -180,20 +148,15 @@
       border-radius: 50%;
       background: radial-gradient(circle, rgba(201,168,76,0.11) 0%, transparent 70%);
       opacity: 0; transform: scale(0.75);
-      transition: opacity 2.2s ease, transform 3s ease;
-      pointer-events: none;
+      transition: opacity 2.2s ease, transform 3s ease; pointer-events: none;
     }
     .cine-glow.on { opacity: 1; transform: scale(1.05); }
 
-    .cine-stage {
-      position: relative; z-index: 2; text-align: center;
-      width: 100%; min-height: 180px;
-    }
+    .cine-stage { position: relative; z-index: 2; text-align: center; width: 100%; min-height: 180px; }
     .cine-step {
       position: absolute; left: 50%; top: 50%;
       transform: translate(-50%, -50%);
-      opacity: 0; width: 92vw; max-width: 640px;
-      pointer-events: none;
+      opacity: 0; width: 92vw; max-width: 640px; pointer-events: none;
     }
     .cine-step.in { animation: titleIn 1.65s cubic-bezier(0.22,1,0.36,1) forwards; }
     .cine-step.out { animation: titleOut 1.55s ease forwards; }
@@ -221,10 +184,7 @@
       font-weight: 500; letter-spacing: 0.26em;
       color: var(--ivory); text-transform: uppercase;
     }
-    .cine-rule {
-      width: 52px; height: 1px; background: var(--gold-antique);
-      margin: 0 auto 16px; opacity: 0.55;
-    }
+    .cine-rule { width: 52px; height: 1px; background: var(--gold-antique); margin: 0 auto 16px; opacity: 0.55; }
     .cine-families {
       font-family: 'Playfair Display', serif;
       font-size: clamp(0.75rem, 2vw, 0.95rem);
@@ -239,19 +199,16 @@
     .flare {
       position: fixed; inset: 0; z-index: 2400; pointer-events: none;
       background: radial-gradient(ellipse 90% 80% at 50% 48%,
-        rgba(247,241,230,0.43) 0%,
-        rgba(243,228,184,0.28) 25%,
-        rgba(232,213,163,0.14) 50%,
-        rgba(201,168,76,0.05) 70%,
-        transparent 88%);
+        rgba(247,241,230,0.43) 0%, rgba(243,228,184,0.28) 25%,
+        rgba(232,213,163,0.14) 50%, rgba(201,168,76,0.05) 70%, transparent 88%);
       opacity: 0; mix-blend-mode: screen;
     }
     .flare.play { animation: flareBurst 1.45s ease-out forwards; }
     @keyframes flareBurst {
-      0%   { opacity: 0;    transform: scale(0.65); }
-      22%  { opacity: 1;   transform: scale(1); }
-      55%  { opacity: 0.85; transform: scale(1.08); }
-      100% { opacity: 0;    transform: scale(1.25); }
+      0% { opacity: 0; transform: scale(0.65); }
+      22% { opacity: 1; transform: scale(1); }
+      55% { opacity: 0.85; transform: scale(1.08); }
+      100% { opacity: 0; transform: scale(1.25); }
     }
 
     /* ===== ALBUM ===== */
@@ -266,54 +223,35 @@
       opacity: 1; visibility: visible;
       background: radial-gradient(ellipse at 50% 45%, #0c1628 0%, #050a12 70%);
     }
-    .album-overlay.entering {
-      pointer-events: none;
-    }
-    .album-overlay.entering .stage {
-      transform: scale(2.25);
-    }
+    .album-overlay.entering { pointer-events: none; }
+    .album-overlay.entering .stage { transform: scale(2.25); }
     .album-overlay.entering .album {
       transition: box-shadow 1.2s ease;
       box-shadow: 0 0 80px rgba(0,0,0,0.45);
     }
     .album-overlay.entering::after {
-      content: '';
-      position: absolute; inset: 0;
-      pointer-events: none;
+      content: ''; position: absolute; inset: 0; pointer-events: none;
       background: radial-gradient(ellipse 50% 40% at 50% 48%,
-        rgba(247,241,230,0.22) 0%,
-        rgba(243,228,184,0.12) 30%,
-        rgba(232,213,163,0.05) 55%,
-        transparent 72%);
-      opacity: 0;
-      animation: lightSpill 1.5s ease-out forwards 0.55s;
+        rgba(247,241,230,0.22) 0%, rgba(243,228,184,0.12) 30%,
+        rgba(232,213,163,0.05) 55%, transparent 72%);
+      opacity: 0; animation: lightSpill 1.5s ease-out forwards 0.55s;
       mix-blend-mode: screen;
     }
     @keyframes lightSpill {
-      0%   { opacity: 0;    transform: scale(0.78); }
-      35%  { opacity: 0.85; transform: scale(1.02); }
-      100% { opacity: 0;    transform: scale(1.35); }
+      0% { opacity: 0; transform: scale(0.78); }
+      35% { opacity: 0.85; transform: scale(1.02); }
+      100% { opacity: 0; transform: scale(1.35); }
     }
     .album-overlay.fade-out {
       transition: opacity 0.9s ease 0.15s, visibility 0.9s linear 0.15s;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .album-overlay.hidden {
       opacity: 0; visibility: hidden; pointer-events: none;
     }
-    .invite-content {
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 1.1s ease;
-    }
+    .album-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .invite-content { visibility: hidden; opacity: 0; transition: opacity 1.1s ease; }
 
     .stage {
-      perspective: 1600px;
-      perspective-origin: 50% 48%;
-      transform-style: preserve-3d;
-      transform-origin: 50% 48%;
+      perspective: 1600px; perspective-origin: 50% 48%;
+      transform-style: preserve-3d; transform-origin: 50% 48%;
       transform: scale(1);
       transition: transform 1.65s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
@@ -322,44 +260,28 @@
     .album {
       position: relative;
       width: min(300px, 78vw); height: min(400px, 104vw);
-      transform-style: preserve-3d;
-      cursor: default;
-      opacity: 0;
-      transform: scale(0.95);
-      outline: none;
-      will-change: transform;
-      pointer-events: none;
+      transform-style: preserve-3d; cursor: default;
+      opacity: 0; transform: scale(0.95);
+      outline: none; will-change: transform; pointer-events: none;
     }
     .album.ready {
-      pointer-events: auto;
-      cursor: pointer;
+      pointer-events: auto; cursor: pointer;
       animation: albumReadyPulse 2.8s ease-in-out infinite;
     }
     @keyframes albumReadyPulse {
       0%, 100% { filter: brightness(1); }
       50% { filter: brightness(1.06); }
     }
-    @media (min-width: 900px) {
-      .album { width: 380px; height: 500px; }
-    }
-    .album.appear {
-      animation: albumAppear 1.6s cubic-bezier(0.16,1,0.3,1) forwards;
-    }
+    @media (min-width: 900px) { .album { width: 380px; height: 500px; } }
+    .album.appear { animation: albumAppear 1.6s cubic-bezier(0.16,1,0.3,1) forwards; }
     @keyframes albumAppear {
       0% { opacity: 0; transform: scale(0.92) translateY(12px); }
       60% { opacity: 1; transform: scale(1.01) translateY(0); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
-    .album:focus-visible {
-      outline: 1.5px solid var(--gold-champagne);
-      outline-offset: 14px;
-    }
+    .album:focus-visible { outline: 1.5px solid var(--gold-champagne); outline-offset: 14px; }
 
-    .page-edge {
-      position: absolute; inset: 0;
-      border-radius: 2px 12px 12px 2px;
-      pointer-events: none;
-    }
+    .page-edge { position: absolute; inset: 0; border-radius: 2px 12px 12px 2px; pointer-events: none; }
     .page-edge.e1 { transform: translateZ(-2px) translateX(3px); background: #ebe3d4; z-index: 1; }
     .page-edge.e2 { transform: translateZ(-4px) translateX(6px); background: #e4dccf; z-index: 0; }
 
@@ -367,44 +289,29 @@
       position: absolute; left: -8px; top: 0; width: 16px; height: 100%;
       background: linear-gradient(90deg, #03060c, #121e32 50%, #080e18);
       border-radius: 4px 0 0 4px; z-index: 6;
-      box-shadow: inset -2px 0 6px rgba(0,0,0,0.5);
-      pointer-events: none;
+      box-shadow: inset -2px 0 6px rgba(0,0,0,0.5); pointer-events: none;
     }
 
     .album-page {
       position: absolute; inset: 0;
-      background:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.04'/%3E%3C/svg%3E"),
-        linear-gradient(165deg, #f7f1e6, #ebe3d4);
+      background: linear-gradient(165deg, #f7f1e6, #ebe3d4);
       border-radius: 2px 12px 12px 2px; z-index: 2;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      box-shadow: 6px 10px 28px rgba(0,0,0,0.35);
-      padding: 36px 24px; text-align: center;
-      pointer-events: none;
+      box-shadow: 6px 10px 28px rgba(0,0,0,0.35); pointer-events: none;
     }
 
     .album-cover {
       position: absolute; inset: 0;
       background:
         radial-gradient(ellipse at 50% 28%, rgba(243,228,184,0.11) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
         linear-gradient(160deg, #152238 0%, #080e18 55%, #0e1828 100%);
       border-radius: 2px 12px 12px 2px;
-      box-shadow:
-        0 0 0 1px rgba(201,168,76,0.42),
-        0 14px 40px rgba(0,0,0,0.5),
-        0 0 36px rgba(232,213,163,0.14),
-        0 0 72px rgba(201,168,76,0.07);
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.42), 0 14px 40px rgba(0,0,0,0.5),
+                  0 0 36px rgba(232,213,163,0.14);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transform-origin: left center;
-      transform-style: preserve-3d;
+      transform-origin: left center; transform-style: preserve-3d;
       transform: rotateY(0deg);
       transition: transform 2.8s cubic-bezier(0.45, 0.05, 0.2, 1);
-      z-index: 5;
-      backface-visibility: hidden;
-      overflow: hidden;
-      isolation: isolate;
-      pointer-events: none;
+      z-index: 5; backface-visibility: hidden; overflow: hidden; pointer-events: none;
     }
     .album.mid .album-cover {
       transition: transform 0.75s cubic-bezier(0.4, 0.05, 0.2, 1) !important;
@@ -415,35 +322,14 @@
       transform: rotateY(-180deg) !important;
     }
 
-    .cover-sweep {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: inherit;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 4;
-    }
+    .cover-sweep { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 4; }
     .cover-sweep::after {
-      content: '';
-      position: absolute;
-      top: -10%;
-      left: 0;
-      width: 45%;
-      height: 120%;
-      background: linear-gradient(
-        105deg,
-        transparent 0%,
-        rgba(243,228,184,0.06) 35%,
-        rgba(243,228,184,0.19) 50%,
-        rgba(243,228,184,0.06) 65%,
-        transparent 100%
-      );
-      transform: translateX(-120%) skewX(-12deg);
-      pointer-events: none;
+      content: ''; position: absolute; top: -10%; left: 0; width: 45%; height: 120%;
+      background: linear-gradient(105deg, transparent 0%, rgba(243,228,184,0.06) 35%,
+        rgba(243,228,184,0.19) 50%, rgba(243,228,184,0.06) 65%, transparent 100%);
+      transform: translateX(-120%) skewX(-12deg); pointer-events: none;
     }
-    .album.sweep .cover-sweep::after {
-      animation: coverSweep 3.6s ease-in-out forwards;
-    }
+    .album.sweep .cover-sweep::after { animation: coverSweep 3.6s ease-in-out forwards; }
     @keyframes coverSweep {
       from { transform: translateX(-120%) skewX(-12deg); }
       to { transform: translateX(280%) skewX(-12deg); }
@@ -452,16 +338,13 @@
     .cover-border {
       position: absolute; inset: 16px;
       border: 1px solid rgba(201,168,76,0.28);
-      border-radius: 1px 8px 8px 1px;
-      pointer-events: none; z-index: 2;
+      border-radius: 1px 8px 8px 1px; pointer-events: none; z-index: 2;
     }
     .cover-monogram {
       width: 108px; height: 108px; border-radius: 50%;
       border: 1px solid rgba(201,168,76,0.4);
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 20px; z-index: 2; position: relative;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.2);
-      background: radial-gradient(circle at 40% 35%, rgba(201,168,76,0.07), transparent 60%);
     }
     @media (min-width: 900px) {
       .cover-monogram { width: 128px; height: 128px; }
@@ -471,7 +354,6 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem; font-weight: 500; letter-spacing: 0.12em;
       color: var(--gold-champagne);
-      text-shadow: 0 1px 0 rgba(255,255,255,0.08), 0 -1px 0 rgba(0,0,0,0.3);
     }
     .album-title {
       font-family: 'Playfair Display', serif;
@@ -488,9 +370,7 @@
       text-transform: uppercase; color: var(--muted); z-index: 2; position: relative;
     }
 
-    .petals-layer {
-      position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden;
-    }
+    .petals-layer { position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; }
     .petal {
       position: absolute; width: 10px; height: 10px;
       background: radial-gradient(circle at 30% 30%, #f5d0d6, #e0a0a8 70%);
@@ -500,19 +380,13 @@
     /* ===== SECTIONS ===== */
     .section {
       width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      height: 100vh;
-      height: 100dvh;
-      scroll-snap-align: start;
-      scroll-snap-stop: normal;
+      min-height: 100vh; min-height: 100dvh;
+      height: 100vh; height: 100dvh;
+      scroll-snap-align: start; scroll-snap-stop: normal;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 48px 24px;
-      overflow: hidden;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 48px 24px; overflow: hidden;
     }
 
     .botanical {
@@ -531,21 +405,14 @@
 
     .section-content {
       position: relative; z-index: 4;
-      width: 100%;
-      max-width: 36rem;
-      text-align: center;
-      margin: 0 auto;
+      width: 100%; max-width: 36rem; text-align: center; margin: 0 auto;
       opacity: 0; transform: translate3d(0, 10px, 0);
-      transition: opacity 1.9s cubic-bezier(0.22,1,0.36,1),
-                  transform 1.9s cubic-bezier(0.22,1,0.36,1);
+      transition: opacity 1.9s cubic-bezier(0.22,1,0.36,1), transform 1.9s cubic-bezier(0.22,1,0.36,1);
     }
     #page0 .section-content {
-      transition: opacity 1.2s cubic-bezier(0.22,1,0.36,1),
-                  transform 1.2s cubic-bezier(0.22,1,0.36,1);
+      transition: opacity 1.2s cubic-bezier(0.22,1,0.36,1), transform 1.2s cubic-bezier(0.22,1,0.36,1);
     }
-    .section.in-view .section-content {
-      opacity: 1; transform: translate3d(0,0,0);
-    }
+    .section.in-view .section-content { opacity: 1; transform: translate3d(0,0,0); }
     .section.leaving .section-content {
       opacity: 0; transform: translate3d(0, -6px, 0);
       transition: opacity 0.7s ease, transform 0.7s ease;
@@ -557,13 +424,9 @@
       font-family: 'Playfair Display', serif;
       font-size: clamp(6rem, 22vw, 12rem);
       font-weight: 600; letter-spacing: 0.08em;
-      color: var(--gold-antique);
-      opacity: 0; line-height: 1;
-      user-select: none;
+      color: var(--gold-antique); opacity: 0; line-height: 1; user-select: none;
     }
-    .section.in-view .wm {
-      animation: wmIn 2.5s ease forwards;
-    }
+    .section.in-view .wm { animation: wmIn 2.5s ease forwards; }
     @keyframes wmIn { to { opacity: 0.055; } }
 
     .page-label {
@@ -577,9 +440,8 @@
     }
     .cross-mark .cx {
       width: 12px; height: 12px;
-      background:
-        linear-gradient(var(--gold-antique), var(--gold-antique)) center/1px 100% no-repeat,
-        linear-gradient(var(--gold-antique), var(--gold-antique)) center/100% 1px no-repeat;
+      background: linear-gradient(var(--gold-antique), var(--gold-antique)) center/1px 100% no-repeat,
+                  linear-gradient(var(--gold-antique), var(--gold-antique)) center/100% 1px no-repeat;
     }
 
     .names-lg {
@@ -590,21 +452,14 @@
       position: relative; z-index: 2;
     }
     .amp-script {
-      display: block;
-      font-family: 'Great Vibes', cursive;
-      font-size: 0.55em;
-      color: var(--gold-antique);
-      margin: 4px 0 2px;
-      letter-spacing: 0.02em;
-      text-transform: none;
-      font-weight: 400;
+      display: block; font-family: 'Great Vibes', cursive;
+      font-size: 0.55em; color: var(--gold-antique);
+      margin: 4px 0 2px; letter-spacing: 0.02em; text-transform: none; font-weight: 400;
     }
     .date-lg {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.2rem, 4vw, 1.35rem);
-      letter-spacing: 0.24em;
-      color: var(--gold-champagne);
-      margin-top: 28px;
+      letter-spacing: 0.24em; color: var(--gold-champagne); margin-top: 28px;
     }
     .date-sub {
       font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -617,8 +472,7 @@
 
     .story-body {
       font-size: clamp(1.05rem, 3.2vw, 1.12rem);
-      color: var(--muted); line-height: 1.85;
-      max-width: 26rem; margin: 0 auto;
+      color: var(--muted); line-height: 1.85; max-width: 26rem; margin: 0 auto;
     }
 
     /* Countdown */
@@ -628,36 +482,21 @@
       letter-spacing: 0.32em; text-transform: uppercase;
       color: var(--gold-antique); margin-bottom: 36px;
     }
-    .countdown {
-      display: flex; align-items: center; justify-content: center;
-    }
-    .count-unit {
-      padding: 0 18px; text-align: center; min-width: 72px;
-    }
-    @media (min-width: 900px) {
-      .count-unit { padding: 0 28px; min-width: 90px; }
-    }
-    .count-unit + .count-unit {
-      border-left: 1px solid rgba(201,168,76,0.25);
-    }
+    .countdown { display: flex; align-items: center; justify-content: center; }
+    .count-unit { padding: 0 18px; text-align: center; min-width: 72px; }
+    @media (min-width: 900px) { .count-unit { padding: 0 28px; min-width: 90px; } }
+    .count-unit + .count-unit { border-left: 1px solid rgba(201,168,76,0.25); }
     .count-number {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 7vw, 2.4rem);
       font-weight: 400; color: var(--gold-champagne);
       line-height: 1; display: block; height: 1.15em; overflow: hidden;
     }
-    .count-number span {
-      display: block;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .count-number.flip span {
-      animation: numSoft 0.32s ease;
-    }
+    .count-number span { display: block; transition: opacity 0.3s ease, transform 0.3s ease; }
+    .count-number.flip span { animation: numSoft 0.32s ease; }
     @keyframes numSoft {
-      0% { opacity: 1; }
-      45% { opacity: 0; transform: translateY(-4px); }
-      55% { opacity: 0; transform: translateY(4px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 1; } 45% { opacity: 0; transform: translateY(-4px); }
+      55% { opacity: 0; transform: translateY(4px); } 100% { opacity: 1; transform: translateY(0); }
     }
     .count-label {
       font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase;
@@ -671,38 +510,25 @@
       .count-label .short { display: inline; }
     }
     .celebration-msg {
-      display: none;
-      font-family: 'Playfair Display', serif;
+      display: none; font-family: 'Playfair Display', serif;
       font-size: clamp(1.15rem, 3.5vw, 1.5rem);
       color: var(--gold-champagne); letter-spacing: 0.14em;
       text-transform: uppercase; line-height: 1.5;
     }
-    .celebration-msg.show {
-      display: block; animation: fadeUp 1.4s ease forwards;
-    }
+    .celebration-msg.show { display: block; animation: fadeUp 1.4s ease forwards; }
     .countdown.hide { display: none; }
 
     /* Ivory card */
     .invite-card {
-      padding: 40px 36px;
-      background:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E"),
-        linear-gradient(170deg, #f7f1e6, #efe6d8);
-      border: 1px solid rgba(201,168,76,0.5);
-      border-radius: 2px;
-      padding: 36px 28px;
-      width: 100%; max-width: 100%; margin: 0 auto;
-      text-align: center;
-      box-shadow:
-        0 0 0 5px rgba(201,168,76,0.06),
-        0 24px 56px rgba(0,0,0,0.35);
-      color: #2a2a2a;
-      position: relative;
+      background: linear-gradient(170deg, #f7f1e6, #efe6d8);
+      border: 1px solid rgba(201,168,76,0.5); border-radius: 2px;
+      padding: 36px 28px; width: 100%; max-width: 100%; margin: 0 auto;
+      text-align: center; color: #2a2a2a; position: relative;
+      box-shadow: 0 0 0 5px rgba(201,168,76,0.06), 0 24px 56px rgba(0,0,0,0.35);
     }
     .invite-card::before {
       content: ''; position: absolute; inset: 8px;
-      border: 1px solid rgba(201,168,76,0.2);
-      pointer-events: none;
+      border: 1px solid rgba(201,168,76,0.2); pointer-events: none;
     }
     .ic-names {
       font-family: 'Playfair Display', serif;
@@ -711,21 +537,15 @@
     }
     .ic-date {
       font-family: 'Playfair Display', serif;
-      font-size: 1rem; letter-spacing: 0.2em; color: var(--gold-deep);
-      margin-bottom: 20px;
+      font-size: 1rem; letter-spacing: 0.2em; color: var(--gold-deep); margin-bottom: 20px;
     }
-    .ic-rule {
-      width: 40px; height: 1px; background: var(--gold-antique);
-      margin: 0 auto 18px; opacity: 0.45;
-    }
+    .ic-rule { width: 40px; height: 1px; background: var(--gold-antique); margin: 0 auto 18px; opacity: 0.45; }
     .ic-block { margin-bottom: 16px; }
     .ic-time {
       font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--gold-deep); margin-bottom: 4px;
     }
-    .ic-title {
-      font-family: 'Playfair Display', serif; font-size: 1.08rem; color: #1a2a4a;
-    }
+    .ic-title { font-family: 'Playfair Display', serif; font-size: 1.08rem; color: #1a2a4a; }
     .ic-place { font-size: 0.9rem; color: #6a5a4a; margin-top: 3px; }
     .ic-note { font-size: 0.8rem; color: #8a7a6a; margin-top: 3px; font-style: italic; }
     .ic-actions {
@@ -741,6 +561,28 @@
       letter-spacing: 0.03em;
     }
     .ic-btn svg { width: 13px; height: 13px; stroke: var(--gold-deep); fill: none; stroke-width: 1.4; }
+    .ic-btn.rsvp-btn {
+      background: rgba(138,111,42,0.1);
+      border-color: rgba(138,111,42,0.5);
+      color: #1a2a4a; font-weight: 500;
+    }
+    .ic-btn.rsvp-btn:hover { background: rgba(138,111,42,0.18); }
+
+    /* Map */
+    .map-wrap {
+      margin-top: 28px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.35);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+      height: 220px;
+    }
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
 
     .day-card {
       background: rgba(10,18,32,0.55);
@@ -751,8 +593,7 @@
     .day-card h2 {
       font-family: 'Playfair Display', serif; font-size: 0.82rem; font-weight: 500;
       color: var(--gold-antique); margin-bottom: 28px; letter-spacing: 0.3em;
-      text-transform: uppercase;
-      opacity: 0; transform: translateY(14px) scale(0.98);
+      text-transform: uppercase; opacity: 0; transform: translateY(14px) scale(0.98);
     }
     .section.in-view .day-card h2 {
       animation: dayReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.05s forwards;
@@ -774,99 +615,57 @@
     }
     .section.in-view .timeline-item:nth-child(1) { animation-delay: 0.55s; }
     .section.in-view .timeline-item:nth-child(2) { animation-delay: 0.9s; }
-    @keyframes dayReveal {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+    @keyframes dayReveal { to { opacity: 1; transform: translateY(0) scale(1); } }
     .timeline-item:last-child { margin-bottom: 0; }
     .timeline-dot {
       position: absolute; left: 2px; top: 6px; width: 7px; height: 7px; border-radius: 50%;
-      background: var(--gold-antique);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+      background: var(--gold-antique); box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
     }
     .timeline-time {
       font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--gold-antique); margin-bottom: 3px;
     }
-    .timeline-title {
-      font-family: 'Playfair Display', serif; font-size: 1.08rem; color: var(--ivory);
-    }
+    .timeline-title { font-family: 'Playfair Display', serif; font-size: 1.08rem; color: var(--ivory); }
     .timeline-desc { font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
 
-    /* ===== GALLERY – Optimized for 3 photos ===== */
+    /* Gallery */
     .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      max-width: 24rem;
-      margin: 0 auto;
-      padding-bottom: 8px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; max-width: 24rem; margin: 0 auto; padding-bottom: 8px;
     }
     .gallery-item {
-      border-radius: 3px;
-      overflow: hidden;
+      border-radius: 3px; overflow: hidden;
       border: 1px solid rgba(201,168,76,0.28);
-      background: #0c1525;
-      position: relative;
-      isolation: isolate;
-      box-shadow:
-        0 0 0 1px rgba(201,168,76,0.08),
-        0 4px 20px rgba(0,0,0,0.35),
-        0 0 24px rgba(201,168,76,0.06);
+      background: #0c1525; position: relative; isolation: isolate;
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.08), 0 4px 20px rgba(0,0,0,0.35);
       transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
     }
     .gallery-item:hover {
       border-color: rgba(232,213,163,0.45);
-      box-shadow:
-        0 0 0 1px rgba(232,213,163,0.12),
-        0 6px 28px rgba(0,0,0,0.4),
-        0 0 32px rgba(201,168,76,0.14);
+      box-shadow: 0 0 0 1px rgba(232,213,163,0.12), 0 6px 28px rgba(0,0,0,0.4);
     }
-    .gallery-item.hero {
-      grid-column: 1 / -1;
-    }
-    .gallery-item.hero::before {
-      content: "";
-      display: block;
-      padding-top: 132%; /* slightly taller so more of the photo shows */
-    }
-    .gallery-item.tall::before {
-      content: "";
-      display: block;
-      padding-top: 133.333%; /* 3:4 */
-    }
+    .gallery-item.hero { grid-column: 1 / -1; }
+    .gallery-item.hero::before { content: ""; display: block; padding-top: 132%; }
+    .gallery-item.tall::before { content: ""; display: block; padding-top: 133.333%; }
     .gallery-item img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 22%; /* favor the faces */
-      display: block;
-      transition: transform 0.65s cubic-bezier(0.22,1,0.36,1);
-      background-color: #0c1525;
-      z-index: 1;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center 22%;
+      display: block; transition: transform 0.65s cubic-bezier(0.22,1,0.36,1);
+      background-color: #0c1525; z-index: 1;
     }
-    .gallery-item.hero img {
-      object-position: center 18%;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.04);
-    }
+    .gallery-item.hero img { object-position: center 18%; }
+    .gallery-item:hover img { transform: scale(1.04); }
     .gallery-note {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 20px;
-      font-style: italic;
-      letter-spacing: 0.04em;
+      font-size: 0.78rem; color: var(--muted); margin-top: 20px;
+      font-style: italic; letter-spacing: 0.04em;
     }
 
     .closing-text {
       font-family: 'Playfair Display', serif;
       font-size: clamp(0.85rem, 2vw, 1rem);
       letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold-antique); margin-bottom: 20px;
-      opacity: 0;
+      color: var(--gold-antique); margin-bottom: 20px; opacity: 0;
     }
     .section.in-view .closing-text { animation: fadeUp 1.6s ease 0.3s forwards; }
     .closing-thanks {
@@ -900,13 +699,10 @@
       font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
       color: rgba(201,168,76,0.22); text-decoration: none;
       border: none; background: none; cursor: pointer;
-      font-family: inherit; padding: 0;
-      opacity: 0;
+      font-family: inherit; padding: 0; opacity: 0;
       transition: color 0.5s ease, opacity 0.8s ease;
     }
-    .section.in-view .return-link {
-      animation: fadeUp 1.8s ease 4.5s forwards;
-    }
+    .section.in-view .return-link { animation: fadeUp 1.8s ease 4.5s forwards; }
     .return-link:hover { color: rgba(201,168,76,0.55); }
 
     /* Controls */
@@ -922,8 +718,7 @@
       cursor: pointer; color: var(--gold-champagne);
       font-family: 'Cormorant Garamond', serif; font-size: 0.78rem;
       letter-spacing: 0.08em; touch-action: manipulation;
-      opacity: 0; pointer-events: none;
-      transition: opacity 1s ease;
+      opacity: 0; pointer-events: none; transition: opacity 1s ease;
     }
     .music-btn.visible { opacity: 1; pointer-events: auto; }
     .music-btn.playing { border-color: rgba(201,168,76,0.4); }
@@ -952,6 +747,7 @@
     .share-btn.visible { opacity: 0.55; pointer-events: auto; }
     .share-btn:hover { opacity: 0.9; }
     .share-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+
     .share-menu {
       position: fixed;
       bottom: calc(112px + env(safe-area-inset-bottom, 0px));
@@ -971,6 +767,7 @@
       touch-action: manipulation;
     }
     .share-option svg { width: 13px; height: 13px; stroke: var(--gold-antique); fill: none; stroke-width: 1.4; }
+
     .toast {
       position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(8px);
       background: rgba(5,10,18,0.92); border: 1px solid rgba(201,168,76,0.28);
@@ -983,8 +780,7 @@
     .nav-rail {
       position: fixed; right: 14px; top: 50%; transform: translateY(-50%);
       z-index: 90; display: flex; flex-direction: column; gap: 8px;
-      opacity: 0; pointer-events: none;
-      align-items: flex-end;
+      opacity: 0; pointer-events: none; align-items: flex-end;
     }
     .nav-rail.visible { opacity: 1; pointer-events: auto; transition: opacity 1s ease; }
     .nav-item {
@@ -992,33 +788,23 @@
       background: none; border: none; cursor: pointer; padding: 4px 0;
       touch-action: manipulation;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.72rem; letter-spacing: 0.06em;
-      color: var(--muted);
+      font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted);
     }
     .nav-item .nav-label {
-      display: none;
-      white-space: nowrap; text-align: right;
-      opacity: 0.5;
+      display: none; white-space: nowrap; text-align: right; opacity: 0.5;
       transition: opacity 0.25s ease;
     }
     .nav-item .nav-dot {
       width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.28);
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.28);
       transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
     }
     .nav-item.active { color: var(--gold-champagne); }
     .nav-item.active .nav-dot {
-      background: var(--gold-antique);
-      box-shadow: 0 0 8px rgba(201,168,76,0.3);
+      background: var(--gold-antique); box-shadow: 0 0 8px rgba(201,168,76,0.3);
       transform: scale(1.4);
     }
-    .nav-item.active .nav-label {
-      opacity: 1;
-      color: var(--gold-champagne);
-      font-weight: 500;
-      letter-spacing: 0.08em;
-    }
+    .nav-item.active .nav-label { opacity: 1; color: var(--gold-champagne); font-weight: 500; }
     @media (min-width: 900px) {
       .nav-rail { right: 22px; }
       .nav-item .nav-label { display: inline; }
@@ -1028,8 +814,8 @@
       position: fixed; bottom: 26px; left: 18px; z-index: 90;
       font-family: 'Playfair Display', serif;
       font-size: 0.68rem; letter-spacing: 0.16em;
-      color: rgba(201,168,76,0.35);
-      opacity: 0; pointer-events: none; transition: opacity 1s ease;
+      color: rgba(201,168,76,0.35); opacity: 0; pointer-events: none;
+      transition: opacity 1s ease;
     }
     .page-indicator.visible { opacity: 1; }
 
@@ -1037,37 +823,52 @@
       position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
       font-family: 'Playfair Display', serif;
       font-size: 0.72rem; letter-spacing: 0.38em; text-transform: uppercase;
-      color: var(--gold-champagne);
-      opacity: 0.85; z-index: 5;
-      padding: 10px 22px;
-      border: 1px solid rgba(201,168,76,0.45);
-      border-radius: 2px;
-      background: rgba(5,10,18,0.55);
+      color: var(--gold-champagne); opacity: 0.85; z-index: 5;
+      padding: 10px 22px; border: 1px solid rgba(201,168,76,0.45);
+      border-radius: 2px; background: rgba(5,10,18,0.55);
       backdrop-filter: blur(6px);
-      transition: opacity 1s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      transition: opacity 1s ease;
       animation: continuePulse 2.6s ease-in-out infinite;
     }
-    .scroll-hint::after {
-      content: ' ↓';
-      font-size: 0.9em;
-      opacity: 0.8;
-    }
+    .scroll-hint::after { content: ' ↓'; font-size: 0.9em; opacity: 0.8; }
     @keyframes continuePulse {
-      0%, 100% { 
-        box-shadow: 0 0 0 0 rgba(201,168,76,0.25);
-        border-color: rgba(201,168,76,0.45);
-      }
-      50% { 
-        box-shadow: 0 0 18px 2px rgba(201,168,76,0.35);
-        border-color: rgba(232,213,163,0.7);
-      }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.25); border-color: rgba(201,168,76,0.45); }
+      50% { box-shadow: 0 0 18px 2px rgba(201,168,76,0.35); border-color: rgba(232,213,163,0.7); }
     }
-    .scroll-hint.fade-out {
-      opacity: 0;
-      pointer-events: none;
-      animation: none;
+    .scroll-hint.fade-out { opacity: 0; pointer-events: none; animation: none; }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 5000;
+      background: rgba(5,10,18,0.94);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 20px;
+    }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox-inner {
+      position: relative; max-width: 92vw; max-height: 88vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox img {
+      max-width: 100%; max-height: 88vh;
+      object-fit: contain; border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.25), 0 20px 60px rgba(0,0,0,0.5);
+      transform: scale(0.96); opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease;
+    }
+    .lightbox.open img { transform: scale(1); opacity: 1; }
+    .lightbox-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(5,10,18,0.7); border: 1px solid rgba(201,168,76,0.35);
+      color: var(--gold-champagne); font-size: 1.4rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 10; touch-action: manipulation;
     }
 
+    /* Responsive */
     @media (max-width: 520px) {
       .album { width: min(280px, 84vw); height: min(374px, 112vw); }
       .names-lg { font-size: clamp(2.35rem, 9.5vw, 2.85rem); }
@@ -1080,6 +881,7 @@
       .invite-card { padding: 32px 22px; }
       .day-card { padding: 32px 22px; }
       .gallery-grid { max-width: 19rem; gap: 10px; }
+      .map-wrap { height: 200px; }
       .botanical { width: 30px; height: 30px; }
       .botanical.tl { top: 14px; left: 14px; }
       .botanical.tr { top: 14px; right: 14px; }
@@ -1102,183 +904,69 @@
       .section { padding: 28px 14px; }
     }
 
-    /* ========== TABLET ========== */
     @media (min-width: 768px) {
-      .section {
-        padding: 72px 52px;
-      }
+      .section { padding: 72px 52px; }
       .section-content { max-width: 42rem; }
       .names-lg { font-size: clamp(3.2rem, 6vw, 3.9rem); letter-spacing: 0.13em; }
-      .page-label { font-size: 0.82rem; margin-bottom: 30px; letter-spacing: 0.4em; }
+      .page-label { font-size: 0.82rem; margin-bottom: 30px; }
       .date-lg { font-size: 1.45rem; margin-top: 32px; }
-      .date-sub { font-size: 0.88rem; }
-      .story-body { font-size: 1.15rem; max-width: 34rem; line-height: 1.85; }
-      .countdown-state { font-size: 0.98rem; margin-bottom: 40px; letter-spacing: 0.34em; }
+      .story-body { font-size: 1.15rem; max-width: 34rem; }
+      .countdown-state { font-size: 0.98rem; margin-bottom: 40px; }
       .count-number { font-size: 2.7rem; }
       .count-unit { padding: 0 26px; min-width: 92px; }
-      .count-label { font-size: 0.58rem; margin-top: 12px; }
       .invite-card { max-width: 34rem; padding: 52px 48px; }
       .ic-names { font-size: 1.4rem; }
       .ic-date { font-size: 1.05rem; }
       .ic-title { font-size: 1.15rem; }
-      .ic-btn { padding: 12px 18px; font-size: 0.95rem; }
       .day-card { max-width: 32rem; padding: 52px 48px; }
-      .day-card h2 { font-size: 0.88rem; margin-bottom: 32px; }
-      .timeline { max-width: 26rem; }
-      .timeline-item { margin-bottom: 28px; padding-left: 36px; }
-      .timeline-title { font-size: 1.2rem; }
-      .timeline-desc { font-size: 0.98rem; }
       .gallery-grid { max-width: 30rem; gap: 14px; }
-      .gallery-note { font-size: 0.9rem; margin-top: 22px; }
-      .closing-names { font-size: 2.3rem; }
-      .closing-thanks { font-size: 1.35rem; }
+      .map-wrap { height: 260px; }
       .album { width: 360px; height: 475px; }
       .cover-monogram { width: 120px; height: 120px; }
-      .cover-monogram span { font-size: 1.65rem !important; }
       .botanical { width: 46px; height: 46px; }
       .botanical.tl { top: 32px; left: 32px; }
       .botanical.tr { top: 32px; right: 32px; }
       .botanical.bl { bottom: 32px; left: 32px; }
       .botanical.br { bottom: 32px; right: 32px; }
-      .nav-rail { right: 20px; }
     }
 
-    /* ========== DESKTOP ========== */
     @media (min-width: 1100px) {
-      body.unlocked {
-        scroll-snap-type: y proximity;
-      }
+      body.unlocked { scroll-snap-type: y proximity; }
       .section {
-        height: auto;
-        min-height: 100vh;
-        min-height: 100dvh;
-        padding: 108px 96px 120px;
-        overflow: visible;
+        height: auto; min-height: 100vh; min-height: 100dvh;
+        padding: 108px 96px 120px; overflow: visible;
       }
-      .section-content {
-        max-width: 54rem;
-      }
-      .names-lg {
-        font-size: 5.4rem;
-        letter-spacing: 0.14em;
-        line-height: 1.08;
-      }
-      .amp-script { font-size: 0.46em; margin: 12px 0 10px; }
-      .page-label {
-        font-size: 0.9rem;
-        margin-bottom: 42px;
-        letter-spacing: 0.44em;
-      }
-      .date-lg { font-size: 1.8rem; margin-top: 42px; letter-spacing: 0.28em; }
-      .date-sub { font-size: 1rem; margin-top: 14px; letter-spacing: 0.2em; }
-      .thin-rule { width: 56px; margin: 34px auto; }
-      .cross-mark { margin-bottom: 28px; gap: 14px; }
-      .story-body {
-        font-size: 1.28rem;
-        line-height: 1.9;
-        max-width: 40rem;
-      }
-      .countdown-state {
-        font-size: 1.1rem;
-        margin-bottom: 56px;
-        letter-spacing: 0.38em;
-      }
+      .section-content { max-width: 54rem; }
+      .names-lg { font-size: 5.4rem; letter-spacing: 0.14em; line-height: 1.08; }
+      .page-label { font-size: 0.9rem; margin-bottom: 42px; }
+      .date-lg { font-size: 1.8rem; margin-top: 42px; }
+      .story-body { font-size: 1.28rem; max-width: 40rem; }
+      .countdown-state { font-size: 1.1rem; margin-bottom: 56px; }
       .count-number { font-size: 3.8rem; }
       .count-unit { padding: 0 42px; min-width: 128px; }
-      .count-label { font-size: 0.65rem; margin-top: 14px; letter-spacing: 0.18em; }
-
-      .invite-card {
-        max-width: 44rem;
-        padding: 76px 88px;
-      }
-      .ic-names { font-size: 1.8rem; letter-spacing: 0.2em; }
-      .ic-date { font-size: 1.25rem; margin-bottom: 30px; }
+      .invite-card { max-width: 44rem; padding: 76px 88px; }
+      .ic-names { font-size: 1.8rem; }
+      .ic-date { font-size: 1.25rem; }
       .ic-title { font-size: 1.4rem; }
-      .ic-place { font-size: 1.12rem; }
-      .ic-time { font-size: 0.75rem; margin-bottom: 8px; letter-spacing: 0.2em; }
-      .ic-note { font-size: 0.95rem; }
-      .ic-block { margin-bottom: 26px; }
-      .ic-rule { margin: 0 auto 24px; }
-      .ic-actions { margin-top: 40px; gap: 14px; }
-      .ic-btn { padding: 14px 22px; font-size: 1.05rem; }
-
-      .day-card {
-        max-width: 42rem;
-        padding: 72px 80px;
-      }
-      .day-card h2 {
-        font-size: 1rem;
-        margin-bottom: 44px;
-        letter-spacing: 0.4em;
-      }
-      .timeline { max-width: 32rem; }
-      .timeline-item { padding-left: 44px; margin-bottom: 40px; }
-      .timeline-title { font-size: 1.5rem; }
-      .timeline-desc { font-size: 1.1rem; margin-top: 6px; }
-      .timeline-time { font-size: 0.7rem; margin-bottom: 6px; letter-spacing: 0.16em; }
-      .timeline-dot { width: 9px; height: 9px; left: 1px; }
-
-      .gallery-grid {
-        max-width: 42rem;
-        gap: 16px;
-      }
-      .gallery-note { font-size: 1.05rem; margin-top: 28px; }
-
-      .closing-text { font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 0.32em; }
-      .closing-thanks { font-size: 1.65rem; margin-bottom: 42px; }
-      .closing-names { font-size: 3.2rem; letter-spacing: 0.16em; }
-      .closing-date { font-size: 1.25rem; margin-top: 42px; }
-      .closing-siblings { font-size: 1.2rem; margin-top: 52px; }
-      .return-link { margin-top: 96px; }
-
+      .day-card { max-width: 42rem; padding: 72px 80px; }
+      .gallery-grid { max-width: 42rem; gap: 16px; }
+      .map-wrap { height: 300px; }
+      .album { width: 400px; height: 530px; }
+      .cover-monogram { width: 144px; height: 144px; }
       .botanical { width: 56px; height: 56px; }
       .botanical.tl { top: 48px; left: 56px; }
       .botanical.tr { top: 48px; right: 56px; }
       .botanical.bl { bottom: 48px; left: 56px; }
       .botanical.br { bottom: 48px; right: 56px; }
-
-      .nav-rail { right: 36px; gap: 10px; }
-      .nav-item { font-size: 0.78rem; }
-      .wm { font-size: clamp(12rem, 17vw, 18rem); }
-
-      .album { width: 400px; height: 530px; }
-      .cover-monogram { width: 144px; height: 144px; }
-      .cover-monogram span { font-size: 1.95rem !important; }
-      .album-title { font-size: 1.15rem; }
+      .nav-rail { right: 36px; }
     }
 
-    /* ========== LARGE DESKTOP ========== */
     @media (min-width: 1400px) {
-      .section {
-        padding: 128px 150px 148px;
-      }
-      .section-content {
-        max-width: 60rem;
-      }
+      .section { padding: 128px 150px 148px; }
+      .section-content { max-width: 60rem; }
       .names-lg { font-size: 6.2rem; }
-      .date-lg { font-size: 1.95rem; }
-      .story-body { max-width: 44rem; font-size: 1.35rem; }
-      .count-number { font-size: 4.2rem; }
-      .count-unit { padding: 0 48px; min-width: 140px; }
-      .invite-card {
-        max-width: 48rem;
-        padding: 88px 104px;
-      }
-      .ic-names { font-size: 2rem; }
-      .ic-title { font-size: 1.5rem; }
-      .day-card {
-        max-width: 46rem;
-        padding: 84px 96px;
-      }
-      .timeline-title { font-size: 1.6rem; }
       .gallery-grid { max-width: 48rem; gap: 18px; }
-      .closing-names { font-size: 3.6rem; }
       .album { width: 440px; height: 585px; }
-      .botanical { width: 64px; height: 64px; }
-      .botanical.tl { top: 56px; left: 64px; }
-      .botanical.tr { top: 56px; right: 64px; }
-      .botanical.bl { bottom: 56px; left: 64px; }
-      .botanical.br { bottom: 56px; right: 64px; }
     }
   </style>
 </head>
@@ -1310,14 +998,13 @@
 
   <div class="album-overlay" id="albumOverlay">
     <div class="stage" id="stage">
-      <div class="album" id="album" role="button" tabindex="0"
-           aria-label="Open Arjun and Anita's wedding invitation">
+      <div class="album" id="album" role="button" tabindex="0" aria-label="Open Arjun and Anita's wedding invitation">
         <div class="album-spine"></div>
         <div class="page-edge e2"></div>
         <div class="page-edge e1"></div>
         <div class="album-page"></div>
         <div class="album-cover" id="albumCover">
-          <div class="cover-sweep" id="coverSweep"></div>
+          <div class="cover-sweep"></div>
           <div class="cover-border"></div>
           <div class="cover-monogram"><span>A&amp;A</span></div>
           <div class="album-title">ARJUN &amp; ANITA</div>
@@ -1329,6 +1016,14 @@
   </div>
 
   <div class="petals-layer" id="petalsLayer"></div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <div class="lightbox-inner">
+      <img id="lightboxImg" src="" alt="">
+    </div>
+  </div>
 
   <button class="share-btn" id="shareBtn" title="Share" aria-label="Share">
     <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
@@ -1451,10 +1146,22 @@
             <p class="ic-title">Reception</p>
             <p class="ic-place">Church Hall</p>
           </div>
+
+          <!-- Interactive Google Map -->
+          <div class="map-wrap">
+            <iframe 
+              src="https://maps.google.com/maps?q=Mary+Queen+Church,+Thoppil&hl=en&z=16&output=embed"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Mary Queen Church, Thoppil">
+            </iframe>
+          </div>
+
           <div class="ic-actions">
             <a class="ic-btn" href="https://maps.google.com/?q=Mary+Queen+Church+Thoppil" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Find the Church
+              Open in Maps
             </a>
             <a class="ic-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Arjun+%26+Anita+Wedding&amp;dates=20260830T103000Z/20260830T160000Z&amp;details=Holy+Mass+%26+Wedding+Ceremony+at+4%3A00+PM+IST.+Reception+from+6%3A30+PM.&amp;location=Mary+Queen+Church%2C+Thoppil&amp;ctz=Asia/Kolkata" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -1464,6 +1171,11 @@
               <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               Add to Calendar
             </button>
+            <!-- RSVP Button - opens your Google Form -->
+            <a class="ic-btn rsvp-btn" href="https://forms.gle/gdWFKXuAb3LpRLGj9" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              RSVP
+            </a>
           </div>
         </div>
       </div>
@@ -1496,7 +1208,7 @@
       </div>
     </section>
 
-    <!-- 6 Memories – Only the 3 photos -->
+    <!-- 6 Memories -->
     <section class="section" data-index="5" id="page5">
       <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
       <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
@@ -1505,16 +1217,13 @@
       <div class="section-content">
         <p class="page-label">Memories</p>
         <div class="gallery-grid">
-          <!-- Hero – close-up embrace -->
-          <div class="gallery-item hero">
+          <div class="gallery-item hero" data-src="11.jpg">
             <img src="11.jpg" alt="Arjun and Anita in a warm embrace" loading="eager" decoding="async" width="800" height="1000">
           </div>
-          <!-- Left – on the steps -->
-          <div class="gallery-item tall">
-            <img src="7.jpg" alt="Arjun and Anita sitting on the steps under the arched doorway" loading="lazy" decoding="async" width="600" height="800">
+          <div class="gallery-item tall" data-src="7.jpg">
+            <img src="7.jpg" alt="Arjun and Anita sitting on the steps" loading="lazy" decoding="async" width="600" height="800">
           </div>
-          <!-- Right – Save the Date version -->
-          <div class="gallery-item tall">
+          <div class="gallery-item tall" data-src="IMG_7145.JPG.jpg">
             <img src="IMG_7145.JPG.jpg" alt="Arjun and Anita – Save the Date" loading="lazy" decoding="async" width="600" height="800">
           </div>
         </div>
@@ -1560,22 +1269,16 @@
     const flare = document.getElementById('flare');
     const petalsLayer = document.getElementById('petalsLayer');
 
-    /* ===== Refined + Faster Cinematic (~11.2s) ===== */
     function runCinematic() {
       setTimeout(function () { cineGlow.classList.add('on'); }, 250);
-
       setTimeout(function () { steps[0].classList.add('in'); }, 400);
       setTimeout(function () { steps[0].classList.add('out'); }, 2400);
-
       setTimeout(function () { steps[1].classList.add('in'); }, 2800);
       setTimeout(function () { steps[1].classList.add('out'); }, 5500);
-
       setTimeout(function () { steps[2].classList.add('in'); }, 5900);
       setTimeout(function () { steps[2].classList.add('out'); }, 7800);
-
       setTimeout(function () { steps[3].classList.add('in'); }, 8200);
       setTimeout(function () { steps[3].classList.add('out'); }, 10600);
-
       setTimeout(function () {
         cine.classList.add('done');
         filmGrain.classList.remove('on');
@@ -1590,24 +1293,16 @@
     function beginExperience() {
       if (experienceStarted) return;
       experienceStarted = true;
-
       startIntroMusic(false);
-
       if (beginGate) beginGate.classList.add('gone');
       cine.classList.add('active');
-
-      setTimeout(function () {
-        runCinematic();
-      }, 400);
+      setTimeout(function () { runCinematic(); }, 400);
     }
 
     if (beginBtn) {
       beginBtn.addEventListener('click', beginExperience);
       beginBtn.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          beginExperience();
-        }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); beginExperience(); }
       });
     }
 
@@ -1615,9 +1310,7 @@
       albumOverlay.classList.add('ready');
       setTimeout(function () { album.classList.add('appear'); }, 400);
       setTimeout(function () { album.classList.add('sweep'); }, 2600);
-      setTimeout(function () {
-        album.classList.add('ready');
-      }, 3400);
+      setTimeout(function () { album.classList.add('ready'); }, 3400);
     }
 
     let opened = false;
@@ -1670,16 +1363,6 @@
         g.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
         src.connect(f); f.connect(g); g.connect(ctx.destination);
         src.start(t);
-        var osc = ctx.createOscillator();
-        var og = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(480, t + 0.12);
-        osc.frequency.exponentialRampToValueAtTime(340, t + 0.55);
-        og.gain.setValueAtTime(0.0001, t + 0.12);
-        og.gain.exponentialRampToValueAtTime(0.015, t + 0.18);
-        og.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
-        osc.connect(og); og.connect(ctx.destination);
-        osc.start(t + 0.12); osc.stop(t + 0.65);
       } catch (err) {}
     }
 
@@ -1704,18 +1387,14 @@
       albumCover.style.transition = '';
       albumCover.style.transform = '';
 
-      setTimeout(function () {
-        album.classList.add('mid');
-      }, 40);
+      setTimeout(function () { album.classList.add('mid'); }, 40);
 
       setTimeout(function () {
         albumCover.style.transition = 'none';
         albumCover.style.transform = 'rotateY(-90deg)';
         void albumCover.offsetWidth;
-
         album.classList.remove('mid');
         album.classList.add('open');
-
         albumCover.style.transition = 'transform 1.4s cubic-bezier(0.33, 0.1, 0.2, 1)';
         albumCover.style.transform = 'rotateY(-180deg)';
       }, 1050);
@@ -1724,7 +1403,6 @@
         flare.classList.remove('play');
         void flare.offsetWidth;
         flare.classList.add('play');
-
         var stageEl = document.getElementById('stage');
         if (stageEl) void stageEl.offsetWidth;
         albumOverlay.classList.add('entering');
@@ -1736,7 +1414,7 @@
         }, 400);
 
         setTimeout(function () {
-          var invite = document.getElementById('inviteContent') || document.querySelector('.invite-content');
+          var invite = document.getElementById('inviteContent');
           if (invite) {
             invite.style.visibility = 'visible';
             invite.style.opacity = '1';
@@ -1776,24 +1454,15 @@
       }, prefersReduced ? 900 : 4800);
     }
 
-    album.addEventListener('click', function (e) {
-      e.preventDefault();
-      openAlbum();
-    });
+    album.addEventListener('click', function (e) { e.preventDefault(); openAlbum(); });
     album.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openAlbum();
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAlbum(); }
     });
 
     document.getElementById('returnBtn').addEventListener('click', function () {
       var target = document.getElementById('page0');
-      if (target) {
-        target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
-      } else {
-        window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
-      }
+      if (target) target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+      else window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
     });
 
     var petalCount = 0;
@@ -1820,6 +1489,40 @@
       for (var i = 0; i < n; i++) setTimeout(function () { createPetal(true); }, i * 160);
     }
 
+    /* ===== LIGHTBOX ===== */
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || '';
+      lightbox.classList.add('open');
+      document.body.classList.add('modal-open');
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.classList.remove('modal-open');
+      setTimeout(function () { lightboxImg.src = ''; }, 350);
+    }
+
+    document.querySelectorAll('.gallery-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        const src = item.getAttribute('data-src') || item.querySelector('img').src;
+        const alt = item.querySelector('img').alt;
+        openLightbox(src, alt);
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+
+    /* Share */
     var shareMenu = document.getElementById('shareMenu');
     var toast = document.getElementById('toast');
     var shareText = "You're invited to celebrate the wedding of\n\nARJUN & ANITA\n\n30 August 2026 · 4:00 PM\nMary Queen Church, Thoppil\n\nView the invitation:";
@@ -1856,6 +1559,7 @@
       }
     });
 
+    /* Music */
     var introMusic = document.getElementById('introMusic');
     var music = document.getElementById('bgMusic');
     var musicBtn = document.getElementById('musicBtn');
@@ -1875,13 +1579,10 @@
         if (el.volume < target - 0.01) {
           el.volume = Math.min(target, el.volume + 0.012);
           requestAnimationFrame(step);
-        } else {
-          el.volume = target;
-        }
+        } else el.volume = target;
       }
       requestAnimationFrame(step);
     }
-
     function fadeOutAudio(el, then) {
       if (!el) { if (then) then(); return; }
       function step() {
@@ -1896,60 +1597,36 @@
       }
       requestAnimationFrame(step);
     }
-
     function setUI(on) {
       isPlaying = on;
       if (musicBtn) {
         musicBtn.classList.toggle('playing', on);
-        if (musicLabel) {
-          musicLabel.textContent = on ? 'Music on' : (userOff ? 'Music off' : 'Play music');
-        }
+        if (musicLabel) musicLabel.textContent = on ? 'Music on' : (userOff ? 'Music off' : 'Play music');
       }
     }
-
-    function startIntroMusic(isAuto) {
+    function startIntroMusic() {
       if (!introMusic || introPlaying || opened || userOff) return;
-
       try { introMusic.currentTime = 0; } catch (e) {}
-
-      if (isAuto) {
-        introMusic.muted = true;
-        introMusic.volume = 0;
-      } else {
-        introMusic.muted = false;
-        introMusic.volume = 0.08;
-      }
-
+      introMusic.muted = false;
+      introMusic.volume = 0.08;
       var p = introMusic.play();
-
       if (p && p.then) {
         p.then(function () {
           introPlaying = true;
-          if (isAuto) {
-            introMusic.muted = false;
-            introMusic.volume = 0;
-          }
-          fadeInAudio(introMusic, 0.25, function () {
-            return introPlaying;
-          });
-        }).catch(function () {
-          introPlaying = false;
-          introMusic.muted = false;
-        });
+          fadeInAudio(introMusic, 0.25, function () { return introPlaying; });
+        }).catch(function () { introPlaying = false; });
       }
     }
-
     function stopIntroMusic(cb) {
       if (!introMusic || !introPlaying) {
         introPlaying = false;
-        if (introMusic) { try { introMusic.pause(); } catch (e) {} }
+        if (introMusic) try { introMusic.pause(); } catch (e) {}
         if (cb) cb();
         return;
       }
       introPlaying = false;
       fadeOutAudio(introMusic, cb);
     }
-
     function startWeddingMusic() {
       if (!music || userOff) return;
       try { music.currentTime = 0; } catch (e) {}
@@ -1961,7 +1638,6 @@
         }).catch(function () { setUI(false); });
       }
     }
-
     if (musicBtn) {
       musicBtn.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -1972,10 +1648,7 @@
         } else {
           userOff = false;
           stopIntroMusic();
-          if (!opened) {
-            startIntroMusic();
-            return;
-          }
+          if (!opened) { startIntroMusic(); return; }
           try { if (music.ended) music.currentTime = 0; } catch (err) {}
           music.play().then(function () {
             setUI(true);
@@ -1984,7 +1657,6 @@
         }
       });
     }
-
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
         wasPlayingBeforeHide = false;
@@ -1998,59 +1670,37 @@
         }
       } else {
         if (wasPlayingBeforeHide === 'intro' && !opened && !userOff && introMusic) {
-          introMusic.play().then(function () {
-            introPlaying = true;
-          }).catch(function () {});
+          introMusic.play().then(function () { introPlaying = true; }).catch(function () {});
         } else if (wasPlayingBeforeHide === 'wedding' && !userOff && music) {
-          music.play().then(function () {
-            setUI(true);
-          }).catch(function () {});
+          music.play().then(function () { setUI(true); }).catch(function () {});
         }
         wasPlayingBeforeHide = false;
       }
     });
 
+    /* Apple Calendar */
     var appleCalBtn = document.getElementById('appleCalBtn');
     if (appleCalBtn) {
       appleCalBtn.addEventListener('click', function () {
         var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//ArjunAnita//Wedding//EN',
-          'CALSCALE:GREGORIAN',
-          'METHOD:PUBLISH',
-          'BEGIN:VTIMEZONE',
-          'TZID:Asia/Kolkata',
-          'BEGIN:STANDARD',
-          'TZOFFSETFROM:+0530',
-          'TZOFFSETTO:+0530',
-          'TZNAME:IST',
-          'DTSTART:19700101T000000',
-          'END:STANDARD',
-          'END:VTIMEZONE',
-          'BEGIN:VEVENT',
-          'UID:arjun-anita-wedding-20260830@invite',
-          'DTSTAMP:20260801T000000Z',
-          'DTSTART;TZID=Asia/Kolkata:20260830T160000',
-          'DTEND;TZID=Asia/Kolkata:20260830T213000',
-          'SUMMARY:Arjun & Anita Wedding',
-          'LOCATION:Mary Queen Church\\, Thoppil',
+          'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ArjunAnita//Wedding//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+          'BEGIN:VTIMEZONE','TZID:Asia/Kolkata','BEGIN:STANDARD','TZOFFSETFROM:+0530','TZOFFSETTO:+0530','TZNAME:IST','DTSTART:19700101T000000','END:STANDARD','END:VTIMEZONE',
+          'BEGIN:VEVENT','UID:arjun-anita-wedding-20260830@invite','DTSTAMP:20260801T000000Z',
+          'DTSTART;TZID=Asia/Kolkata:20260830T160000','DTEND;TZID=Asia/Kolkata:20260830T213000',
+          'SUMMARY:Arjun & Anita Wedding','LOCATION:Mary Queen Church\\, Thoppil',
           'DESCRIPTION:Holy Mass & Wedding Ceremony at 4:00 PM IST\\nReception at Church Hall from 6:30 PM\\nParking available',
-          'END:VEVENT',
-          'END:VCALENDAR'
+          'END:VEVENT','END:VCALENDAR'
         ].join('\r\n');
         var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
-        a.href = url;
-        a.download = 'arjun-anita-wedding.ics';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        a.href = url; a.download = 'arjun-anita-wedding.ics';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
         setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
       });
     }
 
+    /* Countdown */
     var WEDDING = new Date('2026-08-30T16:00:00+05:30').getTime();
     var DAY_END = new Date('2026-08-31T00:00:00+05:30').getTime();
     var prev = { days: '', hours: '', minutes: '', seconds: '' };
@@ -2094,6 +1744,7 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
+    /* Navigation */
     var sections = document.querySelectorAll('.section');
     var navRail = document.getElementById('navRail');
     var pageIndicator = document.getElementById('pageIndicator');
@@ -2117,13 +1768,10 @@
       navItems.forEach(function (n, i) {
         var active = i === idx;
         n.classList.toggle('active', active);
-        if (active) { n.setAttribute('aria-current', 'page'); }
-        else { n.removeAttribute('aria-current'); }
+        if (active) n.setAttribute('aria-current', 'page');
+        else n.removeAttribute('aria-current');
       });
       pageIndicator.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-      if (idx === 0 || idx === total - 1) {
-        if (Math.random() > 0.7) createPetal(true);
-      }
     }
 
     var observer = new IntersectionObserver(function (entries) {
