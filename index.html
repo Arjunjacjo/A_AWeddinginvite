@@ -796,6 +796,7 @@
     }
     .timeline-desc { font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
 
+    /* ===== GALLERY – Optimized for 3 photos ===== */
     .gallery-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -830,20 +831,12 @@
     .gallery-item.hero::before {
       content: "";
       display: block;
-      padding-top: 125%;
+      padding-top: 125%; /* 4:5 */
     }
     .gallery-item.tall::before {
       content: "";
       display: block;
-      padding-top: 133.333%;
-    }
-    .gallery-item.wide {
-      grid-column: 1 / -1;
-    }
-    .gallery-item.wide::before {
-      content: "";
-      display: block;
-      padding-top: 62.5%;
+      padding-top: 133.333%; /* 3:4 */
     }
     .gallery-item img {
       position: absolute;
@@ -856,12 +849,10 @@
       display: block;
       transition: transform 0.65s cubic-bezier(0.22,1,0.36,1);
       background-color: #0c1525;
-      opacity: 1;
-      visibility: visible;
       z-index: 1;
     }
     .gallery-item:hover img {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
     .gallery-note {
       font-size: 0.78rem;
@@ -1230,7 +1221,7 @@
       .timeline-dot { width: 9px; height: 9px; left: 1px; }
 
       .gallery-grid {
-        max-width: 44rem;
+        max-width: 42rem;
         gap: 16px;
       }
       .gallery-note { font-size: 1.05rem; margin-top: 28px; }
@@ -1282,7 +1273,7 @@
         padding: 84px 96px;
       }
       .timeline-title { font-size: 1.6rem; }
-      .gallery-grid { max-width: 50rem; gap: 18px; }
+      .gallery-grid { max-width: 48rem; gap: 18px; }
       .closing-names { font-size: 3.6rem; }
       .album { width: 440px; height: 585px; }
       .botanical { width: 64px; height: 64px; }
@@ -1508,7 +1499,7 @@
       </div>
     </section>
 
-    <!-- 6 Memories -->
+    <!-- 6 Memories – Only the 3 photos -->
     <section class="section" data-index="5" id="page5">
       <svg class="botanical tl" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
       <svg class="botanical tr" viewBox="0 0 48 48" fill="none" stroke-width="0.9"><path d="M4 44 C8 28 18 18 24 4 C30 18 40 28 44 44"/><path d="M24 4 C22 16 16 24 8 30"/><path d="M24 4 C26 16 32 24 40 30"/></svg>
@@ -1517,23 +1508,17 @@
       <div class="section-content">
         <p class="page-label">Memories</p>
         <div class="gallery-grid">
+          <!-- Hero – close-up embrace -->
           <div class="gallery-item hero">
-            <img src="" alt="" loading="eager" decoding="async" width="800" height="1000">
+            <img src="11.jpg" alt="Arjun and Anita in a warm embrace" loading="eager" decoding="async" width="800" height="1000">
           </div>
+          <!-- Left – on the steps -->
           <div class="gallery-item tall">
-            <img src="" alt="" loading="lazy" decoding="async" width="600" height="800">
+            <img src="7.jpg" alt="Arjun and Anita sitting on the steps under the arched doorway" loading="lazy" decoding="async" width="600" height="800">
           </div>
+          <!-- Right – Save the Date version -->
           <div class="gallery-item tall">
-            <img src="" alt="" loading="lazy" decoding="async" width="600" height="800">
-          </div>
-          <div class="gallery-item wide">
-            <img src="" alt="" loading="lazy" decoding="async" width="900" height="560">
-          </div>
-          <div class="gallery-item tall">
-            <img src="" alt="" loading="lazy" decoding="async" width="600" height="800">
-          </div>
-          <div class="gallery-item tall">
-            <img src="" alt="" loading="lazy" decoding="async" width="600" height="800">
+            <img src="IMG_7145.JPG.jpg" alt="Arjun and Anita – Save the Date" loading="lazy" decoding="async" width="600" height="800">
           </div>
         </div>
         <p class="gallery-note">A few moments from our journey</p>
@@ -1580,26 +1565,20 @@
 
     /* ===== Refined + Faster Cinematic (~11.2s) ===== */
     function runCinematic() {
-      // Soft glow
       setTimeout(function () { cineGlow.classList.add('on'); }, 250);
 
-      // 1. A&A
       setTimeout(function () { steps[0].classList.add('in'); }, 400);
       setTimeout(function () { steps[0].classList.add('out'); }, 2400);
 
-      // 2. Names (emotional peak)
       setTimeout(function () { steps[1].classList.add('in'); }, 2800);
       setTimeout(function () { steps[1].classList.add('out'); }, 5500);
 
-      // 3. Families
       setTimeout(function () { steps[2].classList.add('in'); }, 5900);
       setTimeout(function () { steps[2].classList.add('out'); }, 7800);
 
-      // 4. Date
       setTimeout(function () { steps[3].classList.add('in'); }, 8200);
       setTimeout(function () { steps[3].classList.add('out'); }, 10600);
 
-      // End → Album
       setTimeout(function () {
         cine.classList.add('done');
         filmGrain.classList.remove('on');
