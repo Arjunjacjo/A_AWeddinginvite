@@ -176,14 +176,14 @@
     @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
     .cine-glow {
-      position: absolute; width: min(320px, 70vw); height: min(320px, 70vw);
+      position: absolute; width: min(360px, 78vw); height: min(360px, 78vw);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
-      opacity: 0; transform: scale(0.7);
-      transition: opacity 2.5s ease, transform 3.5s ease;
+      background: radial-gradient(circle, rgba(201,168,76,0.11) 0%, transparent 70%);
+      opacity: 0; transform: scale(0.75);
+      transition: opacity 2.2s ease, transform 3s ease;
       pointer-events: none;
     }
-    .cine-glow.on { opacity: 1; transform: scale(1.1); }
+    .cine-glow.on { opacity: 1; transform: scale(1.05); }
 
     .cine-stage {
       position: relative; z-index: 2; text-align: center;
@@ -195,15 +195,15 @@
       opacity: 0; width: 92vw; max-width: 640px;
       pointer-events: none;
     }
-    .cine-step.in { animation: titleIn 1.8s cubic-bezier(0.22,1,0.36,1) forwards; }
-    .cine-step.out { animation: titleOut 1.4s ease forwards; }
+    .cine-step.in { animation: titleIn 1.65s cubic-bezier(0.22,1,0.36,1) forwards; }
+    .cine-step.out { animation: titleOut 1.55s ease forwards; }
     @keyframes titleIn {
-      from { opacity: 0; transform: translate(-50%,-50%) scale(0.98); filter: blur(1.5px); }
+      from { opacity: 0; transform: translate(-50%,-50%) scale(0.985); filter: blur(1px); }
       to { opacity: 1; transform: translate(-50%,-50%) scale(1); filter: blur(0); }
     }
     @keyframes titleOut {
       from { opacity: 1; }
-      to { opacity: 0; transform: translate(-50%,-50%) scale(1.01); }
+      to { opacity: 0; transform: translate(-50%,-50%) scale(1); }
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
@@ -217,7 +217,7 @@
     }
     .cine-names {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 5vw, 2.4rem);
+      font-size: clamp(1.65rem, 5.2vw, 2.55rem);
       font-weight: 500; letter-spacing: 0.26em;
       color: var(--ivory); text-transform: uppercase;
     }
@@ -1578,26 +1578,33 @@
     const flare = document.getElementById('flare');
     const petalsLayer = document.getElementById('petalsLayer');
 
+    /* ===== Refined + Faster Cinematic (~11.2s) ===== */
     function runCinematic() {
-      setTimeout(function () { cineGlow.classList.add('on'); }, 120);
+      // Soft glow
+      setTimeout(function () { cineGlow.classList.add('on'); }, 250);
 
-      setTimeout(function () { steps[0].classList.add('in'); }, 200);
-      setTimeout(function () { steps[0].classList.add('out'); }, 2000);
+      // 1. A&A
+      setTimeout(function () { steps[0].classList.add('in'); }, 400);
+      setTimeout(function () { steps[0].classList.add('out'); }, 2400);
 
-      setTimeout(function () { steps[1].classList.add('in'); }, 2300);
-      setTimeout(function () { steps[1].classList.add('out'); }, 5000);
+      // 2. Names (emotional peak)
+      setTimeout(function () { steps[1].classList.add('in'); }, 2800);
+      setTimeout(function () { steps[1].classList.add('out'); }, 5500);
 
-      setTimeout(function () { steps[2].classList.add('in'); }, 5300);
-      setTimeout(function () { steps[2].classList.add('out'); }, 7200);
+      // 3. Families
+      setTimeout(function () { steps[2].classList.add('in'); }, 5900);
+      setTimeout(function () { steps[2].classList.add('out'); }, 7800);
 
-      setTimeout(function () { steps[3].classList.add('in'); }, 7500);
-      setTimeout(function () { steps[3].classList.add('out'); }, 10200);
+      // 4. Date
+      setTimeout(function () { steps[3].classList.add('in'); }, 8200);
+      setTimeout(function () { steps[3].classList.add('out'); }, 10600);
 
+      // End → Album
       setTimeout(function () {
         cine.classList.add('done');
         filmGrain.classList.remove('on');
         revealAlbum();
-      }, 10800);
+      }, 11200);
     }
 
     var beginGate = document.getElementById('beginGate');
