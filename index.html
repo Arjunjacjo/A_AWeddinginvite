@@ -840,19 +840,27 @@
         0 6px 28px rgba(0,0,0,0.4),
         0 0 32px rgba(201,168,76,0.14);
     }
+    /* Robust height using padding-top (works reliably on all desktop browsers) */
     .gallery-item.hero {
       grid-column: 1 / -1;
-      aspect-ratio: 4 / 5;
-      min-height: 300px;
     }
-    .gallery-item.tall {
-      aspect-ratio: 3 / 4;
-      min-height: 220px;
+    .gallery-item.hero::before {
+      content: "";
+      display: block;
+      padding-top: 125%; /* 4:5 */
+    }
+    .gallery-item.tall::before {
+      content: "";
+      display: block;
+      padding-top: 133.333%; /* 3:4 */
     }
     .gallery-item.wide {
       grid-column: 1 / -1;
-      aspect-ratio: 16 / 10;
-      min-height: 190px;
+    }
+    .gallery-item.wide::before {
+      content: "";
+      display: block;
+      padding-top: 62.5%; /* 16:10 */
     }
     .gallery-item img {
       position: absolute;
@@ -1096,9 +1104,6 @@
       .invite-card { padding: 32px 22px; }
       .day-card { padding: 32px 22px; }
       .gallery-grid { max-width: 19rem; gap: 10px; }
-      .gallery-item.hero { min-height: 260px; }
-      .gallery-item.tall { min-height: 190px; }
-      .gallery-item.wide { min-height: 160px; }
       .botanical { width: 30px; height: 30px; }
       .botanical.tl { top: 14px; left: 14px; }
       .botanical.tr { top: 14px; right: 14px; }
@@ -1150,9 +1155,6 @@
       .timeline-title { font-size: 1.2rem; }
       .timeline-desc { font-size: 0.98rem; }
       .gallery-grid { max-width: 30rem; gap: 14px; }
-      .gallery-item.hero { min-height: 340px; }
-      .gallery-item.tall { min-height: 240px; }
-      .gallery-item.wide { min-height: 200px; }
       .gallery-note { font-size: 0.9rem; margin-top: 22px; }
       .closing-names { font-size: 2.3rem; }
       .closing-thanks { font-size: 1.35rem; }
@@ -1248,9 +1250,6 @@
         max-width: 44rem;
         gap: 16px;
       }
-      .gallery-item.hero { min-height: 420px; }
-      .gallery-item.tall { min-height: 300px; }
-      .gallery-item.wide { min-height: 240px; }
       .gallery-note { font-size: 1.05rem; margin-top: 28px; }
 
       .closing-text { font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 0.32em; }
@@ -1302,9 +1301,6 @@
       }
       .timeline-title { font-size: 1.6rem; }
       .gallery-grid { max-width: 50rem; gap: 18px; }
-      .gallery-item.hero { min-height: 480px; }
-      .gallery-item.tall { min-height: 340px; }
-      .gallery-item.wide { min-height: 280px; }
       .closing-names { font-size: 3.6rem; }
       .album { width: 440px; height: 585px; }
       .botanical { width: 64px; height: 64px; }
