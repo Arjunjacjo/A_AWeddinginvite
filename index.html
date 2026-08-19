@@ -815,28 +815,40 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto;
       gap: 10px;
       max-width: 22rem; margin: 0 auto;
     }
     .gallery-item {
       border-radius: 2px;
-      background: linear-gradient(145deg, #121e32, #0a1220);
-      border: 1px solid rgba(201,168,76,0.12);
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.18);
+      background: #0a1220;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.04);
     }
     .gallery-item.hero {
       grid-column: 1 / -1;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 4 / 5;
     }
-    .gallery-item.small {
-      aspect-ratio: 1;
+    .gallery-item.tall {
+      aspect-ratio: 3 / 4;
     }
     .gallery-item.wide {
       grid-column: 1 / -1;
-      aspect-ratio: 21 / 9;
+      aspect-ratio: 16 / 10;
     }
     .gallery-note {
-      font-size: 0.82rem; color: var(--muted); margin-top: 18px; font-style: italic;
+      font-size: 0.78rem; color: var(--muted); margin-top: 18px; font-style: italic;
+      letter-spacing: 0.04em;
     }
 
     .closing-text {
@@ -991,7 +1003,12 @@
       box-shadow: 0 0 8px rgba(201,168,76,0.3);
       transform: scale(1.4);
     }
-    .nav-item.active .nav-label { opacity: 1; }
+    .nav-item.active .nav-label {
+      opacity: 1;
+      color: var(--gold-champagne);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
     @media (min-width: 900px) {
       .nav-rail { right: 22px; }
       .nav-item .nav-label { display: inline; }
@@ -1010,6 +1027,11 @@
       position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
       font-size: 0.52rem; letter-spacing: 0.28em; text-transform: uppercase;
       color: var(--gold-antique); opacity: 0.3; z-index: 5;
+      transition: opacity 1s ease;
+    }
+    .scroll-hint.fade-out {
+      opacity: 0;
+      pointer-events: none;
     }
 
     @media (max-width: 520px) {
@@ -1167,8 +1189,8 @@
       .timeline-dot { width: 9px; height: 9px; left: 1px; }
 
       .gallery-grid {
-        max-width: 40rem;
-        gap: 18px;
+        max-width: 42rem;
+        gap: 16px;
       }
       .gallery-note { font-size: 1.05rem; margin-top: 28px; }
 
@@ -1220,7 +1242,7 @@
         padding: 84px 96px;
       }
       .timeline-title { font-size: 1.6rem; }
-      .gallery-grid { max-width: 44rem; gap: 22px; }
+      .gallery-grid { max-width: 48rem; gap: 18px; }
       .closing-names { font-size: 3.6rem; }
       .album { width: 440px; height: 585px; }
       .botanical { width: 64px; height: 64px; }
@@ -1456,12 +1478,26 @@
       <div class="section-content">
         <p class="page-label">Memories</p>
         <div class="gallery-grid">
-          <div class="gallery-item hero"></div>
-          <div class="gallery-item small"></div>
-          <div class="gallery-item small"></div>
-          <div class="gallery-item wide"></div>
+          <div class="gallery-item hero">
+            <img src="photos/6.jpg" alt="Arjun and Anita walking hand in hand" loading="lazy">
+          </div>
+          <div class="gallery-item tall">
+            <img src="photos/11.jpg" alt="Arjun and Anita in a warm embrace" loading="lazy">
+          </div>
+          <div class="gallery-item tall">
+            <img src="photos/3.jpg" alt="Arjun and Anita with a scooter" loading="lazy">
+          </div>
+          <div class="gallery-item wide">
+            <img src="photos/4.jpg" alt="Arjun and Anita on the streets of Fort Kochi" loading="lazy">
+          </div>
+          <div class="gallery-item tall">
+            <img src="photos/5.jpg" alt="Arjun and Anita sitting together" loading="lazy">
+          </div>
+          <div class="gallery-item tall">
+            <img src="photos/7.jpg" alt="Arjun and Anita on the steps under an arched doorway" loading="lazy">
+          </div>
         </div>
-        <p class="gallery-note">Photos coming soon</p>
+        <p class="gallery-note">A few moments from our journey</p>
       </div>
     </section>
 
@@ -1732,6 +1768,21 @@
         document.getElementById('pageIndicator').classList.add('visible');
         burstPetals(isMobile ? 4 : 6);
         albumOverlay.classList.add('hidden');
+
+        // Fade out the "Continue" scroll hint after the first meaningful scroll
+        var scrollHint = document.querySelector('.scroll-hint');
+        if (scrollHint) {
+          var hintHidden = false;
+          function hideScrollHint() {
+            if (hintHidden) return;
+            if (window.scrollY > 40) {
+              hintHidden = true;
+              scrollHint.classList.add('fade-out');
+              window.removeEventListener('scroll', hideScrollHint);
+            }
+          }
+          window.addEventListener('scroll', hideScrollHint, { passive: true });
+        }
       }, prefersReduced ? 900 : 4800);
     }
 
